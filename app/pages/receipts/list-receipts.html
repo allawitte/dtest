@@ -1,0 +1,27 @@
+<table ng-table="vm.tableParams" class="table" show-filter="true">
+    <tr ng-repeat="item in $data">
+        <td title="'HEADERS.NAME' | translate" filter="{name: 'text'}" sortable="'name'">{{item.name}}</td>
+        <td title="'HEADERS.LEVEL' | translate" filter="{ difficult: 'text'}" sortable="'difficult'">
+            {{item.difficult}}
+        </td>
+
+        <td title="'HEADERS.COOCKTIME' | translate" filter="{ timeCookMinutes: 'number'}" sortable="'timeCookMinutes'">
+            {{item.timeCookMinutes}}
+        </td>
+
+        <td title="'HEADERS.CAL' | translate" filter="{ cal: 'number'}" sortable="'cal'">{{item.cal}}</td>
+        <td title="'HEADERS.FAT' | translate" filter="{ fat: 'number'}" sortable="'fat'">{{item.fat}}</td>
+        <td title="'HEADERS.CARB' | translate" filter="{ carb: 'number'}" sortable="'carb'">{{item.carb}}</td>
+        <td title="'HEADERS.PROTEIN' | translate" filter="{ prot: 'number'}" sortable="'prot'">{{item.prot}}</td>
+        <td title="'FILEUPLOAD.ACTIONS' | translate" class="table-actions">
+            <a ui-sref="/receipts.view({ receiptID: item.id })" ng-if="!row.isEditing" class="btn btn-default btn-sm"><span
+                    class="glyphicon glyphicon-eye-open"></span></button>
+            <a ui-sref="/receipts.edit({ receiptID: item.id })" ng-if="!row.isEditing" class="btn btn-default btn-sm"><span
+                    class="glyphicon glyphicon-pencil"></span></button>
+            <a ui-sref="/receipts.view({ receiptID: item.id })">
+            <button ng-if="!row.isEditing" ng-click="vm.deleteReceipt(item.id)" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-trash"></span></button>
+        </td>
+
+    </tr>
+</table>

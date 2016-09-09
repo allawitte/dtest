@@ -1,0 +1,245 @@
+<div class="portlet-body receipt-edit form receipt" ng-show="vm.edit">
+    <!-- BEGIN FORM-->
+    <form class="form-horizontal" novalidate>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="portlet box purple">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            {{ 'FILEUPLOAD.SELECTIMG' | translate }}
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="steps-img-list col-md-12">
+                                <div class="thumbnail">
+                                    <div class="input-over">
+                                        <button class="btn btn-primary select-photo">{{ 'FILEUPLOAD.SELECTIMG' |
+                                            translate}}
+                                        </button>
+                                        <input type="file" accept="image/*" image="image" name="file"
+                                               class="input-img"/>
+                                    </div>
+                                    <img ng-show="image" ng-src="{{image.url}}" type="{{image.file.type}}"
+                                         class="main-img"/>
+                                    <i class="fa fa-check" ng-class="{ok : vm.imgLoaded}"></i>
+                                    <button type="submit" ng-click="vm.saveImg(image)" class="btn btn-success btn-xs"
+                                            ng-show="image" ng-disabled="vm.imgLoaded">{{ 'FILEUPLOAD.UPLOAD' |
+                                        translate }}
+                                    </button>
+                                    <button type="reset" class="btn btn-danger btn-xs"
+                                            ng-click="vm.removeImg(imag, $index)" ng-show="image">{{ 'FILEUPLOAD.REMOVE'
+                                        | translate }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end of portlet -->
+                <div ng-repeat="step in vm.steps" ng-init="stepIndex = $index">
+                    <div class="portlet box purple">
+                        <div class="portlet-title">
+                            <div class="caption">{{$index + 1 }} {{ 'HEADERS.STEP' | translate }}</div>
+                            <div class="tools"><i class="fa fa-close" ng-if="$index > 0"
+                                                  ng-click="vm.removeStep($index)"></i></div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div ng-repeat="imag in step.photos track by $index" class="steps-img-list col-md-4"
+                                     ng-init="imagIndex=$index">
+                                    <div class="thumbnail">
+                                        <div class="input-over">
+                                            <button class="btn btn-primary select-photo">{{ 'FILEUPLOAD.SELECTIMG' |
+                                                translate}}
+                                            </button>
+                                            <input type="file" accept="image/*" image="imag.imag" class="input-img"
+                                                   onchange=""/>
+                                        </div>
+                                        <img ng-show="imag.imag.url" ng-src="{{imag.imag.url}}"
+                                             type="{{imag.imag.file.type}}" class="step-img"/>
+                                        <i class="fa fa-check" ng-class="{ok : imag.img}"></i>
+
+                                        <p class="img-actions">
+                                            <button type="submit" ng-click="vm.saveImg(imag.imag, stepIndex, imagIndex)"
+                                                    class="btn btn-success btn-xs" ng-show="imag.imag.url"
+                                                    ng-disabled="imag.img">{{ 'FILEUPLOAD.UPLOAD' | translate }}
+                                            </button>
+                                            <button type="reset" class="btn btn-danger btn-xs"
+                                                    ng-click="vm.removeImg(stepIndex, imagIndex)"
+                                                    ng-show="imag.imag.url">{{ 'FILEUPLOAD.REMOVE' | translate }}
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button ng-click="vm.addImg(stepIndex)" class="btn btn-success add-photo">{{
+                                        'FILEUPLOAD.ADD' | translate }}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ 'HEADERS.COOCKTIME' | translate }}</label>
+
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control  numbers" ng-model="step.timeCookMinutes"
+                                           valid-number>
+                                    <span class="units-block">{{ 'TIME.MIN' | translate }} </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-6 control-label">{{ 'HEADERS.COOCKPROC' | translate }}</label>
+                                <textarea cols="30" rows="10" class="form-control" ng-model="step.description">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-success" ng-click="vm.addStep()">{{ 'HEADERS.ADDSTEP' | translate }}</button>
+                </div>
+                <!-- end of additional picture -->
+            </div>
+            <div class="col-md-7">
+                <div class="portlet box purple">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            {{ 'HEADERS.COOKRECEIPT' | translate }}
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'HEADERS.NAME' | translate }}</label>
+
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="vm.Receipt.name">
+                                <p class="error alert-danger" ng-if="vm.noName">{{ 'HEADERS.CHOOSENAME' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'HEADERS.ADDITHEADER' | translate }}</label>
+
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="vm.subname">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'HEADERS.COOCKTIME' | translate }}</label>
+
+                            <div class="col-md-4">
+                                <input type="text" class="form-control  numbers" ng-model="vm.Receipt.timeCookMinutes"
+                                       valid-number>
+                                <span class="units-block">{{ 'TIME.MIN' | translate }} </span>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-repeat="item in vm.Receipt.dailyCalories track by $index">
+                            <label class="col-md-3 control-label">{{ item.translateval | translate }}</label>
+
+                            <div class="col-md-4">
+                                <input type="text" class="form-control numbers" ng-model="item.value" valid-number>
+                                <span class="units-block" ng-if="$index == 0">{{ 'UNITS.ENERGY' | translate }} </span>
+                                <span class="units-block" ng-if="$index > 0">{{ 'UNITS.GR' | translate }} </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'HEADERS.SERVES' | translate }}</label>
+
+                            <div class="col-md-4">
+                                <input type="text" class="form-control  numbers" ng-model="vm.Receipt.servesCount"
+                                       valid-number>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ 'HEADERS.LEVEL' | translate }}</label>
+
+                            <div class="col-md-4">
+                                <ui-select ng-model="vm.Receipt.difficult" on-select="changeLng(vm.Receipt.difficult)">
+                                    <ui-select-match>
+                                        <span ng-bind="vm.Receipt.difficult.translateval | translate"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in vm.difficult track by $index">
+                                        <span ng-bind="item.translateval | translate "></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-repeat="ingr in vm.Receipt.ingredients track by $index">
+                            <label class="col-md-3 control-label">{{ 'HEADERS.INGREDIENTS' | translate }}</label>
+
+                            <div class="col-md-4">
+                                <input type="text" ng-change="vm.autocompleteIngr(ingr.name)" ng-model="ingr.name"
+                                       uib-typeahead="prod for prod in vm.ingredients | filter:$viewValue"
+                                       class="form-control" ng-click="vm.autocompleteIngr(ingr.name)"
+                                       typeahead-show-hint="true" typeahead-min-length="0"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" ng-model="ingr.value" class="form-control" valid-number
+                                       placeholder="{{ 'HEADERS.AMOUNT' | translate }}">
+                            </div>
+                            <div class="col-md-2">
+                                <div class="select-over">
+                                    <ui-select ng-model="ingr.unit" on-select="changeLng(ingr.unit)">
+                                        <ui-select-match>
+                                            <span ng-bind="ingr.unit.translateval | translate"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in vm.units track by $index">
+                                            <span ng-bind="item.translateval | translate "></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <span aria-hidden="true" ng-click="vm.removeIngredient($index)"
+                                      class="glyphicon glyphicon-remove btn btn-danger" ng-if="$index > 0"></span>
+                            </div>
+                        </div>
+                        <button class="btn btn-success " ng-click="vm.addIngredient()">{{ 'HEADERS.ADDINGR' | translate
+                            }}
+                        </button>
+                        <div class="form-group">
+                            <label class="col-md-6 control-label">{{ 'HEADERS.SHORT' | translate }}</label>
+                            <textarea cols="30" rows="10" class="form-control" ng-model="vm.Receipt.shortDescription">
+                            </textarea>
+                        </div>
+                        <div class="form-group last">
+                            <label class="col-md-12 control-label">{{ 'HEADERS.TOOLS' | translate }}</label>
+
+                            <div class="col-md-6 panel-body" ng-repeat="tool in vm.Receipt.inventory track by $index">
+                                <div class="col-md-10">
+                                    <input type="text" ng-change="vm.autocompleteInvent(vm.Receipt.inventory[$index])"
+                                           ng-model="vm.Receipt.inventory[$index]"
+                                           uib-typeahead="prod for prod in vm.inventory | filter:$viewValue"
+                                           class="form-control" typeahead-show-hint="true" typeahead-min-length="0"/>
+                                </div>
+                                <div class="col-md-1">
+                                    <span aria-hidden="true" ng-click="vm.removeTool($index)"
+                                          class="glyphicon glyphicon-remove btn btn-danger" ng-if="$index > 0"></span>
+                                </div>
+                            </div>
+                            <div class="control-label col-md-12">
+                                <button class="btn btn-success " ng-click="vm.addTool()">{{ 'HEADERS.ADDTOOL' |
+                                    translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <p class="error alert-danger" ng-if="vm.noName">{{ 'HEADERS.CHOOSENAME' | translate }}</p>
+                                <button type="submit" class="btn green" ng-click="vm.send()">{{ 'HEADERS.SAVE' |
+                                    translate}}
+                                </button>
+                                <button type="button" class="btn default" ng-click="vm.cancel()">{{ 'HEADERS.CANCEL' | translate }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end of portlet -->
+            </div>
+            <!-- end of col-md -->
+        </div>
+        <!-- end of row -->
+    </form>
+    <!-- END FORM-->
+</div>

@@ -1,0 +1,175 @@
+<div class="portlet-body form survey">
+
+            <h3 class="caption">{{ 'SURVEY-HEADERS.CAPTION' | translate }}</h3>
+
+        <div class="portlet-body">
+            <div class="form-wizard">
+                <div class="form-body">
+                    <ul class="nav nav-pills nav-justified steps">
+                        <li ng-class="vm.stepsActions[1]">
+                            <a  data-toggle="tab" class="step">
+                                <span class="number"> 1 </span>
+                                                            <span class="desc">
+                                                                <i class="fa fa-check"></i> Step1 </span>
+                            </a>
+                        </li>
+                        <li ng-class="vm.stepsActions[2]" >
+                            <a  data-toggle="tab" class="step">
+                                <span class="number"> 2 </span>
+                                                            <span class="desc">
+                                                                <i class="fa fa-check"></i> Step2 </span>
+                            </a>
+                        </li>
+                        <li ng-class="vm.stepsActions[3]">
+                            <a  data-toggle="tab" class="step">
+                                <span class="number"> 3 </span>
+                                                            <span class="desc">
+                                                                <i class="fa fa-check"></i> Step3 </span>
+                            </a>
+                        </li>
+                        <li ng-class="vm.stepsActions[4]">
+                            <a  data-toggle="tab" class="step">
+                                <span class="number"> 4 </span>
+                                                            <span class="desc">
+                                                                <i class="fa fa-check"></i> Step4 </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div id="bar" class="progress progress-striped" role="progressbar">
+                        <div class="progress-bar progress-bar-success" ng-class="vm.stepBar"> </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" ng-if="vm.step == 1">
+                            <div class="form-group  row">
+                                <label class="col-md-3 control-label">{{ 'SURVEY-HEADERS.GENDER' | translate
+                                    }}</label>
+
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <div class="icheck-inline" ng-repeat="item in vm.gender">
+                                            <label ng-click="vm.changeBtn($index)">
+                                                <input type="radio" name="radio1" ng-value="item" ng-model="vm.survey.gender"
+                                                       class="icheck">
+                                                <i class="fa fa-circle-o" ng-if="!vm.selectedGender[$index]"></i>
+                                                <i class="fa fa-check-circle" ng-if="vm.selectedGender[$index]"></i>
+                                                <span class="subdetails">{{ item | translate }}</span>
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group  row">
+                                <label class="col-md-3 control-label">{{ 'SURVEY-HEADERS.BIRTHDAY' | translate
+                                    }}</label>
+
+                                <div class="col-md-2">
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.survey.date"
+                                               is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true"
+                                               close-text="Close" show-button-bar="false" datepicker-options="options"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open2()">
+                                        <i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="tab-pane" ng-if="vm.step == 2">
+                            <div class="form-group  row">
+                                <label class="col-md-3 control-label">{{ 'SURVEY-HEADERS.WEIGHT' | translate
+                                    }}</label>
+
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control  numbers" valid-number
+                                           ng-model="vm.survey.weight">
+                                </div>
+                            </div>
+                            <div class="form-group  row">
+                                <label class="col-md-3 control-label">{{ 'SURVEY-HEADERS.TARGETWEIGHT' | translate
+                                    }}</label>
+
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control  numbers" valid-number
+                                           ng-model="vm.survey.targetweight">
+                                </div>
+                            </div>
+                            <div class="form-group  row">
+                                <label class="col-md-3 control-label">{{ 'SURVEY-HEADERS.HEIGHT' | translate
+                                    }}</label>
+
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control numbers" valid-number
+                                           ng-model="vm.survey.height">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" ng-if="vm.step == 3">
+                            <div class="form-group  row">
+                                <label class="col-md-3 control-label">{{ 'SURVEY-HEADERS.PURPOSE' | translate
+                                    }}</label>
+
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <div class="icheck-inline" ng-repeat="item in vm.purpose">
+                                            <label>
+                                                <input type="checkbox" class="icheck" ng-model="item.selected">
+                                                <i class="fa fa-square-o" ng-if="!item.selected"></i>
+                                                <i class="fa fa-check-square" ng-if="item.selected"></i>
+                                                <span class="subdetails">{{ item.name | translate }}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" ng-if="vm.step == 4">
+                            <div class="form-group  row">
+                                <label class="col-md-3 control-label">{{ 'SURVEY-HEADERS.TEST' | translate }}
+                                    <span class="subdetails">{{ 'SURVEY-HEADERS.DIRECTIVE' | translate }}</span>
+                                </label>
+
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <div class="icheck-inline" ng-repeat="item in vm.bodytype">
+                                            <label>
+                                                <input type="checkbox" class="icheck" ng-model="item.selected">
+                                                <i class="fa fa-square-o" ng-if="!item.selected"></i>
+                                                <i class="fa fa-check-square" ng-if="item.selected"></i>
+                                                <span class="subdetails">{{ item.name | translate }} </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" ng-if="vm.step == 5">
+                            <div class="form-group  row">
+                                <label class="col-md-3 control-label">{{ 'SURVEY-HEADERS.NOTES' | translate
+                                    }}</label>
+
+                                <div class="col-md-9">
+                                    <textarea class="form-control" ng-model="vm.survey.notes"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+        </div>
+        <div class="form-actions">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-4">
+                    <button type="button" class="btn default" ng-click="vm.back()">Back</button>
+                    <button type="submit" class="btn green" ng-click="vm.next()" ng-if="vm.step != 5">Next</button>
+                    <button type="submit" class="btn green" ng-click="vm.send()" ng-if="vm.step == 5">Submit</button>
+                </div>
+            </div>
+        </div>
+
+</div>

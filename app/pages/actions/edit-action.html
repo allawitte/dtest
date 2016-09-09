@@ -1,0 +1,163 @@
+<div class="portlet-body action-edit form action">
+    <!-- BEGIN FORM-->
+    <form class="form-horizontal" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box purple">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            {{ 'ACTIONS.EDIT' | translate }}
+                        </div>
+                        <button ng-click="vm.deleteAction()" class="btn delete-action btn-sm titlePhoto">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="col-md-12" ng-repeat="item in vm.cardType">
+                            <label ng-click="vm.changeBtn($index, 'type')">
+                                <input type="radio" ng-value="item.value"
+                                       ng-model="vm.Actions.cardType" class="icheck">
+                                <i class="fa fa-circle-o" ng-if="!vm.selectedType[$index]"></i>
+                                <i class="fa fa-check-circle" ng-if="vm.selectedType[$index]"></i>
+                                <span class="subdetails" ng-class="{ 'selected': vm.selectedType[$index] }">{{ item.title | translate }}</span>
+                            </label>
+
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">
+                                {{ 'ACTIONS.MAINIMG' | translate }}
+                            </label>
+
+                            <div class="thumbnail" ng-if="vm.isTitlePhoto">
+                                <img ng-src="{{vm.Actions.titlePhoto}}" class="main-img"/>
+                                <button ng-click="vm.removetitlePhoto()" class="btn btn-danger btn-sm titlePhoto">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </div>
+
+
+                            <div class="steps-img-list" ng-if="!vm.isTitlePhoto">
+                                <div class="thumbnail">
+                                    <div class="input-over">
+                                        <button class="btn btn-primary select-photo">{{ 'ACTIONS.MAINIMG' |
+                                            translate}}
+                                        </button>
+                                        <input type="file" accept="image/*" image="image" name="file"
+                                               class="input-img"/>
+                                    </div>
+                                    <img ng-show="image" ng-src="{{image.url}}" type="{{image.file.type}}"
+                                         class="main-img"/>
+                                    <i class="fa fa-check" ng-class="{ok : vm.imgLoaded}"></i>
+                                    <button type="submit" ng-click="vm.saveImg(image)" class="btn btn-success btn-xs"
+                                            ng-show="image" ng-disabled="vm.imgLoaded">{{ 'FILEUPLOAD.UPLOAD' |
+                                        translate }}
+                                    </button>
+                                    <button type="reset" class="btn btn-danger btn-xs"
+                                            ng-click="vm.removeImg(image)" ng-show="image">{{ 'FILEUPLOAD.REMOVE'
+                                        | translate }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="control-label">{{ 'ACTIONS.SHORT' | translate }}</label>
+                            <textarea type="text" class="form-control" ng-model="vm.Actions.textShort"></textarea>
+                            <p class="error alert-danger" ng-if="vm.noName">{{ 'ACTIONS.CHOOSENAME' | translate }}</p>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">{{ 'ACTIONS.LONG' | translate }}</label>
+                            <textarea class="form-control textLong" ng-model="vm.Actions.textLong"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 excersises">
+                                <div class="col-md-3" ng-repeat="item in vm.Actions.photos track by $index">
+                                    <div class="thumbnail">
+                                        <img ng-src="{{ item }}" alt="">
+                                        <button ng-click="vm.removeRowPhoto($index)"
+                                               class="btn btn-danger btn-sm titlePhoto">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div ng-repeat="imag in vm.photos track by $index" class="steps-img-list col-md-3"
+                                     ng-init="imagIndex=$index">
+                                    <div class="thumbnail">
+                                        <div class="input-over">
+                                            <button class="btn btn-primary select-photo" ng-if="vm.fileUplView[$index]">
+                                                {{ 'ACTIONS.ADD' |
+                                                translate}}
+                                            </button>
+                                            <input type="file" accept="image/*" image="imag.imag" class="input-img"
+                                                   onchange=""/>
+                                        </div>
+                                        <img ng-show="imag.imag.url" ng-src="{{imag.imag.url}}"
+                                             type="{{imag.imag.file.type}}" class="step-img"/>
+                                        <i class="fa fa-check" ng-class="{ok : vm.savedPhotos[$index]}"></i>
+
+                                        <p class="img-actions">
+                                            <button type="submit" ng-click="vm.saveImg(imag.imag, imagIndex)"
+                                                    class="btn btn-success btn-xs" ng-show="imag.imag.url"
+                                                    ng-disabled="vm.savedPhotos[$index]">{{ 'FILEUPLOAD.UPLOAD' |
+                                                translate }}
+                                            </button>
+                                            <button type="reset" class="btn btn-danger btn-xs"
+                                                    ng-click="vm.removeImg($index)"
+                                                    ng-show="imag.imag.url">{{ 'FILEUPLOAD.REMOVE' | translate }}
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <button ng-click="vm.addImg()" class="btn btn-success add-photo">{{
+                                    'FILEUPLOAD.ADD' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 videos-edit" ng-repeat="item in vm.Actions.videos">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe ng-src="{{vm.trustSrc(item)}}" allowfullscreen
+                                        class="embed-responsive-item"></iframe>
+                                <buton ng-click="vm.deleteExistVideo($index)" class="btn btn-danger btn-sm video-icon">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </buton>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4" ng-repeat="item in vm.videos track by $index">
+                                    <label>{{ 'ACTIONS.VIDEOURL' | translate }}</label>
+                                    <div class="col-md-11 videos-row">
+                                        <input type="text" class="form-control" ng-model="item.value"/>
+                                    </div>
+                                    <div class="col-md-1 videos-row">
+                                        <buton ng-click="vm.deleteVideo($index)" class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </buton>
+                                    </div>
+                                </div>
+                            </div>
+                            <button ng-click="vm.addVideo()" class="btn btn-success add-photo">{{
+                                'ACTIONS.VIDEOADD' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-4">
+                                <p class="error alert-danger" ng-if="vm.noName">{{ 'ACTIONS.CHOOSENAME' | translate }}</p>
+                                <button type="submit" class="btn green" ng-click="vm.send()">{{ 'HEADERS.SAVE' |
+                                    translate}}
+                                </button>
+                                <button type="button" class="btn default" ng-click="vm.cancel()">{{ 'HEADERS.CANCEL' |
+                                    translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

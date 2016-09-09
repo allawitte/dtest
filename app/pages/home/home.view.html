@@ -1,0 +1,16 @@
+﻿<div class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+    <ng-include src="'app/pages/home/templates/head.html'"></ng-include>
+    <!-- END HEADER -->
+    <!-- BEGIN HEADER & CONTENT DIVIDER -->
+    <div class="clearfix"> </div>
+    <!-- END HEADER & CONTENT DIVIDER -->
+    <div class="page-container">
+        <ng-include src="'app/pages/home/templates/sidebar.html'"></ng-include>
+        <div class="page-content-wrapper">
+            <!-- BEGIN CONTENT BODY -->
+            <div class="page-content">
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+</div>

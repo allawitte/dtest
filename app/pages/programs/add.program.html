@@ -1,0 +1,125 @@
+<div class="row">
+    <div class="col-md-8">
+        <label>{{ 'PROGRAM.NAME' | translate }}</label>
+        <input type="text" ng-model="vm.program.planDay" class="form-control"/>
+    </div>
+    <div class="col-md-4" ng-if="!vm.showUsersList">
+        <label>{{ 'PROGRAM.CHOOSEUSER' | translate }}</label>
+        <ui-select ng-model="vm.user" on-select="changeLng(ingr.unit)">
+            <ui-select-match>
+                <span ng-bind="vm.user.fullname"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in vm.users track by $index">
+                <span ng-bind="item.fullname"></span>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>{{ 'PROGRAM.DAY' | translate }}</th>
+        <th>
+            <div class="row">
+                <div class="col-md-2">
+                    {{ 'PROGRAM.TIME' | translate }}
+                </div>
+                <div class="col-md-10">
+                    {{ 'PROGRAM.ACTIONS' | translate }}
+                </div>
+            </div>
+        </th>
+    </tr>
+    <tr ng-repeat="item in vm.program.days" ng-init="$dayInex = $index">
+        <td>{{$index + 1}}</td>
+        <td>
+            <div class="time-span row" ng-repeat="timePeriod in item" ng-init="$timeIndexs = $index">
+
+                <div class="col-md-2">
+                    <div uib-timepicker ng-model="timePeriod.time" ng-change="vm.changed($dayInex)" hour-step="hstep"
+                         minute-step="mstep" show-meridian="ismeridian"></div>
+                </div>
+                <div class="col-md-10">
+                    <div ng-repeat="act in timePeriod.actions track by $index" ng-init="$actIndex = $index"
+                         class="col-md-3">
+                        <div class="thumbnail alert alert-block alert-info"
+                             ng-click="vm.changeCard($dayInex, $timeIndexs, $actIndex)">
+                            {{act.name}}
+                            <p ng-if="!act.name">{{ 'PROGRAM.CLICK' | translate }}</p>
+                            <span class="badge" ng-class="{'badge-danger': act.type == 'ACTION',
+                            'badge-info': act.type == 'RECOMMENDATION',
+                            'badge-warning': act.type == 'RECEIPT'}">{{act.type}}</span>
+                        </div>
+                    </div>
+                    <button class="btn" ng-click="vm.addCard($timeIndexs, $dayInex)">{{ 'PROGRAM.ADDCARD' | translate
+                        }}
+                    </button>
+                </div>
+            </div>
+            <button class="btn" ng-click="vm.addTime($dayInex)">{{ 'PROGRAM.ADDTIME' | translate }}</button>
+        </td>
+    </tr>
+</table>
+<button class="btn" ng-click="vm.addDay()">{{ 'PROGRAM.ADDDAY' | translate }}</button>
+<div class="row">
+    <div class="portlet">
+        <div class="form-actions">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-4">
+                    <button type="submit" class="btn green" ng-click="vm.send()">{{ 'HEADERS.SAVE' |
+                        translate}}
+                    </button>
+                    <button type="button" class="btn default" ng-click="vm.cancel()">{{ 'HEADERS.CANCEL' | translate
+                        }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog" role="document" ng-class="{'close': vm.modalClose}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-xs btn-default btn-close" ng-click="vm.closeModal()">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <h4 class="modal-title">{{'PROGRAM.CHOOSECARD' | translate }}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div dir-paginate="item in vm.cards  | orderBy:'name' | orderBy:'type' | filter: test | filter: search | itemsPerPage:4 "
+                         class="col-md-4">
+                        <div class="thumbnail alert alert-block alert-info" ng-click="vm.pendCard(item.id)">
+                            {{item.name}}
+                            <span class="badge" ng-class="{'badge-danger': item.type == 'ACTION',
+                            'badge-info': item.type == 'RECOMMENDATION',
+                            'badge-warning': item.type == 'RECEIPT'}">{{item.type}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-5">
+                        <input type="text" ng-model="search" class="form-control"/>
+                    </div>
+                    <dir-pagination-controls class="col-md-7"
+                                             max-size="5"
+                                             direction-links="true"
+                                             boundary-links="true">
+                    </dir-pagination-controls>
+                </div>
+                <button class="btn red" ng-click="test = 'ACTION' ">{{ 'CARD_TYPE.ACTION' | translate }}</button>
+                <button class="btn blue-madison" ng-click="test = 'RECOMMENDATION'">{{ 'CARD_TYPE.RECOMMENDATION' |
+                    translate }}
+                </button>
+                <button class="btn yellow-crusta" ng-click="test = 'RECEIPT'">{{ 'CARD_TYPE.RECEIPT' | translate }}
+                </button>
+                <button class="btn green-meadow" ng-click="test = '' ">{{ 'CARD_TYPE.ALL' | translate }}</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+
+</div>
+</div>

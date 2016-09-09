@@ -1,0 +1,79 @@
+<div class="user-login-2">
+    <div class="container">
+        <a ui-sref="/" class="logo">
+            <img class="logo" src="img/logo.png">
+        </a>
+
+        <div class="content">
+            <div class="form-title">
+                <span class="form-title">{{ 'LOGIN.CREATEACCOUNT' | translate }}</span>
+                <p class="hint">{{ 'LOGIN.PERSDATA' | translate }}</p>
+                </div>
+            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"
+                 ng-if="flash" ng-bind="flash.message | translate"></div>
+            <form name="form" ng-submit="vm.register()" class="login-form" role="form">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    <span>Enter any username and password. </span>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
+                    <label for="name" class="control-label visible-ie8 visible-ie9 hint">{{ 'LOGIN.NAME' | translate
+                        }}</label>
+
+                    <div class="input-icon">
+                        <input type="text" name="name" id="name" class="form-control" ng-model="vm.user.fullname"
+                               placeholder="{{ 'LOGIN.NAME' | translate }}"
+                               required/>
+                        <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">{{ 'LOGIN.NAME' | translate }}</span>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                    <label for="email" class="control-label visible-ie8 visible-ie9 hint">{{ 'LOGIN.EMAIL' | translate
+                        }}</label>
+
+                    <div class="input-icon">
+                        <input type="text" name="email" id="email" class="form-control" ng-model="vm.user.email"
+                               placeholder="{{ 'LOGIN.EMAIL' | translate }}"
+                               required/>
+                        <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">{{ 'LOGIN.EMAIL' | translate }}</span>
+                    </div>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error': form.phone.$invalid && form.phone.$touched, 'has-success': form.phone.$valid}">
+                    <label for="phone" class="hint">{{ 'LOGIN.PHONE' | translate }}</label>
+
+                    <div class="input-icon">
+                        <input type="text" name="phone" id="phone"
+                               class="form-control form-control-solid placeholder-no-fix form-group"
+                               ng-model="vm.user.phone" required ng-intl-tel-input data-default-country="ua"/>
+                        <!--<input value="+1" type="tel" international-phone-number auto-hide-dial-code="false" class="phone" name="phoneCountryCode" ng-model="phone" required>-->
+                        <span ng-show="form.phone.$dirty && form.phone.$error.required" class="help-block">{{ 'LOGIN.CHECKPHONE' | translate }}</span>
+                    </div>
+                </div>
+                <div class="form-group"
+                     ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                    <label for="password" class="control-label visible-ie8 visible-ie9 hint">{{ 'LOGIN.PASS' | translate
+                        }}</label>
+
+                    <div class="input-icon">
+                        <input type="password" name="password" id="password"
+                               class="form-control form-control-solid placeholder-no-fix form-group"
+                               placeholder="{{ 'LOGIN.PASS' | translate }}"
+                               ng-model="vm.user.password" required/>
+                        <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">{{ 'LOGIN.PASSWORD' | translate }}</span>
+                    </div>
+                </div>
+                <div class="form-actions">
+
+                    <img ng-if="vm.dataLoading"
+                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                    <a ui-sref="/login" class="btn btn-default">{{ 'LOGIN.CANCEL' | translate }}</a>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn red uppercase pull-right">{{
+                        'LOGIN.REGISTER' |
+                        translate }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

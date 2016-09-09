@@ -1,0 +1,54 @@
+.excersises {
+  margin: 20px 0;
+}
+.action-edit {
+  .thumbnail {
+    position: relative;
+    .titlePhoto {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+.err-msg {
+  margin: 10px 10px 0 10px;
+}
+div.error {
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.delete-action {
+  float: right;
+  margin-top: 3px;
+  .glyphicon {
+    color: #fff;
+  }
+}
+.textLong {
+  height: 200px;
+}
+.videos-row {
+  padding-left: 0;
+}
+.embed-responsive {
+  margin-bottom: 20px;
+  position: relative;
+}
+.video-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.action {
+  .add-photo {
+    margin-left: 15px;
+  }
+  .videos-edit {
+    margin-top: 15px;
+  }
+  .selected {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}

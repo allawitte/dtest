@@ -1,0 +1,11 @@
+<table ng-table="vm.tableParams" class="table" show-filter="true">
+    <tr ng-repeat="item in $data">
+        <td title="'USERS.NAME' | translate" filter="{fullname: 'text'}" sortable="'fullname'">{{item.fullname}}</td>
+        <td title="'USERS.EMAIL' | translate" filter="{ email: 'text'}" sortable="'email'">{{item.email}}</td>
+        <td title="'USERS.PERMISSIONS' | translate" filter="{ role: 'text'}" sortable="'role'">{{item.role}}</td>
+        <td title="'USERS.SURVEY' | translate" filter="{ isFirstOpinionComplete: 'text'}"
+            sortable="'isFirstOpinionComplete'">{{item.isFirstOpinionComplete}}
+        </td>
+        <td><a ui-sref="/members.view({ userId: item.id })" class="btn btn-default btn-sm">{{ 'USERS.VIEW' | translate }}</a></td>
+    </tr>
+</table>

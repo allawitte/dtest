@@ -1,0 +1,24 @@
+<table ng-table="vm.tableParams" class="table" show-filter="true">
+    <tr ng-repeat="item in $data">
+        <td title="'ACTIONS.SHORT' | translate" filter="{textShort: 'text'}" sortable="'textShort'">{{item.textShort}}
+        </td>
+        <td title="'ACTIONS.TYPE' | translate" filter="{cardType: 'text'}" sortable="'cardType'">{{ 'ACTIONS.'+item.cardType | translate }}
+        </td>
+
+        <td title="'FILEUPLOAD.ACTIONS' | translate" class="table-actions">
+            <a ui-sref="/actions.view({ actionID: item.id })"
+               class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </a>
+            <a ui-sref="/actions.edit({ actionID: item.id })"
+               class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <buton ng-click="vm.deleteAction(item.id)" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-trash"></span>
+            </buton>
+        </td>
+
+    </tr>
+</table>
+

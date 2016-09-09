@@ -1,0 +1,166 @@
+<div class="portlet-body action-add form action">
+    <!-- BEGIN FORM-->
+    <form class="form-horizontal" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box purple">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            {{ 'ACTIONS.CREATE' | translate }}
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="col-md-4">
+                            <label class="control-label">
+                                {{ 'ACTIONS.MAINIMG' | translate }}
+                            </label>
+
+                            <div class="steps-img-list">
+                                <div class="thumbnail">
+                                    <div class="input-over">
+                                        <button class="btn btn-primary select-photo">{{ 'ACTIONS.MAINIMG' |
+                                            translate}}
+                                        </button>
+                                        <input type="file" accept="image/*" image="image" name="file"
+                                               class="input-img"/>
+                                    </div>
+                                    <img ng-show="image" ng-src="{{image.url}}" type="{{image.file.type}}"
+                                         class="main-img"/>
+                                    <i class="fa fa-check" ng-class="{ok : vm.imgLoaded}"></i>
+                                    <button type="submit" ng-click="vm.saveImg(image)" class="btn btn-success btn-xs"
+                                            ng-show="image" ng-disabled="vm.imgLoaded">{{ 'FILEUPLOAD.UPLOAD' |
+                                        translate }}
+                                    </button>
+                                    <button type="reset" class="btn btn-danger btn-xs"
+                                            ng-click="vm.removeImg(image)" ng-show="image">{{ 'FILEUPLOAD.REMOVE'
+                                        | translate }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="control-label">{{ 'ACTIONS.SHORT' | translate }}</label>
+
+                            <div class="">
+                                <textarea type="text" class="form-control" ng-model="vm.Actions.textShort"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">{{ 'ACTIONS.LONG' | translate }}</label>
+
+
+                            <textarea class="form-control textLong" ng-model="vm.Actions.textLong"></textarea>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <div class="icheck-inline" ng-repeat="item in vm.chooseMedia">
+                                        <label ng-click="vm.changeBtn($index, 'media')">
+                                            <input type="radio" name="radio1" ng-value="item.value"
+                                                   ng-model="vm.mediaType"
+                                                   class="icheck">
+                                            <i class="fa fa-circle-o" ng-if="!vm.selectedMedia[$index]"></i>
+                                            <i class="fa fa-check-circle" ng-if="vm.selectedMedia[$index]"></i>
+                                            <span class="subdetails">{{ item.title | translate }}</span>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="vm.mediaType == 'picture'">
+                            <div class="col-md-12 excersises">
+                                <div ng-repeat="imag in vm.photos track by $index" class="steps-img-list col-md-3"
+                                     ng-init="imagIndex=$index">
+                                    <div class="thumbnail">
+                                        <div class="input-over">
+                                            <button class="btn btn-primary select-photo">{{ 'ACTIONS.ADDEXC' |
+                                                translate}}
+                                            </button>
+                                            <input type="file" accept="image/*" image="imag.imag" class="input-img"
+                                                   onchange="" ng-click="vm.changeImg($index)"/>
+                                        </div>
+                                        <img ng-show="imag.imag.url" ng-src="{{imag.imag.url}}"
+                                             type="{{imag.imag.file.type}}" class="step-img"/>
+                                        <i class="fa fa-check" ng-class="{ok : vm.photosOk[$index]}"></i>
+
+                                        <p class="img-actions">
+                                            <button type="submit" ng-click="vm.saveImg(imag.imag, imagIndex)"
+                                                    class="btn btn-success btn-xs" ng-show="imag.imag.url"
+                                                    ng-disabled="vm.photosOk[$index]">{{ 'FILEUPLOAD.UPLOAD' | translate
+                                                }}
+                                            </button>
+                                            <button type="reset" class="btn btn-danger btn-xs"
+                                                    ng-click="vm.removeImg($index)"
+                                                    ng-show="imag.imag.url">{{ 'FILEUPLOAD.REMOVE' | translate }}
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button ng-click="vm.addImg()" class="btn btn-success add-photo">{{
+                                    'FILEUPLOAD.ADD' | translate }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div ng-if="vm.mediaType == 'video'" class="row">
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <div class="icheck-inline" ng-repeat="item in vm.videosource">
+                                        <label ng-click="vm.changeBtn($index, 'video')">
+                                            <input type="radio" name="radio1" ng-value="item.value"
+                                                   ng-model="vm.sourceVideo"
+                                                   class="icheck">
+                                            <i class="fa fa-circle-o" ng-if="!vm.selectedSource[$index]"></i>
+                                            <i class="fa fa-check-circle" ng-if="vm.selectedSource[$index]"></i>
+                                            <span class="subdetails">{{ item.title | translate }}</span>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" ng-if="vm.sourceVideo == 'local'">
+                                <div class="thumbnail">
+                                    <div class="input-over">
+                                        <button class="btn btn-primary select-photo">{{ 'ACTIONS.ADDVIDEO' |
+                                            translate}}
+                                        </button>
+                                        <input type="file" accept="video/*" image="video" name="file"
+                                               class="input-img"/>
+                                    </div>
+                                    <video ng-show="video" ng-src="{{vm.trustSrc(video.url)}}"
+                                           type="{{video.file.type}}"
+                                           class="main-video" controls></video>
+                                    <button ng-click="vm.addVideo(video)" class="btn btn-success add-photo">{{
+                                        'FILEUPLOAD.ADD' | translate }}
+                                    </button>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4" ng-if="vm.sourceVideo == 'youtube'">
+                                <label>{{ 'ACTIONS.VIDEOURL' | translate }}</label>
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4">
+                            <button type="submit" class="btn green" ng-click="vm.send()">{{ 'HEADERS.SAVE' |
+                                translate}}
+                            </button>
+                            <button type="button" class="btn default" ng-click="vm.cancel()">{{ 'HEADERS.CANCEL' |
+                                translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</form>
+</div>

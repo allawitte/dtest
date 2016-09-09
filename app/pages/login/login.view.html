@@ -1,0 +1,60 @@
+﻿<div class="user-login-2">
+
+    <div class="container">
+        <a ui-sref="/" class="logo">
+            <img class="logo" src="img/logo.png"/>
+        </a>
+
+        <div class="content">
+
+
+            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"
+                 ng-if="flash" ng-bind="flash.message | translate">
+            </div>
+            <form name="form" ng-submit="vm.login()" class="login-form" role="form">
+                <div class="form-title">
+                    <span class="form-title">{{ 'LOGIN.WELCOME' | translate }}</span>
+                    <span class="form-subtitle">{{ 'LOGIN.LOGIN' | translate }}</span>
+                </div>
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    <span>{{ 'LOGCHECKFORM.FORM' | translate }}</span>
+                </div>
+                <div class="form-group">
+                    <div ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                        <label for="email" class="control-label visible-ie8 visible-ie9">{{ 'LOGIN.EMAIL' |
+                            translate }}</label>
+                        <input type="text" name="email" id="email"
+                               class="form-control form-control-solid placeholder-no-fix form-group"
+                               placeholder="{{ 'LOGIN.EMAIL' | translate }}"
+                               ng-model="vm.user.email" required/>
+                        <span ng-show="form.email.$dirty && form.username.$error.required" class="help-block">{{ 'LOGIN.EMAILERR' | translate }}</span>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                        <label for="password" class="control-label visible-ie8 visible-ie9">{{ 'LOGIN.PASS' |
+                            translate }}</label>
+                        <input type="password" name="password" id="password"
+                               class="form-control form-control-solid placeholder-no-fix form-group"
+                               placeholder="{{ 'LOGIN.PASS' | translate }}"
+                               ng-model="vm.user.password" required/>
+                        <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">{{ 'LOGIN.PASSWORDERR' | translate }}</span>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" data-ng-disabled="form.$invalid || vm.dataLoading"
+                            class="btn red btn-block uppercase">
+                        {{ 'LOGIN.LOGINBTN' | translate }}
+                    </button>
+                    <img ng-if="vm.dataLoading"
+                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                </div>
+                <div class="create-account">
+                    <a class="btn-primary btn" ng-click="vm.register()"> {{ 'LOGIN.REGISTER' | translate }}</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>

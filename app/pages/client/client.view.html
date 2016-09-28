@@ -1,0 +1,15 @@
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner ">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo" ui-sref-active="active">
+            <a ui-sref="/">
+                <img src="/img/logo.png" alt="" class="logo-default"/>
+            </a>
+        </div>
+        <p class="nav pull-right" ui-sref-active="active">
+            <a ui-sref="/login" class="btn btn-link" ng-click="vm.logout()">{{ 'HEADERS.LOGOUT' | translate }}</a>
+        </p>
+    </div>
+</div>
+<div ui-view></div>

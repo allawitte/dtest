@@ -15,7 +15,8 @@
             'ui.select',
             'imageupload',
             'ngTable',
-            'angularUtils.directives.dirPagination'
+            'angularUtils.directives.dirPagination',
+            'sbDateSelect'
         ])
         .run(run);
 

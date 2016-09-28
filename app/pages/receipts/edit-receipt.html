@@ -3,7 +3,7 @@
     <form class="form-horizontal" novalidate>
         <div class="row">
             <div class="col-md-5">
-                <div class="portlet box purple">
+                <div class="portlet box color-view bg-blue-dark">
                     <div class="portlet-title">
                         <div class="caption">
                             {{ 'FILEUPLOAD.SELECTIMG' | translate }}
@@ -44,7 +44,7 @@
                 </div>
                 <!-- end of portlet -->
                 <div ng-repeat="step in vm.Receipt.steps" ng-init="stepIndex = $index" class="steps">
-                    <div class="portlet box purple">
+                    <div class="portlet box color-view bg-blue-dark">
                         <div class="portlet-title">
                             <div class="caption">{{$index + 1 }} {{ 'HEADERS.STEP' | translate }}</div>
                             <div class="tools"><i class="fa fa-close" ng-if="$index > 0"
@@ -121,7 +121,7 @@
                 <!-- end of additional picture -->
             </div>
             <div class="col-md-7">
-                <div class="portlet box purple">
+                <div class="portlet box color-view bg-blue-dark">
                     <div class="portlet-title">
                         <div class="caption">
                             {{ 'HEADERS.COOKRECEIPT' | translate }}

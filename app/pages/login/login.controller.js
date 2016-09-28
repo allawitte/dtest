@@ -17,8 +17,13 @@
         function login() {
             vm.dataLoading = true;
             AuthenticationService.Login(vm.user, function (response) {
+                console.log(response);
                 if (response.success) {
-                    $state.go('/home.dashboard', {eventId: "123"});
+
+                    if (response.user.isFirstOpinionComplete) {
+                        $state.go('/home.dashboard', {eventId: "123"});
+                    }
+                    else $state.go('/client.survey');
                     // $location.path('home.card-form');
                 } else {
                     FlashService.Error(response.message);

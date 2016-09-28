@@ -15,7 +15,8 @@
             'ui.select',
             'imageupload',
             'ngTable',
-            'angularUtils.directives.dirPagination'
+            'angularUtils.directives.dirPagination',
+            'sbDateSelect'
         ])
         .run(run);
 
@@ -36,32 +37,6 @@
 }
 
 })();
-//TODO: create separate config files for local, and prod dev
-angular.module("api.config", [])
-.constant("API_ENDPOINT", "http://api.hello-detox.com:/api");
-
-
-(function () {
-    'use strict';
-    angular
-        .module('transl', ['pascalprecht.translate'])
-        .config(config);
-    config.$inject = [ '$translateProvider' ];
-    function config($translateProvider) {
-        // Register a loader for the static files
-        // So, the module will search missing translation tables under the specified urls.
-        // Those urls are [prefix][langKey][suffix].
-
-        $translateProvider.useStaticFilesLoader({
-            prefix: 'app/l10n/',
-            suffix: '.json'
-        });
-
-        // Tell the module what language to use by default
-        $translateProvider.preferredLanguage('ru');
-        $translateProvider.useSanitizeValueStrategy('escape');
-    }
-})();
 (function () {
     'use strict';
 
@@ -81,16 +56,17 @@ angular.module("api.config", [])
         function Login(user, callback) {
             $http.put(API_ENDPOINT + '/login', user)
                 .then(function successCallback(response) {
-                        console.log(response.data.data);
-                        $cookieStore.put('userId', response.data.data.userId);
-                        var answer = {success: true};
-                        callback(answer);
-                    },
-                    function errorCallback(response, status) {
-                        response = {success: false, message: 'LOGIN.LOGINERR'};
-                        console.log(response);
-                        callback(response);
-                    });
+                    console.log(response.data.data);
+                    $cookieStore.put('userId', response.data.data.userId);
+                    var answer = response.data.data;
+                    answer.success = true;
+                    callback(answer);
+                },
+                function errorCallback(response, status) {
+                    console.log(response);
+                    response = {success: false, message: 'LOGIN.LOGINERR'};
+                    callback(response);
+                });
         }
 
     }
@@ -458,11 +434,18 @@ angular.module("api.config", [])
         }
 
         function GetMe() {
-            return $http.get(API_ENDPOINT + '/users/me').then(handleSuccess, handleError('Error getting user by id'));
+            return $http.get(API_ENDPOINT + '/users/me').then(handleSuccess, handleError);
+                /*
+                .success(function(data, status, headers, config){
+                    console.log('data',data);
+                    return data;
+                })
+                .error(function(data, status, headers, config){console.log('status',status)});
+                */
         }
 
         function GetById(userId) {
-            return $http.get(API_ENDPOINT + '/users/' + userId).then(handleSuccess, handleError('Error getting user by username'));
+            return $http.get(API_ENDPOINT + '/users/' + userId).then(handleSuccess, handleError);
         }
 
         function Create(user) {
@@ -476,11 +459,13 @@ angular.module("api.config", [])
         // private functions
 
         function handleSuccess(res) {
-            res.success = true
+            console.log('res', res);
+            res.success = true;
             return res;
         }
 
         function handleError(res) {
+            console.log('res', res);
             var msg;
             switch(res.status) {
                 case 452:
@@ -542,6 +527,32 @@ angular.module("api.config", [])
 /**
  * Created by Alla on 8/14/2016.
  */
+//TODO: create separate config files for local, and prod dev
+angular.module("api.config", [])
+.constant("API_ENDPOINT", "http://api.hello-detox.com:/api");
+
+
+(function () {
+    'use strict';
+    angular
+        .module('transl', ['pascalprecht.translate'])
+        .config(config);
+    config.$inject = [ '$translateProvider' ];
+    function config($translateProvider) {
+        // Register a loader for the static files
+        // So, the module will search missing translation tables under the specified urls.
+        // Those urls are [prefix][langKey][suffix].
+
+        $translateProvider.useStaticFilesLoader({
+            prefix: 'app/l10n/',
+            suffix: '.json'
+        });
+
+        // Tell the module what language to use by default
+        $translateProvider.preferredLanguage('ru');
+        $translateProvider.useSanitizeValueStrategy('escape');
+    }
+})();
 (function () {
     'use strict';
 
@@ -557,16 +568,16 @@ angular.module("api.config", [])
 
         var base = 'app/';
 
-         // This par of code responsible for
-         // removing # from address line of browther
+        // This par of code responsible for
+        // removing # from address line of browther
         // remove comments when it works on real server
         /*
          $locationProvider.html5Mode({
          enabled: true
          //requireBase: false
          });
-        */
-                 $urlRouterProvider.otherwise('/dashboard');
+         */
+        $urlRouterProvider.otherwise('/dashboard');
 
         $stateProvider
             .state('/home', {
@@ -577,20 +588,20 @@ angular.module("api.config", [])
                 controllerAs: 'vm',
                 id: "home"
             })
-                //nested list with children states for home
-                .state('/home.survey', {
-                    url: '/survey',
-                    templateUrl: base + 'pages/survey/survey.view.html',
-                    controller: 'SurveyController',
-                    controllerAs: 'vm',
-                    id: "survey"
-                })
-                .state('/home.dashboard', {
-                    url: '/dashboard',
-                    templateUrl: base + 'pages/dashboard/dashboard.html',
-                    controller: 'DashboardController',
-                    controllerAs: 'vm'
-                })
+            //nested list with children states for home
+            .state('/home.survey', {
+                url: '/survey',
+                templateUrl: base + 'pages/survey/survey.view.html',
+                controller: 'SurveyController',
+                controllerAs: 'vm',
+                id: "survey"
+            })
+            .state('/home.dashboard', {
+                url: '/dashboard',
+                templateUrl: base + 'pages/dashboard/dashboard.html',
+                controller: 'DashboardController',
+                controllerAs: 'vm'
+            })
             //parent state actions
             .state('/actions', {
                 url: '',
@@ -601,30 +612,30 @@ angular.module("api.config", [])
                 id: "actions"
             })
             // nested list with children stated actions
-                .state('/actions.add', {
-                    url: '/actions.add',
-                    templateUrl: base + 'pages/actions/add-action.html',
-                    controller: 'AddActionController',
-                    controllerAs: 'vm'
-                })
-                .state('/actions.view', {
-                    url: '/actions.view:actionID',
-                    templateUrl: base + 'pages/actions/view-action.html',
-                    controller: 'ViewActionController',
-                    controllerAs: 'vm'
-                })
-                .state('/actions.list', {
-                    url: '/actions.list',
-                    templateUrl: base + 'pages/actions/list-action.html',
-                    controller: 'ListActionController',
-                    controllerAs: 'vm'
-                })
-                .state('/actions.edit', {
-                    url: '/actions.edit:actionID',
-                    templateUrl: base + 'pages/actions/edit-action.html',
-                    controller: 'EditActionController',
-                    controllerAs: 'vm'
-                })
+            .state('/actions.add', {
+                url: '/actions.add',
+                templateUrl: base + 'pages/actions/add-action.html',
+                controller: 'AddActionController',
+                controllerAs: 'vm'
+            })
+            .state('/actions.view', {
+                url: '/actions.view:actionID',
+                templateUrl: base + 'pages/actions/view-action.html',
+                controller: 'ViewActionController',
+                controllerAs: 'vm'
+            })
+            .state('/actions.list', {
+                url: '/actions.list',
+                templateUrl: base + 'pages/actions/list-action.html',
+                controller: 'ListActionController',
+                controllerAs: 'vm'
+            })
+            .state('/actions.edit', {
+                url: '/actions.edit:actionID',
+                templateUrl: base + 'pages/actions/edit-action.html',
+                controller: 'EditActionController',
+                controllerAs: 'vm'
+            })
 
             // nested list with custom controller
             .state('/receipts', {
@@ -635,30 +646,30 @@ angular.module("api.config", [])
                 controllerAs: 'vm',
                 id: "actions"
             })
-                .state('/receipts.add', {
-                    url: '/receipts.add',
-                    templateUrl: base + 'pages/receipts/add-receipt.html',
-                    controller: 'ReceiptsAddController',
-                    controllerAs: 'vm'
-                })
-                .state('/receipts.list', {
-                    url: '/receipts.list',
-                    templateUrl: base + 'pages/receipts/list-receipts.html',
-                    controller: 'ReceiptsListController',
-                    controllerAs: 'vm'
-                })
-                .state('/receipts.view', {
-                    url: '/receipts.view/:receiptID',
-                    templateUrl: base + 'pages/receipts/view-receipt.html',
-                    controller: 'ReceiptsViewController',
-                    controllerAs: 'vm'
-                })
-                .state('/receipts.edit', {
-                    url: '/receipts.edit/:receiptID',
-                    templateUrl: base + 'pages/receipts/edit-receipt.html',
-                    controller: 'ReceiptsEditController',
-                    controllerAs: 'vm'
-                })
+            .state('/receipts.add', {
+                url: '/receipts.add',
+                templateUrl: base + 'pages/receipts/add-receipt.html',
+                controller: 'ReceiptsAddController',
+                controllerAs: 'vm'
+            })
+            .state('/receipts.list', {
+                url: '/receipts.list',
+                templateUrl: base + 'pages/receipts/list-receipts.html',
+                controller: 'ReceiptsListController',
+                controllerAs: 'vm'
+            })
+            .state('/receipts.view', {
+                url: '/receipts.view/:receiptID',
+                templateUrl: base + 'pages/receipts/view-receipt.html',
+                controller: 'ReceiptsViewController',
+                controllerAs: 'vm'
+            })
+            .state('/receipts.edit', {
+                url: '/receipts.edit/:receiptID',
+                templateUrl: base + 'pages/receipts/edit-receipt.html',
+                controller: 'ReceiptsEditController',
+                controllerAs: 'vm'
+            })
 
             //parents state programs
             .state('/programs', {
@@ -670,16 +681,16 @@ angular.module("api.config", [])
                 id: "actions"
             })
             //nested list with children states for program
-                .state('/programs.add', {
-                    url: '/programs.add/:userId',
-                    params: {
-                        userId: null
-                    },
-                    templateUrl: base + 'pages/programs/add.program.html',
-                    controller: 'ProgramController',
-                    controllerAs: 'vm',
-                    id: "program"
-                })
+            .state('/programs.add', {
+                url: '/programs.add/:userId',
+                params: {
+                    userId: null
+                },
+                templateUrl: base + 'pages/programs/add.program.html',
+                controller: 'ProgramController',
+                controllerAs: 'vm',
+                id: "program"
+            })
             // parent state for members
             .state('/members', {
                 url: '',
@@ -690,23 +701,23 @@ angular.module("api.config", [])
                 id: "actions"
             })
             // nested list with children states
-                .state('/members.list', {
-                    url: '/members.list',
-                    templateUrl: base + 'pages/users/list.members.html',
-                    controller: 'MembersListController',
-                    controllerAs: 'vm',
-                    id: "members"
-                })
-                .state('/members.view', {
-                    url: '/members.view/:userId',
-                    params: {
-                        userId: null
-                    },
-                    templateUrl: base + 'pages/users/view.member.html',
-                    controller: 'viewMembersController',
-                    controllerAs: 'vm',
-                    id: "member"
-                })
+            .state('/members.list', {
+                url: '/members.list',
+                templateUrl: base + 'pages/users/list.members.html',
+                controller: 'MembersListController',
+                controllerAs: 'vm',
+                id: "members"
+            })
+            .state('/members.view', {
+                url: '/members.view/:userId',
+                params: {
+                    userId: null
+                },
+                templateUrl: base + 'pages/users/view.member.html',
+                controller: 'viewMembersController',
+                controllerAs: 'vm',
+                id: "member"
+            })
             .state('/login', {
                 url: '/login',
                 controller: 'LoginController',
@@ -722,8 +733,17 @@ angular.module("api.config", [])
                 controllerAs: 'vm',
                 id: "login"
             })
+            .state('/client', {
+                url: '',
+                abstract: true,
+                controller: 'ClientController',
+                templateUrl: base + 'pages/client/client.view.html',
+                controllerAs: 'vm',
+                id: "client"
+            })
 
-            .state('/survey', {
+            .state('/client.survey', {
+                url: '/client.survey',
                 controller: 'SurveyController',
                 templateUrl: base + 'pages/survey/survey.view.html',
                 controllerAs: 'vm',
@@ -1130,6 +1150,23 @@ angular.module("api.config", [])
 
     angular
         .module('app')
+        .controller('ClientController', ClientController);
+
+    ClientController.$inject = ['$scope'];
+
+    function ClientController($scope) {
+        var vm = this;
+    }
+})();
+/**
+ * Created by HP on 9/28/2016.
+ */
+
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
         .controller('DashboardController', DashboardController);
 
     DashboardController.$inject = ['$scope'];
@@ -1180,8 +1217,13 @@ angular.module("api.config", [])
         function login() {
             vm.dataLoading = true;
             AuthenticationService.Login(vm.user, function (response) {
+                console.log(response);
                 if (response.success) {
-                    $state.go('/home.dashboard', {eventId: "123"});
+
+                    if (response.user.isFirstOpinionComplete) {
+                        $state.go('/home.dashboard', {eventId: "123"});
+                    }
+                    else $state.go('/client.survey');
                     // $location.path('home.card-form');
                 } else {
                     FlashService.Error(response.message);
@@ -2041,136 +2083,41 @@ angular.module("api.config", [])
 
     angular
         .module('app')
-    directive('dateTypeMulti', dateTypeMulti);
-
-    function dateTypeMulti() {
-        return {
-            priority: -1000,
-            require: 'ngModel',
-            link: function (scope, elem, attrs, ngModel) {
-                ngModel.$render = function () {
-                    angular.extend(scope.$eval(attrs.dateTypeMulti), ngModel.$viewValue);
-                };
-
-                scope.$watch(attrs.dateTypeMulti, function (viewValue) {
-                    ngModel.$setViewValue(viewValue);
-                }, true);
-
-                ngModel.$formatters.push(function (modelValue) {
-                    if (!modelValue) return;
-
-                    var parts = String(modelValue).split('/');
-
-                    return {
-                        year: parts[0],
-                        month: parts[1],
-                        day: parts[2]
-                    };
-                });
-
-                ngModel.$parsers.unshift(function (viewValue) {
-                    var isValid = true,
-                        modelValue = '',
-                        date;
-
-                    if (viewValue) {
-                        date = new Date(viewValue.year, viewValue.month - 1, viewValue.day);
-                        modelValue = [viewValue.year, viewValue.month, viewValue.day].join('/');
-
-                        if ('//' === modelValue) {
-                            modelValue = '';
-                        } else if (
-                            date.getFullYear() != viewValue.year ||
-                            date.getMonth() != viewValue.month - 1 ||
-                            date.getDate() != viewValue.day) {
-                            isValid = false;
-                        }
-                    }
-
-                    ngModel.$setValidity('dateTypeMulti', isValid);
-
-                    return isValid ? modelValue : undefined;
-                });
-            }
-        }
-    }
-})();
-
-/**
- * Created by HP on 9/8/2016.
- */
-
-(function () {
-    'use strict';
-
-    angular
-        .module('app')
         .controller('SurveyController', SurveyController);
 
-    SurveyController.$inject = ['$scope', 'UserService', 'OpinionService'];
+    SurveyController.$inject = ['$scope', '$cookieStore', 'OpinionService'];
 
-    function SurveyController($scope,  UserService, OpinionService) {
+    function SurveyController($scope, $cookieStore, OpinionService) {
         var vm = this;
 
         vm.send = send;
-        vm.changeBtn = changeBtn;
+        vm.changeGender = changeGender;
+        vm.changeBodyType = changeBodyType;
+        vm.changeActivity = changeActivity;
         vm.stepBar = 'step1';
-        vm.step = 1;
+        vm.step = 0;
         vm.stepsActions = [];
         vm.next = next;
         vm.back = back;
+        vm.survey = {};
+        vm.survey.answerGroups = [];
+        var names = ["цель", "пол", "дата рождения", "рост", "вес", "активность", "телосложение", "комментарии"];
+        vm.stepsNames = ['SURVEY-HEADERS.STEP1', 'SURVEY-HEADERS.STEP2', 'SURVEY-HEADERS.STEP3', 'SURVEY-HEADERS.STEP4', 'SURVEY-HEADERS.STEP5'];
 
-        vm.stepsActions[1] = 'active';
+        vm.stepsActions[0] = 'active';
 
-        //ui popup datepicker settingd
-        $scope.today = today;
-        $scope.clear = clear;
-        $scope.toggleMin = toggleMin;
-        $scope.open2 = open2;
-        $scope.setDate = setDate;
-
-
-        $scope.inlineOptions = {
-            customClass: getDayClass,
-            minDate: new Date(),
-            showWeeks: true
-        };
-
-        $scope.dateOptions = {
-            formatYear: 'yyyy',
-            maxDate: new Date(2020, 5, 22),
-            minDate: new Date(1910, 1, 1),
-            startingDay: 1,
-            showWeeks: false
-        };
-
-        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-        $scope.format = $scope.formats[0];
-        $scope.altInputFormats = ['M!/d!/yyyy'];
-
-        $scope.popup2 = {
-            opened: false
-        };
-
-        var tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        var afterTomorrow = new Date();
-        afterTomorrow.setDate(tomorrow.getDate() + 1);
-        $scope.events = [
-            {
-                date: tomorrow,
-                status: 'full'
-            },
-            {
-                date: afterTomorrow,
-                status: 'partially'
-            }
-        ];
-        //end of ui popup datapicker settings
-
+        for (var i = 0; i < 8; i++) {
+            vm.survey.answerGroups[i] = {name: names[i], answerText: ['']};
+        }
+        vm.survey.answerGroups[2].answerText[0] = '1993-07-03';
         vm.gender = [
             'GENDER.MALE',
             'GENDER.FEMALE'
+        ];
+        vm.activity = [
+            'SURVEY-HEADERS.INTENS1',
+            'SURVEY-HEADERS.INTENS2',
+            'SURVEY-HEADERS.INTENS3'
         ];
 
         vm.purpose = [
@@ -2180,128 +2127,69 @@ angular.module("api.config", [])
         ];
 
         vm.bodytype = [
-            {name: 'BODYTYPE.1', selected: false},
-            {name: 'BODYTYPE.2', selected: false},
-            {name: 'BODYTYPE.3', selected: false}
+            'BODYTYPE.1',
+            'BODYTYPE.2',
+            'BODYTYPE.3'
         ];
         vm.selectedGender = [false, false];
-        vm.survey = {};
-        function changeBtn(index) {
+        vm.selectedBodyType = [false, false, false];
+        vm.selectedActivity = [false, false, false];
+
+        function changeGender(index) {
             vm.selectedGender = [false, false];
             vm.selectedGender[index] = true;
         }
+
+        function changeBodyType(index) {
+            vm.selectedBodyType = [false, false, false];
+            vm.selectedBodyType[index] = true;
+        }
+
+        function changeActivity(index) {
+            vm.selectedActivity = [false, false, false];
+            vm.selectedActivity[index] = true;
+        }
+
         function send() {
-            var backsurvey = {
-                opinionId: 'firstOpinion',
-                opinionName: '',
-                answerGroups : [],
-                timestamp: new Date()
-            };
-
+            vm.survey.opinionId = 'firstOpinion';
+            vm.survey.opinionName = '';
+            vm.survey.timestamp = Date.parse(new Date());
             var str = '';
-
-            for ( var i = 0; i < vm.purpose.length; i ++ ) {
-                if ( vm.purpose.selected) {
-                    str = " " + vm.purpose.name;
+            for (var i = 0; i < vm.purpose.length; i++) {
+                if (vm.purpose[i].selected) {
+                    str = " " + vm.purpose[i].name;
                 }
-                vm.survey.purpose = str.trim();
+                vm.survey.answerGroups[0].answerText[0] = str.trim();
             }
 
-            for ( var i = 0; i < vm.bodytype.length; i ++ ) {
-                if ( vm.bodytype.selected) {
-                    str = " " + vm.bodytype.name;
-                }
-                vm.survey.bodytype = str.trim();
-            }
-
-
-            for ( var key in vm.survey) {
-                backsurvey.answerGroups.push({"name": key, "answerText":  vm.survey[key]});
-            }
-            UserService.GetMe(function(response){
-                backsurvey.userId = response.userId;
-                console.log('response is', response);
-                console.log('backsurvey is: ', backsurvey);
-                OpinionService.createUpdateFirstOpinion(backsurvey, function(data){
+                vm.survey.userId = $cookieStore.get('userId');
+                console.log('vm.survey', vm.survey);
+                OpinionService.createUpdateFirstOpinion(vm.survey, function (data) {
                     console.log('data is: ', data);
                 })
-            });
 
-            console.log('backsurvey is: ', backsurvey);
         }
 
-
-        function today() {
-            $scope.dt = new Date();
-        };
-        $scope.today();
-
-        function clear() {
-            $scope.dt = null;
-        };
-
-
-
-        // Disable weekend selection
-        function disabled(data) {
-            var date = data.date,
-                mode = data.mode;
-            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-        }
-
-        function toggleMin() {
-            $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-            $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
-        };
-
-        $scope.toggleMin();
-
-        function open2() {
-            $scope.popup2.opened = true;
-        };
-
-        function setDate(year, month, day) {
-            $scope.dt = new Date(year, month, day);
-        };
-
-
-
-        function getDayClass(data) {
-            var date = data.date,
-                mode = data.mode;
-            if (mode === 'day') {
-                var dayToCheck = new Date(date).setHours(0,0,0,0);
-
-                for (var i = 0; i < $scope.events.length; i++) {
-                    var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
-
-                    if (dayToCheck === currentDay) {
-                        return $scope.events[i].status;
-                    }
-                }
-            }
-
-            return '';
-        }
 
         function next() {
-            vm.step ++;
-            for ( var i = 1; i < vm.stepsActions.length; i ++ ) {
+            vm.step++;
+            for (var i = 0; i < vm.stepsActions.length; i++) {
                 vm.stepsActions[i] = 'done'
             }
             vm.stepsActions[vm.step] = 'active';
-            vm.stepBar = 'step' + vm.step;
+            vm.stepBar = 'step' + (vm.step + 1);
         }
 
         function back() {
-            vm.stepsActions[vm.step]= '';
-            vm.step --;
-            vm.stepsActions[vm.step]= 'active';
-            vm.stepBar = 'step' + vm.step;
+            vm.stepsActions[vm.step] = '';
+            vm.step--;
+            vm.stepsActions[vm.step] = 'active';
+            vm.stepBar = 'step' + (vm.step + 1);
 
         }
     }
-})();
+})
+();
 
 (function () {
     'use strict';

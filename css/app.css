@@ -601,6 +601,24 @@ Login page
 .description {
   padding: 15px; }
 
+.survey .nav li a {
+  padding: 10px 4px; }
+
+.survey .subdetails {
+  font-weight: bold; }
+
+.survey .birthday .control-label {
+  margin-right: 15px; }
+
+.item-selected {
+  color: #60c6ef; }
+
+.sb-date-select .col-md-1 {
+  padding: 0; }
+
+.sb-date-select .col-md-2 {
+  padding: 0; }
+
 .progress-striped.progress-bar-success {
   background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
 
@@ -643,5 +661,5 @@ Login page
     display: none; }
   .form label .fa {
     font-size: 20px;
-    color: #8E44AD;
+    color: #60c6ef;
     width: 30px; }

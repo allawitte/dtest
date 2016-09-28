@@ -22,11 +22,18 @@
         }
 
         function GetMe() {
-            return $http.get(API_ENDPOINT + '/users/me').then(handleSuccess, handleError('Error getting user by id'));
+            return $http.get(API_ENDPOINT + '/users/me').then(handleSuccess, handleError);
+                /*
+                .success(function(data, status, headers, config){
+                    console.log('data',data);
+                    return data;
+                })
+                .error(function(data, status, headers, config){console.log('status',status)});
+                */
         }
 
         function GetById(userId) {
-            return $http.get(API_ENDPOINT + '/users/' + userId).then(handleSuccess, handleError('Error getting user by username'));
+            return $http.get(API_ENDPOINT + '/users/' + userId).then(handleSuccess, handleError);
         }
 
         function Create(user) {
@@ -40,11 +47,13 @@
         // private functions
 
         function handleSuccess(res) {
-            res.success = true
+            console.log('res', res);
+            res.success = true;
             return res;
         }
 
         function handleError(res) {
+            console.log('res', res);
             var msg;
             switch(res.status) {
                 case 452:

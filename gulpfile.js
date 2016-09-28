@@ -66,7 +66,10 @@ gulp.task('js', function () {
         "vendor/js/onlynumbers.js",
         "vendor/js/bday-picker.js",
         "vendor/js/console-sham.js",
-        "vendor/js/imageupload.js"
+        "vendor/js/imageupload.js",
+        "vendor/js/moment.js",
+        "vendor/js/ru.js",
+        "vendor/js/sb-date-select.js"
     ])
         //.pipe(ngAnnotate())
         .pipe(concat('libs.js'))

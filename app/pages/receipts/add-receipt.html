@@ -164,19 +164,19 @@
                             </div>
                         </div>
                         <div class="form-group" ng-repeat="ingr in vm.Receipt.ingredients track by $index">
-                            <label class="col-md-3 control-label">{{ 'HEADERS.INGREDIENTS' | translate }}</label>
+                            <label class="col-md-3 control-label">{{ 'HEADERS.INGREDIENT' | translate }}</label>
 
-                            <div class="col-md-4">
-                                <input type="text" ng-change="vm.autocompleteIngr(ingr.name)" ng-model="ingr.name"
-                                       uib-typeahead="prod for prod in vm.ingredients | filter:$viewValue"
-                                       class="form-control" ng-click="vm.autocompleteIngr(ingr.name)"
-                                       typeahead-show-hint="true" typeahead-min-length="0"/>
+                            <div class="col-md-4 padding-0">
+                                <input type="text"  ng-model="ingr.name"
+                                       uib-typeahead="prod for prod in vm.autocompleteIngr($viewValue)"
+                                       class="form-control"
+                                       typeahead-show-hint="true" typeahead-min-length="1"/>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 padding-0">
                                 <input type="text" ng-model="ingr.value" class="form-control" valid-number
                                        placeholder="{{ 'HEADERS.AMOUNT' | translate }}">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 padding-0">
                                 <div class="select-over">
                                     <ui-select ng-model="ingr.unit" on-select="changeLng(ingr.unit)">
                                         <ui-select-match>
@@ -188,7 +188,7 @@
                                     </ui-select>
                                 </div>
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-1 padding-0">
                                 <span aria-hidden="true" ng-click="vm.removeIngredient($index)"
                                       class="glyphicon glyphicon-remove btn btn-danger" ng-if="$index > 0"></span>
                             </div>
@@ -206,9 +206,10 @@
 
                             <div class="col-md-6 panel-body" ng-repeat="tool in vm.Receipt.inventory track by $index">
                                 <div class="col-md-10">
-                                    <input type="text" ng-change="vm.autocompleteInvent(vm.Receipt.inventory[$index])"
+                                    <input type="text"
                                            ng-model="vm.Receipt.inventory[$index]"
-                                           uib-typeahead="prod for prod in vm.inventory | filter:$viewValue"
+                                           uib-typeahead="prod for prod in vm.inventory"
+                                           typeahead-loading="loadingLocations"
                                            class="form-control" typeahead-show-hint="true" typeahead-min-length="0"/>
                                 </div>
                                 <div class="col-md-1">

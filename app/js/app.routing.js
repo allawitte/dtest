@@ -16,12 +16,12 @@
         // This par of code responsible for
         // removing # from address line of browther
         // remove comments when it works on real server
-        /*
+/*
          $locationProvider.html5Mode({
          enabled: true
          //requireBase: false
-         });
-         */
+         }); */
+
         $urlRouterProvider.otherwise('/dashboard');
 
         $stateProvider
@@ -34,13 +34,6 @@
                 id: "home"
             })
             //nested list with children states for home
-            .state('/home.survey', {
-                url: '/survey',
-                templateUrl: base + 'pages/survey/survey.view.html',
-                controller: 'SurveyController',
-                controllerAs: 'vm',
-                id: "survey"
-            })
             .state('/home.dashboard', {
                 url: '/dashboard',
                 templateUrl: base + 'pages/dashboard/dashboard.html',
@@ -193,7 +186,15 @@
                 templateUrl: base + 'pages/survey/survey.view.html',
                 controllerAs: 'vm',
                 id: "survey"
-            });
+            })
+
+            .state('/client.office', {
+                    url: '/client.office',
+                    controller: 'ClientOfficeController',
+                    templateUrl: base + 'pages/client/office/client.office.view.html',
+                    controllerAs: 'vm',
+                    id: "office"
+                });
 
 
     }

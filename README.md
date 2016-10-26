@@ -16,15 +16,24 @@ npm install
 ```
 - install all npm and bower dependencies
 
+for metronic scss files needs to downgrade npm-sass version:
+$ cd node_modules/gulp-sass/
+
+$ npm install node-sass@3.3.2
+
+$ cd ../..
+
 ## 2. Watch files
 ```bash
 gulp watch
 ```
 - all custom CSS/JS will be watched for changes and injected into browser thanks to BrowserSync
 
-## 3. Build production version
+## 3. Builds develpment version in separate folder version
 ```bash
-gulp dev 
+gulp dev
+
+You get _dev folder
 ```
 - this will process following tasks:
 * creates config.js in app/config folder based on config.json file
@@ -33,24 +42,35 @@ gulp dev
 * concat all customer's js files into app.js
 * concat all customer's scss files into app.css
 * concat all metronic sccs files into metronic.css
+*starts webserver in _dev directory
+*starts watch task, what follows all changes in html vies, all customer js and scss. This tracks no libraries. If you anew file to library - you have to run gulp dev:js or gulp dev:css
 
-## 4. Start webserver without watch task
+
+## 4. Builds a production version in directory _prod
 ```bash
+gulp prod
+
+*Does all what dev, but all js and css are minified.
+*Has no watch task
+```
+
+## 5. You can run a webserver in original folder
+gulp js
+gulp css
 gulp server
-```
+gulp watch
 
-## 5. Rebuild all customers js and scss files including all changes in metronic fiels
-``` bash
-gulp app
+In case you  change you customers js or scss files, but no libraries, you can run
+    gulp app instead gulp js and gulp css
 ```
-
+/=================================================
 if any error with sass import happened, try to downgrade sass:
 ```
 $ cd node_modules/gulp-sass/
 
 $ npm install node-sass@3.3.2
 ```
-
+/================================================
 ##6. Configures access to APIs
 creates config.js in app/config folder
 ```

@@ -11,7 +11,7 @@ angular.module('sbDateSelect', [])
           '<option value disabled selected>день</option>',
         '</select>',
 		'</div>',
-		'<div class="col-md-2">',
+		'<div class="col-md-1">',
         '<select class="sb-date-select-month sb-date-select-select" ng-class="selectClass" ng-model="val.month", ng-options="m.value as m.name for m in months">',
           '<option value disabled>месяц</option>',
         '</select>',

@@ -2,12 +2,15 @@
 Bootstrap Wizard
 ***/
 
-.form-wizard {
-	
-	.progress {
-  		margin-bottom: 30px;
-	}
+$active: #65cafe;
+$success: #66cc66;
+$ordinar: #ccc;
 
+.form-wizard {
+  .glyphicon-star {
+	background: $success;
+	color: #fff;
+  }
 	.steps {
 		padding: 10px 0;
 	  	margin-bottom: 15px;
@@ -18,6 +21,31 @@ Bootstrap Wizard
 	  	box-shadow: none ;
 
 	  	> li {
+			position: relative;
+			&:first-child {
+				> a.step {
+				> .number {
+					&:before {
+						content: "";
+						position: absolute;
+						width: 0;
+						height: 0;
+					}
+					}
+				}
+			}
+			&:last-child {
+				> a.step {
+				> .number {
+					&:after {
+						content: "";
+						position: absolute;
+						width: 0;
+						height: 0;
+					}
+					}
+				}
+			}
 	  		> a.step {
 		  		background-color: #fff ;
 		  		background-image: none ;
@@ -30,24 +58,43 @@ Bootstrap Wizard
 				}			
 
 				> .number {
-					  background-color: #eee;
+					&:after {
+						content: "";
+						position: absolute;
+						width: calc(50% - 22px);
+						height: 2px;
+						background-color: $ordinar;
+						top: 34%;
+						left: calc(50% + 22px);
+					}
+					&:before {
+						content: "";
+						position: absolute;
+						width: calc(50% - 21px);
+						height: 2px;
+						background-color: $ordinar;
+						top: 34%;
+						left: 0;
+					}
+					  background-color: #fff;
 					  display: inline-block;
 					  text-align: center !important;
 					  font-size: 16px;
 					  font-weight: 300;
-					  padding: 11px 15px 13px 15px;
-					  margin-right: 10px;
+					  padding: 11px 15px 13px 15px;					  
 					  height: 45px;
 					  width: 45px;
+					  border: 2px solid #ccc;
 					  -webkit-border-radius: 50% !important;
 					     -moz-border-radius: 50% !important;
 					          border-radius: 50% !important;
 				}
 
 				> .desc {
-				  	display: inline-block;
+				  	display: block;
 				  	font-size: 16px; 
 				  	font-weight: 300;
+					padding: 5px 0 0 0;
 
 				  	> i {
   						display: none;
@@ -58,33 +105,37 @@ Bootstrap Wizard
 
 			&.active {
 				> a.step {
-					.number {
-						background-color: $brand-success;
-	  					color: #fff;
+					> .number {
+						&:before {
+						  background-color: $active;
+						}
+					  &:after {
+						background-color: $active;
+					  }
+						border-color: $active;
+	  					color: $active;
 	  				}
-
 	  				.desc {
-	  					color: #333;
+	  					color: $active;
 	  				}
 				}
 			}
 
 			&.done {
 				> a.step {
-					.number {
-						background-color: $brand-warning;
-  						color: #fff;
+					> .number {
+					  &:before {
+						background-color: $success;
+					  }
+					  &:after {
+						background-color: $success;
+					  }
+						border-color: $success;
+  						color: $success;
   					}
 
   					.desc {
-  						color: #333; 					
-
-	  					i {
-	  						font-size: 12px;
-							font-weight: normal;
-							color: #999;
-							display: inline-block;  
-	  					}
+  						color: $success;
 	  				}
 				}
 			}
@@ -101,6 +152,14 @@ Bootstrap Wizard
 
 @media (max-width: $screen-sm-min) { /* 768px */
   .form-wizard .steps > li > a {
-    text-align: left;
+    text-align: center;
+	&.step > .number {
+	  &:before {
+		display: none;
+	  }
+	  &:after {
+		display: none;
+	  }
+	}
   }
 }

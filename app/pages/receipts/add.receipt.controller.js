@@ -22,10 +22,10 @@
         vm.addStep = addStep;
         vm.removeStep = removeStep;
         vm.autocompleteIngr = autocompleteIngr;
-        vm.autocompleteInvent = autocompleteInvent;
+        //vm.autocompleteInvent = autocompleteInvent;
         vm.addTool = addTool;
         vm.removeTool = removeTool;
-        vm.ingredients = [];
+        vm.ingredients = [''];
         vm.inventory = [];
         vm.subname = "";
         vm.imgLoaded = false;
@@ -33,6 +33,9 @@
 
 
         //************     form ng-model    **********************
+        ReceiptService.getIventoryAutoComplete('', function (result) {
+            vm.inventory = result.data;
+        });
 
         vm.Receipt = {
             name: "",
@@ -41,7 +44,7 @@
             timeCookMinutes: "",
             servesCoun: "",
             difficult: {val: 'EASY', translateval: 'LEVELS.EASY'},
-            inventory: [""],
+            inventory: [''],
             dailyCalories: [
                 {type: 'CALORIE', value: '', dayPercentageCount: 0, translateval: 'HEADERS.ENERGY'},
                 {type: 'FAT', value: '', dayPercentageCount: 0, translateval: 'HEADERS.FAT'},
@@ -82,17 +85,17 @@
         vm.Receipt.ingredients[0].unit = vm.units[0];
         //************  autocoplete  ************
 
-
+        /*
         function autocompleteInvent(data) {
+
             ReceiptService.getIventoryAutoComplete(data, function (result) {
                 vm.inventory = result.data;
+                console.log(vm.inventory);
             });
-        }
+        }*/
 
         function autocompleteIngr(data) {
-            ReceiptService.getIngrAutoComplete(data, function (result) {
-                vm.ingredients = result.data;
-            });
+            return ReceiptService.getIngrAutoComplete(data);
         }
 
         function addIngredient() {

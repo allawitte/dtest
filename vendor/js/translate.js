@@ -8,6 +8,8 @@
 angular.module('pascalprecht.translate', ['ng'])
   .run(runTranslate);
 
+runTranslate.$inject = (['$translate']);
+
 function runTranslate($translate) {
 
   'use strict';
@@ -57,6 +59,8 @@ runTranslate.displayName = 'runTranslate';
  * @return {object} $translateDefaultInterpolation Interpolator service
  */
 angular.module('pascalprecht.translate').factory('$translateDefaultInterpolation', $translateDefaultInterpolation);
+
+$translateDefaultInterpolation.$inject = ['$interpolate', '$translateSanitization'];
 
 function $translateDefaultInterpolation ($interpolate, $translateSanitization) {
 
@@ -139,6 +143,7 @@ $translateDefaultInterpolation.displayName = '$translateDefaultInterpolation';
  */
 angular.module('pascalprecht.translate').provider('$translateSanitization', $translateSanitizationProvider);
 
+/* @ngInject */
 function $translateSanitizationProvider () {
 
   'use strict';
@@ -439,6 +444,7 @@ angular.module('pascalprecht.translate')
  */
 .factory('$translateStaticFilesLoader', $translateStaticFilesLoader);
 
+$translateStaticFilesLoader.$inject = ['$q', '$http'];
 function $translateStaticFilesLoader($q, $http) {
 
   'use strict';
@@ -522,6 +528,8 @@ angular.module('pascalprecht.translate')
  *
  */
 .factory('$translateLocalStorage', $translateLocalStorageFactory);
+
+$translateLocalStorageFactory.$inject = ['$window', '$translateCookieStorage'];
 
 function $translateLocalStorageFactory($window, $translateCookieStorage) {
 
@@ -692,6 +700,8 @@ $translateCookieStorageFactory.displayName = '$translateCookieStorage';
 angular.module('pascalprecht.translate')
 .constant('pascalprechtTranslateOverrider', {})
 .provider('$translate', $translate);
+
+$translate.$inject = ['$STORAGE_KEY', '$windowProvider', '$translateSanitizationProvider', 'pascalprechtTranslateOverrider'];
 
 function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvider, pascalprechtTranslateOverrider) {
 
@@ -3066,6 +3076,8 @@ angular.module('pascalprecht.translate')
    </example>
  */
 .directive('translate', translateDirective);
+
+translateDirective.$inject = ['$translate', '$q', '$interpolate', '$compile', '$parse', '$rootScope']
 function translateDirective($translate, $q, $interpolate, $compile, $parse, $rootScope) {
 
   'use strict';
@@ -3318,6 +3330,8 @@ function translateDirective($translate, $q, $interpolate, $compile, $parse, $roo
  * @param scope
  * @returns {string}
  */
+
+getTranslateNamespace.$inject = ['scope'];
 function getTranslateNamespace(scope) {
   'use strict';
   if (scope.translateNamespace) {
@@ -3383,6 +3397,8 @@ angular.module('pascalprecht.translate')
    </example>
  */
 .filter('translate', translateFilterFactory);
+
+translateFilterFactory.$inject = ['$parse', '$translate'];
 
 function translateFilterFactory($parse, $translate) {
 

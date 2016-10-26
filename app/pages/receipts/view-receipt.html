@@ -5,7 +5,7 @@
                 <span class="caption-subject bold uppercase">{{ formCtrs.name | translate }}</span>
             </div>
             <div class="tools">
-                <a  ui-sref="/home.edit-receipt({ receiptID: vm.id })"><span class="glyphicon glyphicon-edit" ></span></a>
+                <a ui-sref="/receipts.edit({ receiptID: vm.id })"><span class="glyphicon glyphicon-edit"></span></a>
             </div>
         </div>
         <div class="portlet-body">
@@ -13,6 +13,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <img ng-src="{{vm.Receipt.photo}}" alt="" class="img-prev">
+
                         <div class="panel panel-default">
                             <ul class="form-icon-container">
                                 <li ng-repeat="item in vm.Receipt.dailyCalories">
@@ -20,7 +21,7 @@
                                     <span class="units" ng-if="$index == 0">{{ 'UNITS.ENERGY' | translate }} </span>
                                     <span class="units" ng-if="$index > 0">{{ 'UNITS.GR' | translate }} </span>
                                     <span class="dailyCal-title">{{ vm.titles[$index] | translate }}</span>
-                                </li>                               
+                                </li>
                             </ul>
                         </div>
                         <div class="well subdata">
@@ -52,7 +53,7 @@
                                         <span class="title">{{ ingr.name}}</span>
                                         <span class="amount">{{ ingr.value}} {{ vm.units[ingr.unit] | translate }}</span>
                                     </label>
-                                </li>                                
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -60,12 +61,17 @@
                         <div class="portlet-body">
                             <div class="row static-info align-reverse header" ng-bind-html="vm.header"></div>
                             <div class="row static-info align-reverse">
-                                <div class="panel-body">{{ vm.Receipt.shortDescription }}</div>
+                                <div class="col-md-12">
+                                    <div class="panel-body">{{ vm.Receipt.shortDescription }}</div>
+                                </div>
                             </div>
                             <div class="row static-info align-reverse" ng-repeat="tool in vm.Receipt.inventory">
-                                <div class="panel-body">{{ tool }}</div>
+                                <div class="col-md-12">
+                                    <div class="panel-body">{{ tool }}</div>
+                                </div>
                             </div>
                             <h2>{{ 'HEADERS.STEPS' | translate }}</h2>
+
                             <div class="steps" ng-repeat="step in vm.Receipt.steps">
                                 <div class="row">
                                     <div class="col-md-2">
@@ -74,7 +80,8 @@
                                                 {{ $index + 1 }}
                                             </div>
                                             <div class="step-panel-done">
-                                                <input type="checkbox" ng-model="step.selected" id="{{step.stepNumber}}">
+                                                <input type="checkbox" ng-model="step.selected"
+                                                       id="{{step.stepNumber}}">
                                                 <label for="{{step.stepNumber}}">
                                                     <span class="cover"></span>
                                                     {{ 'HEADERS.DONE' | translate }}
@@ -95,7 +102,9 @@
                                             </tr>
                                         </table>
                                         <div class="row static-info align-reverse">
-                                            <div class="panel-body">{{ step.description }}</div>
+                                            <div class="col-md-12">
+                                                <div class="panel-body">{{ step.description }}</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

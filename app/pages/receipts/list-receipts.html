@@ -1,4 +1,4 @@
-<table ng-table="vm.tableParams" class="table" show-filter="true">
+<table ng-table="vm.tableParams" class="table receipts-list" show-filter="true">
     <tr ng-repeat="item in $data">
         <td title="'HEADERS.NAME' | translate" filter="{name: 'text'}" sortable="'name'">{{item.name}}</td>
         <td title="'HEADERS.LEVEL' | translate" filter="{ difficult: 'text'}" sortable="'difficult'">
@@ -15,10 +15,9 @@
         <td title="'HEADERS.PROTEIN' | translate" filter="{ prot: 'number'}" sortable="'prot'">{{item.prot}}</td>
         <td title="'FILEUPLOAD.ACTIONS' | translate" class="table-actions">
             <a ui-sref="/receipts.view({ receiptID: item.id })" ng-if="!row.isEditing" class="btn btn-default btn-sm"><span
-                    class="glyphicon glyphicon-eye-open"></span></button>
+                    class="glyphicon glyphicon-eye-open"></span></a>
             <a ui-sref="/receipts.edit({ receiptID: item.id })" ng-if="!row.isEditing" class="btn btn-default btn-sm"><span
-                    class="glyphicon glyphicon-pencil"></span></button>
-            <a ui-sref="/receipts.view({ receiptID: item.id })">
+                    class="glyphicon glyphicon-pencil"></span></a>
             <button ng-if="!row.isEditing" ng-click="vm.deleteReceipt(item.id)" class="btn btn-danger btn-sm">
                 <span class="glyphicon glyphicon-trash"></span></button>
         </td>

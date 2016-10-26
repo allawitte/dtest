@@ -1,11 +1,110 @@
-$inputs-color: #60c6ef;
+$inputs-color: #66cc66;
 $progress-color: #36c6d3;
+$panels-bg: #f0eeef;
+$cross-color: #D5BFC1;
+$cross-color-hov: #827475;
 $steps: 5;
 $one-step: 100%/$steps;
 .description {
   padding: 15px;
 }
+
 .survey {
+  .right {
+    text-align: right;
+  }
+  .portlet {
+    &.light {
+      &.bordered {
+        border: none;
+      }
+    }
+  }
+
+  &.form {
+    .form-actions {
+      background: #fff;
+      border: none;
+    }
+  }
+  .portlet-body {
+    background: #fff;
+    padding-top: 80px;
+    .alert-danger {
+      .glyphicon-remove {
+        display: none;
+        float: right;
+        position: relative;
+        top: -5px;
+        color: $cross-color;
+        &:hover {
+          color: $cross-color-hov;
+          cursor: pointer;
+        }
+      }
+    }
+    .help-block {
+      display: none;
+      &.help-block-error {
+        display: block;
+      }
+    }
+
+    .glyphicon-star {
+      padding: 15px;
+      margin: -10px 20px 0 10px;
+      position: relative;
+      top: -10px;
+    }
+    .btn-header {
+      position: relative;
+      left: -25px;
+      margin-bottom: 10px;
+    }
+    .panel {
+      &.warning-over {
+        padding-left: 50px;
+      }
+      position: relative;
+      .form-control {
+        &.short-num {
+          display: inline-block;
+        }
+      }
+      .warning {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        color: #fff;
+        font-size: 120%;
+        background: $inputs-color;
+        width: 40px;
+        margin: 0 60px 0 0;
+        padding-top: 0.8%;
+        text-align: center;
+
+      }
+      .row {
+        padding-bottom: 10px;
+      }
+      background: $panels-bg;
+      padding: 10px 15px;
+      .short-num {
+        max-width: 50px;
+      }
+      .input-horiontal {
+        padding: 0 0 0 33px;
+        .form-control {
+          display: inline-block;
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+  .tab-content {
+    padding: 20px;
+  }
   .nav {
     li {
       a {
@@ -22,6 +121,7 @@ $one-step: 100%/$steps;
     }
   }
 }
+
 .item-selected {
   color: $inputs-color;
 }
@@ -47,6 +147,9 @@ $one-step: 100%/$steps;
 .subdetails {
   font-weight: normal;
   text-transform: none;
+  &.selected {
+    color: $inputs-color;
+  }
 }
 
 .uib-day {
@@ -68,6 +171,9 @@ $one-step: 100%/$steps;
   }
   .icheck-inline {
     padding-bottom: 10px;
+    &.inline {
+      display: inline-block;
+    }
   }
   label {
     font-weight: bold;

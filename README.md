@@ -62,7 +62,24 @@ gulp watch
 
 In case you  change you customers js or scss files, but no libraries, you can run
     gulp app instead gulp js and gulp css
+
+
 ```
+
+//===============================================
+
+To remove # from address bar you can by removing comments from lines 11 and 19 in app/js/app.rputing.js
+This will not work properly on lockal machine node server. On external hosting or on OpenServer you can use .htcaccess file
+
+        RewriteEngine On
+        Options FollowSymLinks
+
+        RewriteBase /
+
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^(.*)$ /#/$1 [L]
+
 /=================================================
 if any error with sass import happened, try to downgrade sass:
 ```

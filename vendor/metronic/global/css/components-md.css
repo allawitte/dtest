@@ -13498,8 +13498,8 @@ Timeline 2
             clear: both; }
           .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container .mt-author,
           .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container .mt-title {
-            width: 50%;
-            margin-bottom: 15px; }
+            width: 50%;text-align: center;
+          }
           .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container .mt-content-title {
             opacity: 0.8 ;
             filter: alpha(opacity=80) ;
@@ -13535,7 +13535,7 @@ Timeline 2
               font-size: 14px; }
           .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container .btn {
             display: inline-block;
-            margin: 0 5px 10px 0; }
+            margin: 0; }
           .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container .btn.pull-right {
             margin: 0 0 10px 5px; }
           .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container:before {

@@ -136,7 +136,7 @@
                     vm.Actions.videos.push(match[0].replace('"', ''));
                 }
             }
-            if ( vm.Actions.name ) {
+            if ( vm.Actions.textShort ) {
                 CardsService.updateAction(id, vm.Actions, function (response) {
                     $state.go('/actions.list');
                 });

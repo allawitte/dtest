@@ -1,0 +1,40 @@
+<div class="portlet-body action-add form action">
+    <!-- BEGIN FORM-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet box color-view bg-blue-dark">
+                <div class="portlet-body">
+
+                        <!--<div class="col-md-4">
+                            <div class="thumbnail">
+                                <img ng-src="{{vm.Action.titlePhoto}}" class="main-img"/>
+                            </div>
+                        </div>-->
+
+                            <h2 class="ct-caption">{{ vm.Action.textShort }}</h2>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="long-text">{{vm.Action.textLong}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" ng-repeat="item in vm.Action.photos">
+                            <div class="thumbnail">
+                                <img ng-src="{{item}}" class="row-img"/>
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-repeat="item in vm.Action.videos">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe ng-src="{{vm.trustSrc(item)}}" allowfullscreen
+                                        class="embed-responsive-item"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a ui-sref='/client.office({userId: vm.userId})' ng-click="vm.back()">Back</a>
+</div>

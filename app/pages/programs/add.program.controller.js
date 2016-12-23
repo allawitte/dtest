@@ -182,20 +182,30 @@
                         if ( !('recipes' in vm.PlanDayCreate.planBuckets[index]) ) {
                             vm.PlanDayCreate.planBuckets[index].recipes = [];
                         }
-                        vm.PlanDayCreate.planBuckets[index].recipes.push(vm.receipts[vm.program.days[i][j].actions[k].id]);
+                        var objInd = vm.program.days[i][j].actions[k].id;
+                        if (!(JSON.stringify(vm.receipts[objInd] == '{}'))){
+                            vm.PlanDayCreate.planBuckets[index].recipes.push(vm.receipts[objInd]);
+                        }
+
                     }
                     else {
                         if ( !('cards' in vm.PlanDayCreate.planBuckets[index])) {
                             vm.PlanDayCreate.planBuckets[index].cards = [];
                         }
-                        vm.PlanDayCreate.planBuckets[index].cards.push(vm.actions[vm.program.days[i][j].actions[k].id]);
+                        var objInd = vm.program.days[i][j].actions[k].id;
+                        if (!(JSON.stringify(vm.actions[objInd] == '{}'))){
+                            vm.PlanDayCreate.planBuckets[index].cards.push(vm.actions[objInd]);
+                        }
+
                     }
                     index ++;
                 }
             }
+            console.log('vm.PlanDayCreate.planBuckets', vm.PlanDayCreate.planBuckets);
+            /*
             ProgramsService.uploadProgram(vm.PlanDayCreate, function(data){
                 console.log(data);
-            });
+            });*/
 
         }
 

@@ -1,3 +1,88 @@
-<div class="container client-page">
-    <h4>Спасибо за регистрацию. Руководитель программы свяжется с вами в ближайшее время.</h4>
+<div class="portlet light portlet-fit bordered" ng-if="!mainPart">
+    <!--<pre>{{vm.plan | json}}</pre>-->
+    <div class="portlet-title">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">{{'PROGRAM.DAY-1' | translate}}<span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">{{'PROGRAM.WEEK-1' | translate}}</a></li>
+                        <li><a href="#">{{'PROGRAM.WEEK-2' | translate}}</a></li>
+                        <li><a href="#">{{'PROGRAM.WEEK-3' | translate}}</a></li>
+                        <li><a href="#">{{'PROGRAM.DAY-LAST' | translate}}</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+    <div class="portlet-body">
+        <div class="mt-timeline-2">
+            <div class="mt-days-info .row">
+                <div class="col-md-12">
+                    <div class="mt-days-info-left">
+                        <strong>{{'PROGRAM.DAY' | translate }}: &nbsp; {{vm.currentDay + 1}}</strong>,&nbsp;
+                        {{vm.plan.planDate | dateFilter}}
+                    </div>
+                    <div class="mt-days-info-right">{{'PROGRAM.TODAY' | translate}}</div>
+                </div>
+            </div>
+            <ul class="mt-container">
+                <li class="mt-item single">
+                    <img src="img/nav-left.png" alt="" class="mt-nav-left" ng-click="vm.back()"/>
+                    <img src="img/nav-right.png" alt="" class="mt-nav-right" ng-click="vm.forward()"/>
+
+                    <div class="mt-timeline-icon bg-white border-grey-steel single">
+                        <img src="img/sun.png" alt=""/>
+                    </div>
+                </li>
+            </ul>
+            <ul class="mt-container">
+                <li class="mt-item" ng-repeat="item in vm.plan.todo">
+                    <div class="mt-timeline-icon bg-gray bg-font-gray border-grey-steel">
+                        <span class="time-info">{{item.time}}</span>
+                    </div>
+                    <div class="mt-timeline-content">
+                        <div class="mt-content-container bg-white border-grey-steel">
+                            <img ng-src={{item.preview.img}} alt="" class="plan-preview"/>
+                            <div class="mt-timeline-inner-wrap">
+                                <div class="mt-title">
+                                    <h3 class="mt-content-title">{{item.preview.name}}</h3>
+                                </div>
+                                <div class="mt-content border-white">
+                                    <p>{{item.preview.text}}</p>
+                                </div>
+                                <div class="md-footer">
+                                    <div class="mt-footer-details row">
+                                        <div class="col-md-12">
+                                            <div class="mt-calories">
+                                                <img ng-src={{item.preview.icon}} alt="" class="mt-details-icon"/>
+                                                <span class="mt-value">{{item.preview.calories}}</span>&nbsp;
+                                                <span class="mt-units">{{ 'UNITS.ENERGY' | translate }}</span>
+                                            </div>
+                                            <div class="mt-duration">
+                                                <img ng-src="img/clock.png" alt="" class="mt-details-icon"/>
+                                                <span class="mt-value">{{item.preview.cooktime}}</span>&nbsp;
+                                                <span class="mt-units">{{ 'TIME.MIN' | translate }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="javascript:;" class="btn btn-circle yellow-gold"
+                                       ng-click="vm.showPage(item.obj)">{{item.preview.btn |
+                                        translate }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="mt-container">
+                <li class="mt-item single">
+                    <div class="mt-timeline-icon bg-white border-grey-steel single">
+                        <img src="img/moon.png" alt=""/>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
+<ui-view></ui-view>

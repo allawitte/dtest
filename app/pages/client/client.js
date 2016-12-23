@@ -5,10 +5,14 @@
         .module('app')
         .controller('ClientController', ClientController);
 
-    ClientController.$inject = ['$scope'];
+    ClientController.$inject = ['$scope', '$state', 'ProgramsService'];
 
-    function ClientController($scope) {
-        var vm = this;
+    function ClientController($scope, $state, ProgramsService) {
+        var pvm = this;
+        var userId = $state.params.userId;
+        ProgramsService.getProgram(userId, function(response){
+            pvm.plans = response.data;
+        });
     }
 })();
 /**

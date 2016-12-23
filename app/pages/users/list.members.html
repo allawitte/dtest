@@ -6,6 +6,11 @@
         <td title="'USERS.SURVEY' | translate" filter="{ isFirstOpinionComplete: 'text'}"
             sortable="'isFirstOpinionComplete'">{{item.isFirstOpinionComplete}}
         </td>
-        <td><a ui-sref="/members.view({ userId: item.id })" class="btn btn-default btn-sm">{{ 'USERS.VIEW' | translate }}</a></td>
+        <td><button ng-click="vm.viewMember(item.id)" class="btn btn-default btn-sm">{{ 'USERS.VIEW' | translate }}</button></td>
+        <td>
+            <button class="btn btn-danger btn-sm" ng-click="vm.deleteMember(item.id)">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+        </td>
     </tr>
 </table>

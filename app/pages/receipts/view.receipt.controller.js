@@ -18,7 +18,6 @@
 
         vm.id = $stateParams.receiptID;
         ReceiptService.getReceiptById(vm.id, function(response) {
-			console.log(response);
 			vm.Receipt = response.data;
 			vm.header = $sce.trustAsHtml(vm.Receipt.name);
 			vm.difficult = difficult[vm.Receipt.difficult];

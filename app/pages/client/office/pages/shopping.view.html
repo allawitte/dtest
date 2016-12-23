@@ -1,0 +1,9 @@
+<div class="shopping">
+    <div class="rt-caption-middle">{{'USER-RECEIPT.SHOPPING-LIST' | translate }}</div>
+    <ul class="rt-list-caption-left">
+        <li ng-repeat="item in vm.list" class="rt-list-caption-left-item">
+            <span class="rt-item-caption">{{item.name}}</span>
+            <span class="sh-item-content">{{item.value}}{{'USER-RECEIPT.'+item.unit | translate }}</span>
+        </li>
+    </ul>
+</div>

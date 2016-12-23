@@ -173,8 +173,9 @@
                                        typeahead-show-hint="true" typeahead-min-length="1"/>
                             </div>
                             <div class="col-md-2 padding-0">
-                                <input type="text" ng-model="ingr.value" class="form-control" valid-number
+                                <input type="text" ng-model="ingr.value" class="form-control" ng-only-number data-max-length=3
                                        placeholder="{{ 'HEADERS.AMOUNT' | translate }}">
+
                             </div>
                             <div class="col-md-2 padding-0">
                                 <div class="select-over">

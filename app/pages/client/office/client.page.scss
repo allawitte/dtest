@@ -1,3 +1,94 @@
-.client-page {
-  padding-top: 100px;
+.mt-timeline-inner-wrap {
+  padding: 30px;
+}
+.plan-preview {
+  width: 100%;
+}
+.md-footer {
+  text-align: center;
+  .mt-footer-details {
+    overflow: hidden;
+    padding-bottom: 15px;
+    .mt-calories {
+      float: left;
+    }
+    .mt-duration {
+      float: right;
+    }
+  }
+  .mt-details-icon {
+    width: 15px;
+    margin-right: 10px;
+  }
+}
+.mt-item {
+  &.single {
+    height: 100px;
+    position:relative;
+    .mt-nav-left {
+      position: absolute;
+      left: 5%;
+      cursor: pointer;
+    }
+    .mt-nav-right {
+      position: absolute;
+      right: 5%;
+      cursor: pointer;
+    }
+    .mt-timeline-icon {
+      &.single {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+}
+.mt-days-info {
+  overflow: hidden;
+  padding-bottom: 15px;
+  .mt-days-info-left {
+    float: left;
+  }
+  .mt-days-info-right {
+    float: right;
+  }
+}
+.ct-caption {
+  padding: 0 5% 10px;
+}
+.shopping {
+  text-align: center;
+
+  .rt-list-caption-left {
+    width: auto;
+    margin: 0 30%;
+  }
+
+  .sh-item-content {
+
+  }
+  .rt-list-caption-left-item {
+    clear: both;
+    text-align: left;
+    .rt-item-caption {
+      width: 63%;
+      white-space: nowrap;
+    }
+  }
+}
+.navbar {
+  &.navbar-default {
+      border: none;
+      background: #fff;
+    .nav {
+      &.navbar-nav {
+        width: 100%;
+        li {
+          width: 20%;
+        }
+      }
+
+    }
+
+  }
 }

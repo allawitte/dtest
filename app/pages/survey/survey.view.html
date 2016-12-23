@@ -1,4 +1,5 @@
 <div class="container">
+    <ng-include src="'app/pages/client/templates/head.html'"></ng-include>
 <div class="portlet-body form survey">
     <div class="portlet-body">
         <div class="form-wizard">
@@ -15,24 +16,24 @@
 
                 <div class="tab-content form">
                     <div class="tab-pane active" ng-if="vm.step == 0">
-                        <div class="panel">
-                            <i class="glyphicon glyphicon-star"></i>
+                        <div class="panel top">
+
                             {{ 'SURVEY-HEADERS.PRE1' | translate }}
                         </div>
                         <div class="alert alert-danger" ng-if="vm.check1">
                                 <span class="glyphicon glyphicon-remove"></span>
                             {{ 'SURVEY-HEADERS.ERR1' | translate }}
                         </div>
-                        <div class="panel">
-                            <div class="btn btn-success btn-header">{{ 'SURVEY-HEADERS.PURPOSE' | translate
+                        <div class="panel" ng-class="'step'+vm.step">
+                            <div class="btn-header">{{ 'SURVEY-HEADERS.PURPOSE' | translate
                                 }}
                             </div>
                             <div class="input-group">
                                 <div class="icheck-inline" ng-repeat="item in vm.purpose">
                                     <label ng-click="vm.changePurpose($index)">
                                         <input type="checkbox" ng-model="item.selected" class="icheck">
-                                        <i class="fa fa-circle-o" ng-if="!item.selected"></i>
-                                        <i class="fa fa-check-circle" ng-if="item.selected"></i>
+                                        <i class="fa fa-square-o" ng-if="!item.selected"></i>
+                                        <i class="fa fa-check-square" ng-if="item.selected"></i>
                                         <span class="subdetails" ng-class="{ 'selected': item.selected }">{{ item.name | translate }}</span>
                                     </label>
                                 </div>
@@ -47,8 +48,8 @@
                         </div>
                     </div>
                     <div class="tab-pane active" ng-if="vm.step == 1">
-                        <div class="panel">
-                            <i class="glyphicon glyphicon-star"></i>
+                        <div class="panel top">
+
                             {{ 'SURVEY-HEADERS.PRE2' | translate }}
                         </div>
                         <div class="alert alert-danger" ng-if="vm.check2">
@@ -56,7 +57,7 @@
                             {{ 'SURVEY-HEADERS.ERR2' | translate }}
                         </div>
                         <div class="panel">
-                            <div class="btn btn-success btn-header">{{ 'SURVEY-HEADERS.STEP2' | translate
+                            <div class="btn-header">{{ 'SURVEY-HEADERS.STEP2' | translate
                                 }}
                             </div>
                             <div class="row">
@@ -73,8 +74,8 @@
                                                 </span>
                                                 <input type="radio" name="radio1" ng-value="item"
                                                        class="icheck">
-                                                <i class="fa fa-circle-o" ng-if="!item.selected"></i>
-                                                <i class="fa fa-check-circle" ng-if="item.selected"></i>
+                                                <i class="fa fa-square-o" ng-if="!item.selected"></i>
+                                                <i class="fa fa-check-square" ng-if="item.selected"></i>
                                             </label>
                                         </div>
                                     </div>
@@ -118,20 +119,17 @@
                         </div>
                     </div>
                     <div class="tab-pane active" ng-if="vm.step == 2">
-                        <div class="panel">
-                            <i class="glyphicon glyphicon-star"></i>
+                        <div class="panel top">
+
                             {{ 'SURVEY-HEADERS.PRE3' | translate }}
                         </div>
                         <div class="alert alert-danger" ng-if="vm.check3">
                             <span class="glyphicon glyphicon-remove"></span>
-                            {{ 'SURVEY-HEADERS.ERR3' | translate }}
-                        </div>
-                        <div class="panel warning-over">
-                            <span class="warning">!</span>
+                            {{ 'SURVEY-HEADERS.ERR3' | translate }}<br/>
                             {{'SURVEY-HEADERS.ACTIVITYNOTE' | translate}}
                         </div>
                         <div class="panel">
-                            <div class="btn btn-success btn-header">
+                            <div class="btn-header">
                                 {{ 'SURVEY-HEADERS.ACTIVITY' | translate
                                 }}
                             </div>
@@ -139,8 +137,8 @@
                                 <div class="icheck-inline" ng-repeat="item in vm.activity">
                                     <label ng-click="vm.changeActivity($index)">
                                         <input type="radio" class="icheck">
-                                        <i class="fa fa-circle-o" ng-if="!item.selected"></i>
-                                        <i class="fa fa-check-circle" ng-if="item.selected"></i>
+                                        <i class="fa fa-square-o" ng-if="!item.selected"></i>
+                                        <i class="fa fa-check-square" ng-if="item.selected"></i>
                                         <span class="subdetails" ng-class="{ 'selected': item.selected }">{{ item.name | translate }}</span>
                                     </label>
                                 </div>
@@ -149,25 +147,22 @@
                         </div>
                     </div>
                     <div class="tab-pane active" ng-if="vm.step == 3">
-                        <div class="panel">
-                            <i class="glyphicon glyphicon-star"></i>
+                        <div class="panel top">
                             {{ 'SURVEY-HEADERS.PRE4' | translate }}
                         </div>
                         <div class="alert alert-danger" ng-if="vm.check4">
                             <span class="glyphicon glyphicon-remove"></span>
                             {{ 'SURVEY-HEADERS.ERR4' | translate }}
-                        </div>
-                        <div class="panel warning-over">
-                            <span class="warning">!</span>{{ 'SURVEY-HEADERS.DIRECTIVE' | translate }}
+                            {{ 'SURVEY-HEADERS.DIRECTIVE' | translate }}
                         </div>
                         <div class="panel">
-                            <div class="btn btn-success btn-header">{{ 'SURVEY-HEADERS.TEST' | translate }}</div>
+                            <div class="btn-header">{{ 'SURVEY-HEADERS.TEST' | translate }}</div>
                             <div class="input-group">
                                 <div class="icheck-inline" ng-repeat="item in vm.bodytype">
                                     <label ng-click="vm.changeBodyType($index)">
                                         <input type="radio" class="icheck">
-                                        <i class="fa fa-circle-o" ng-if="!item.selected"></i>
-                                        <i class="fa fa-check-circle" ng-if="item.selected"></i>
+                                        <i class="fa fa-square-o" ng-if="!item.selected"></i>
+                                        <i class="fa fa-check-square" ng-if="item.selected"></i>
                                         <span class="subdetails" ng-class="{ 'selected': item.selected }">{{ item.name | translate }} </span>
                                     </label>
                                 </div>
@@ -175,8 +170,7 @@
                         </div>
                     </div>
                     <div class="tab-pane active" ng-if="vm.step == 4">
-                        <div class="panel">
-                            <i class="glyphicon glyphicon-star"></i>
+                        <div class="panel top">
                             {{ 'SURVEY-HEADERS.PRE5' | translate }}
                         </div>
                         <div class="alert alert-danger" ng-if="vm.check5">
@@ -204,7 +198,22 @@
                                                                     </span>
                                             <input class="form-control input-circle-right" type="email"
                                                    ng-model="vm.survey.answerGroups[9].answerText[0]"
-                                                   placeholder="{{ 'USERS.EMAIL' | translate }}"></div>
+                                                   placeholder="{{ 'USERS.EMAIL' | translate }}">
+                                        </div>
+                                        <span class="help-block" ng-class="{'help-block-error': vm.wrongEmail }">{{ 'LOGIN.EMAILERR' | translate }}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     ng-class="{'has-error': form.phone.$invalid && form.phone.$touched, 'has-success': form.phone.$valid}">
+                                    <label for="phone" class="hint control-label col-md-3">{{ 'LOGIN.PHONE' | translate }}</label>
+
+                                    <div class="input-icon col-md-4">
+                                        <input type="text" name="phone" id="phone"
+                                               class="form-control form-control-solid placeholder-no-fix form-group form-control input-circle"
+                                               required ng-intl-tel-input data-default-country="ua"
+                                               ng-model="vm.survey.answerGroups[11].answerText[0]"/>
+                                        <!--<input value="+1" type="tel" international-phone-number auto-hide-dial-code="false" class="phone" name="phoneCountryCode" ng-model="phone" required>-->
+                                        <span ng-show="form.phone.$dirty && form.phone.$error.required" class="help-block">{{ 'LOGIN.CHECKPHONE' | translate }}</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -238,7 +247,7 @@
                         <div class="portlet light bordered form-fit">
                             <div class="portlet-title">
                                 <div class="confirm-caption">{{ 'SURVEY-HEADERS.ACCOUNT' | translate }}</div>
-                            </div>
+                    </div>
                         </div>
                         <div class="row">
                             <div class="col-md-5 form-group right">{{'LOGIN.NAME' | translate}}</div>

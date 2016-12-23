@@ -12,6 +12,7 @@
         var params = '?size=100&from=0';
         vm.users = [];
         vm.viewMember = viewMember;
+        vm.deleteMember = deleteMember;
         UserService.GetAll(params)
             .then(function(response){
                 console.log(response);
@@ -25,8 +26,11 @@
             });
 
         function viewMember(userId) {
-
             $state.go('/members.view', {"userId" : userId});
+        }
+
+        function deleteMember(userId) {
+
         }
     }
 })();/**

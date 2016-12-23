@@ -11,7 +11,9 @@ $modal-btn: #e9ecf3;
   position: relative;
   z-index: 10000; /* The select2 dropdown has a z-index of 9999 */
 }
-
+.input-margin {
+  margin: 20px 0;
+}
 .canal {
   font-size: 92%;
   -moz-column-count: 3;
@@ -41,6 +43,7 @@ $modal-btn: #e9ecf3;
     top: 70px;
     right: 20px;
     position: fixed;
+    z-index: 10;
     .glyphicon-remove {
       color: $modal-btn;
       font-size: 15px;
@@ -54,6 +57,11 @@ $modal-btn: #e9ecf3;
       margin: 0 0 10px 0;
     }
     .alert-block {
+      cursor: pointer;
+    }
+  }
+  .time-span {
+    .fa-close {
       cursor: pointer;
     }
   }

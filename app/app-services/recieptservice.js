@@ -86,7 +86,7 @@
         }
 
         function getAllReceipts(callback) {
-            $http.get(API_ENDPOINT + "/recipes")
+            $http.get(API_ENDPOINT + "/recipes?size=100&from=0")
                 .success(function (data, status, headers, config) {
                     receiptsList = data.data.data;
                     callback(data);

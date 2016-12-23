@@ -1,2 +1,16 @@
 <h1>Hello, {{ vm.user.user.fullname}}!</h1>
-<a ui-sref="/home.add-program({ userId: vm.user.userId })" class="btn btn-default btn-sm">{{ 'PROGRAMS.ADD' | translate }}</a>
+<table ng-table="vm.tableParams" class="table" show-filter="true">
+    <tr ng-repeat="item in $data">
+        <td title="'USERS.DATE' | translate" filter="{planDate: 'text'}" sortable="'planDate'">{{item.planDate | dateFilter }}</td>
+
+        <td>
+            <button ng-click="vm.viewMember(item.id)" class="btn btn-default btn-sm">{{ 'USERS.VIEW' | translate }}</button>
+        </td>
+        <td>
+            <button class="btn btn-danger btn-sm" ng-click="vm.deleteDay(item.dayId)">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+        </td>
+    </tr>
+</table>
+<a ui-sref="/planday.add({ userId: vm.user.userId })" class="btn btn-default btn-sm">{{ 'PROGRAMS.ADD' | translate }}</a>

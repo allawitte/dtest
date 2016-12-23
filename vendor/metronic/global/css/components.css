@@ -406,7 +406,7 @@ body {
       color: #e73d4a; }
     .form-group.form-md-line-input.has-error .form-control.edited:not([readonly]) ~ i, .form-group.form-md-line-input.has-error .form-control.form-control-static ~ i, .form-group.form-md-line-input.has-error .form-control:focus:not([readonly]) ~ i, .form-group.form-md-line-input.has-error .form-control.focus:not([readonly]) ~ i {
       color: #e73d4a; }
-    .form-group.form-md-line-input.has-error .form-control.edited:not([readonly]) ~ .help-block, .form-group.form-md-line-input.has-error .form-control.form-control-static ~ .help-block, .form-group.form-md-line-input.has-error .form-control:focus:not([readonly]) ~ .help-block, .form-group.form-md-line-input.has-error .form-control.focus:not([readonly]) ~ .help-block {
+    .form-group.has-error .form-control.edited:not([readonly]) ~ .help-block, .form-group.form-md-line-input.has-error .form-control.form-control-static ~ .help-block, .form-group.form-md-line-input.has-error .form-control:focus:not([readonly]) ~ .help-block, .form-group.form-md-line-input.has-error .form-control.focus:not([readonly]) ~ .help-block {
       color: #e73d4a; }
   .form-group.form-md-line-input.has-error .input-group-addon {
     color: #e73d4a;

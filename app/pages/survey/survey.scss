@@ -3,6 +3,7 @@ $progress-color: #36c6d3;
 $panels-bg: #f0eeef;
 $cross-color: #D5BFC1;
 $cross-color-hov: #827475;
+$error: #E26A6A;
 $steps: 5;
 $one-step: 100%/$steps;
 .description {
@@ -10,6 +11,12 @@ $one-step: 100%/$steps;
 }
 
 .survey {
+  input, select {
+    background: #ccc;
+  }
+  .intl-tel-input {
+    display: block;
+  }
   .right {
     text-align: right;
   }
@@ -22,6 +29,9 @@ $one-step: 100%/$steps;
   }
 
   &.form {
+    .help-block-error {
+      color: $error;
+    }
     .form-actions {
       background: #fff;
       border: none;
@@ -50,16 +60,10 @@ $one-step: 100%/$steps;
       }
     }
 
-    .glyphicon-star {
-      padding: 15px;
-      margin: -10px 20px 0 10px;
-      position: relative;
-      top: -10px;
-    }
     .btn-header {
-      position: relative;
-      left: -25px;
-      margin-bottom: 10px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #4a4a4a;
     }
     .panel {
       &.warning-over {
@@ -88,7 +92,14 @@ $one-step: 100%/$steps;
       .row {
         padding-bottom: 10px;
       }
-      background: $panels-bg;
+      &.top {
+        border-bottom: 1px dashed #979797;
+        padding: 20px 15px;
+      }
+      &.step0 {
+        background: url(img/bitmap@2x.png) no-repeat center center;
+        background-size: 20%;
+      }
       padding: 10px 15px;
       .short-num {
         max-width: 50px;
@@ -112,9 +123,7 @@ $one-step: 100%/$steps;
       }
     }
   }
-  .subdetails {
-    font-weight: bold;
-  }
+
   .birthday {
     .control-label {
       margin-right: 15px;
@@ -128,21 +137,13 @@ $one-step: 100%/$steps;
 
 .sb-date-select {
   .col-md-1 {
-    padding: 0;
+    padding: 0 5px 0 0;
   }
   .col-md-2 {
     padding: 0;
   }
 }
 
-.progress-striped.progress-bar-success {
-  background-image: linear-gradient(-45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-
-}
-
-.progress-bar-success {
-  background-color: $progress-color;
-}
 
 .subdetails {
   font-weight: normal;

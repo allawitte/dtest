@@ -5,10 +5,11 @@
         .module('app')
         .controller('SurveyController', SurveyController);
 
-    SurveyController.$inject = ['$cookieStore', 'OpinionService', '$state'];
+    SurveyController.$inject = ['$cookieStore', 'OpinionService', '$state', 'UserService'];
 
-    function SurveyController($cookieStore, OpinionService, $state) {
+    function SurveyController($cookieStore, OpinionService, $state, UserService) {
         var vm = this;
+        var user = {};
 
         vm.send = send;
         vm.changeGender = changeGender;
@@ -23,11 +24,17 @@
         vm.check1 = false;
         vm.check2 = false;
         vm.check3 = false;
+        vm.wrongEmail = false;
         vm.check4 = false;
         vm.check5 = false;
         vm.wrongPass = false;
         vm.survey.answerGroups = [];
-        var names = ["цель", 'желаемый вес', "пол", "дата рождения", "рост", "вес", "активность", "телосложение", "имя", 'еиайл', 'пароль'];
+        var names = ["цель", 'желаемый вес', "пол", "дата рождения", "рост", "вес", "активность", "телосложение", "имя", 'еиайл', 'пароль', 'телефон']
+            .map(function (item) {
+                return encodeURIComponent(item);
+            });
+        //names = ['purpose', 'dessired weight', 'gender', 'birthday', 'heigth', 'weight', 'activity', 'bodytype', 'name', 'email', 'password', 'phone'];
+
         vm.stepsNames = ['SURVEY-HEADERS.STEP1', 'SURVEY-HEADERS.STEP2', 'SURVEY-HEADERS.STEP3', 'SURVEY-HEADERS.STEP4', 'SURVEY-HEADERS.STEP5', 'SURVEY-HEADERS.STEP6'];
 
         vm.stepsActions[0] = 'active';
@@ -41,9 +48,11 @@
             {name: 'GENDER.FEMALE', selected: false}
         ];
         vm.activity = [
+            {name: 'SURVEY-HEADERS.INTENS4', selected: false},
             {name: 'SURVEY-HEADERS.INTENS1', selected: false},
             {name: 'SURVEY-HEADERS.INTENS2', selected: false},
             {name: 'SURVEY-HEADERS.INTENS3', selected: false}
+
         ];
 
         vm.purpose = [
@@ -76,7 +85,7 @@
         }
 
         function changeActivity(index) {
-            for (var i = 0; i < 3; i++) {
+            for (var i = 0; i < 4; i++) {
                 vm.activity[i].selected = false
             }
             vm.activity[index].selected = true;
@@ -87,10 +96,10 @@
             vm.survey.opinionId = 'firstOpinion';
             vm.survey.opinionName = '';
             vm.survey.timestamp = Date.parse(new Date());
-            vm.survey.userId = $cookieStore.get('userId');
+
             //purpose
-            for ( var i = 0; i < 3; i ++ ) {
-                if ( vm.purpose[i].selected == true ) {
+            for (var i = 0; i < 3; i++) {
+                if (vm.purpose[i].selected == true) {
                     vm.survey.answerGroups[0].answerText[i] = vm.purpose[i].name;
                 }
             }
@@ -103,49 +112,72 @@
         function next() {
             switch (vm.step) {
                 case 0:
-                    if ( (!vm.purpose[0].selected && !vm.purpose[1].selected && !vm.purpose[2].selected) || !vm.survey.answerGroups[1].answerText[0]){
+                    if ((!vm.purpose[0].selected && !vm.purpose[1].selected && !vm.purpose[2].selected) || !vm.survey.answerGroups[1].answerText[0]) {
                         vm.check1 = true;
                         return;
                     }
                     break;
                 case 1:
-                    if( !vm.survey.answerGroups[2].answerText[0] || !vm.survey.answerGroups[3].answerText[0] || !vm.survey.answerGroups[4].answerText[0])
-                    { vm.check2 = true;
+                    if (!vm.survey.answerGroups[2].answerText[0] || !vm.survey.answerGroups[3].answerText[0] || !vm.survey.answerGroups[4].answerText[0]) {
+                        vm.check2 = true;
                         return;
                     }
                     break;
                 case 2:
-                    if ( !vm.survey.answerGroups[6].answerText[0] ) {
+                    if (!vm.survey.answerGroups[6].answerText[0]) {
                         vm.check3 = true;
                         return;
                     }
                     break;
                 case 3:
-                    if ( !vm.survey.answerGroups[7].answerText[0] ) {
+                    if (!vm.survey.answerGroups[7].answerText[0]) {
                         vm.check4 = true;
                         return
                     }
                     break;
                 case 4:
-                    if ( vm.survey.answerGroups[10].answerText[0] != vm.pass ) {
+                    var email = vm.survey.answerGroups[9].answerText[0];
+                    var checkEmail = email.match(/.+@.+\..+/i);
+                    console.log(checkEmail);
+                    if (!checkEmail) {
+                        vm.wrongEmail = true;
+                        vm.check5 = true;
+                        return;
+                    }
+                    if (vm.survey.answerGroups[10].answerText[0] != vm.pass) {
                         vm.wrongPass = true;
                         vm.check5 = true;
                         return;
                     }
-                    if ( !vm.survey.answerGroups[8].answerText[0] || !vm.survey.answerGroups[9].answerText[0] || !vm.survey.answerGroups[10].answerText[0]) {
+                    if (!vm.survey.answerGroups[8].answerText[0] || !vm.survey.answerGroups[9].answerText[0] || !vm.survey.answerGroups[10].answerText[0] || !vm.survey.answerGroups[11].answerText[0]) {
                         vm.check5 = true;
                         return;
                     }
-
-
+                    user.fullname = vm.survey.answerGroups[8].answerText[0];
+                    user.phone = vm.survey.answerGroups[11].answerText[0];
+                    user.email = vm.survey.answerGroups[9].answerText[0];
+                    user.password = vm.survey.answerGroups[10].answerText[0];
+                    UserService.Create(user)
+                        .then(function (response) {
+                            console.log("response is: ", response.data.data.userId);
+                            vm.survey.userId = response.data.data.userId;
+                            if (!response.success) {
+                                vm.check5 = true;
+                            }
+                        });
             }
+            _reset();
+        }
+
+        function _reset() {
             vm.wrongPass = false;
             vm.check1 = false;
             vm.check2 = false;
             vm.check3 = false;
             vm.check4 = false;
             vm.check5 = false;
-            vm.step++;
+            vm.step < 6 ? vm.step++ : vm.step;
+            console.log(vm.step);
             for (var i = 0; i < vm.stepsActions.length; i++) {
                 vm.stepsActions[i] = 'done'
             }

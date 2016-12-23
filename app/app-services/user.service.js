@@ -14,6 +14,7 @@
         service.GetById = GetById;
         service.Create = Create;
         service.Logout = Logout;
+        service.DeleteUser = DeleteUser;
 
         return service;
 
@@ -44,16 +45,20 @@
             return $http.delete(API_ENDPOINT + '/logout/' + id).then(handleSuccess, handleError('Error deleting user'));
         }
 
+        function DeleteUser(user){
+
+        }
+
         // private functions
 
         function handleSuccess(res) {
-            console.log('res', res);
+            //console.log('res', res);
             res.success = true;
             return res;
         }
 
         function handleError(res) {
-            console.log('res', res);
+            //console.log('res', res);
             var msg;
             switch(res.status) {
                 case 452:

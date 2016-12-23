@@ -1,15 +1,16 @@
-<div class="page-header navbar navbar-fixed-top">
-    <!-- BEGIN HEADER INNER -->
-    <div class="page-header-inner ">
-        <!-- BEGIN LOGO -->
-        <div class="page-logo" ui-sref-active="active">
-            <a ui-sref="/">
-                <img src="/img/logo.png" alt="" class="logo-default"/>
-            </a>
+<div class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+    <ng-include src="'app/pages/client/templates/head.html'"></ng-include>
+    <!-- END HEADER -->
+    <!-- BEGIN HEADER & CONTENT DIVIDER -->
+    <div class="clearfix"> </div>
+    <!-- END HEADER & CONTENT DIVIDER -->
+    <div class="page-container">
+        <ng-include src="'app/pages/client/templates/sidebar.html'"></ng-include>
+        <div class="page-content-wrapper">
+            <!-- BEGIN CONTENT BODY -->
+            <div class="page-content">
+                <div ui-view></div>
+            </div>
         </div>
-        <p class="nav pull-right" ui-sref-active="active">
-            <a ui-sref="/login" class="btn btn-link" ng-click="vm.logout()">{{ 'HEADERS.LOGOUT' | translate }}</a>
-        </p>
     </div>
 </div>
-<div ui-view></div>

@@ -3,9 +3,7 @@
 @import 'components/_mixins';  
 
 // General CSS Reset
-@if $theme-style == "square" {
-@import 'components/_reset-rounds';
-}
+
 @import 'components/_reset-general';
     
 // Material Desing Components

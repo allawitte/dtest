@@ -5,9 +5,9 @@
         .module('app')
         .controller('ReceiptsAddController', ReceiptsAddController);
 
-    ReceiptsAddController.$inject = ['ReceiptService', '$state'];
+    ReceiptsAddController.$inject = ['ReceiptService', '$state', 'Functions'];
 
-    function ReceiptsAddController( ReceiptService, $state) {
+    function ReceiptsAddController( ReceiptService, $state, Functions) {
 
         var vm = this;
         vm.edit = true;
@@ -43,13 +43,13 @@
             shortDescription: "",
             timeCookMinutes: "",
             servesCoun: "",
-            difficult: {val: 'EASY', translateval: 'LEVELS.EASY'},
+            difficult: 'EASY',
             inventory: [''],
             dailyCalories: [
-                {type: 'CALORIE', value: '', dayPercentageCount: 0, translateval: 'HEADERS.ENERGY'},
-                {type: 'FAT', value: '', dayPercentageCount: 0, translateval: 'HEADERS.FAT'},
-                {type: 'CARBOHYDRATE', value: '', dayPercentageCount: 0, translateval: 'HEADERS.CARB'},
-                {type: 'PROTEIN', value: '', dayPercentageCount: 0, translateval: 'HEADERS.PROTEIN'}
+                {type: 'CALORIE', value: '', dayPercentageCount: 0},
+                {type: 'FAT', value: '', dayPercentageCount: 0},
+                {type: 'CARBOHYDRATE', value: '', dayPercentageCount: 0},
+                {type: 'PROTEIN', value: '', dayPercentageCount: 0}
             ],
             ingredients: [{}],
             steps: [{photos: [{id: 0}]}]
@@ -59,24 +59,14 @@
         //************  initialisations   ****************
 
         vm.difficult = [
-            {val: 'EASY', translateval: 'LEVELS.EASY'},
-            {val: 'MEDIUM', translateval: 'LEVELS.MEDIUM'},
-            {val: 'HARD', translateval: 'LEVELS.HARD'}
+            'EASY',
+            'MEDIUM',
+            'HARD'
         ];
-        vm.units = [
-            {val: 'COUNT', translateval: 'UNITS.UNITS'},
-            {val: 'TABLESPOON', translateval: 'UNITS.TABLESP'},
-            {val: 'GRAM', translateval: 'UNITS.GR'},
-            {val: 'TEASPOON', translateval: 'UNITS.TEASP'},
-            {val: 'LITER', translateval: 'UNITS.LITER'},
-            {val: 'KG', translateval: 'UNITS.KG'},
-            {val: 'GLASS', translateval: 'UNITS.GLASS'}
-        ];
-        vm.cardTypeArr = [
-            {name: 'CARD_TYPE.SELECT'},
-            {name: 'CARD_TYPE.RECEIPT'},
-            {name: 'CARD_TYPE.ACTIVITY'}
-        ];
+
+
+        vm.units = Functions.getUnits ();
+
 
         vm.steps = [
             {stepNumber: 1, photos: [{id: 0}]}
@@ -144,20 +134,22 @@
             backReceipt.shortDescription = vm.Receipt.shortDescription || "";
             backReceipt.timeCookMinutes = vm.Receipt.timeCookMinutes || 0;
             backReceipt.servesCount = vm.Receipt.servesCount || 0;
-            backReceipt.difficult = vm.Receipt.difficult.val;
+            backReceipt.difficult = vm.Receipt.difficult;
             backReceipt.inventory = vm.Receipt.inventory || "";
             backReceipt.steps = vm.steps;
 
+            backReceipt.dailyCalories = vm.Receipt.dailyCalories;
+/*
             for (i = 0; i < vm.Receipt.dailyCalories.length; i++) {
                 value = vm.Receipt.dailyCalories[i].value;
                 type = vm.Receipt.dailyCalories[i].type;
                 backReceipt.dailyCalories.push({"value": value, "type": type});
             }
-
+*/
             for (i = 0; i < vm.Receipt.ingredients.length; i++) {
                 name = vm.Receipt.ingredients[i].name;
                 value = vm.Receipt.ingredients[i].value;
-                var unit = vm.Receipt.ingredients[i].unit.val;
+                var unit = vm.Receipt.ingredients[i].unit;
                 backReceipt.ingredients.push({"name": name, "value": value, "unit": unit});
             }
 

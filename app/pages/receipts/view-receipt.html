@@ -19,8 +19,8 @@
                                 <li ng-repeat="item in vm.Receipt.dailyCalories">
                                     <span class="amount">{{item.value}}</span>
                                     <span class="units" ng-if="$index == 0">{{ 'UNITS.ENERGY' | translate }} </span>
-                                    <span class="units" ng-if="$index > 0">{{ 'UNITS.GR' | translate }} </span>
-                                    <span class="dailyCal-title">{{ vm.titles[$index] | translate }}</span>
+                                    <span class="units" ng-if="$index > 0">{{ 'UNITS.GRAM' | translate }} </span>
+                                    <span class="dailyCal-title">{{ 'HEADERS.'+item.type | translate }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -36,7 +36,7 @@
                                 </li>
                                 <li>
                                     <img src="/img/chef-cooking.png" alt="">
-                                    <span class="data">{{ vm.difficult | translate }}</span>
+                                    <span class="data">{{ 'LEVELS.'+vm.Receipt.difficult | translate }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -51,7 +51,7 @@
                                     <label for="ingr1" ng-class="{'cross' : check.value1}">
                                         <span class="cover" ng-class="{'on' : check.value1}"></span>
                                         <span class="title">{{ ingr.name}}</span>
-                                        <span class="amount">{{ ingr.value}} {{ vm.units[ingr.unit] | translate }}</span>
+                                        <span class="amount">{{ ingr.value}} {{ 'UNITS.'+ingr.unit | translate }}</span>
                                     </label>
                                 </li>
                             </ul>

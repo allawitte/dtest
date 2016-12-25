@@ -34,32 +34,21 @@
         });
 
 
-        vm.difficult = [
-            {val: 'EASY', translateval: 'LEVELS.EASY'},
-            {val: 'MEDIUM', translateval: 'LEVELS.MEDIUM'},
-            {val: 'HARD', translateval: 'LEVELS.HARD'}
-        ];
+
         vm.units = [
-            {val: 'COUNT', translateval: 'UNITS.UNITS'},
-            {val: 'TABLESPOON', translateval: 'UNITS.TABLESP'},
-            {val: 'GRAM', translateval: 'UNITS.GR'},
-            {val: 'TEASPOON', translateval: 'UNITS.TEASP'},
-            {val: 'LITER', translateval: 'UNITS.LITER'},
-            {val: 'KG', translateval: 'UNITS.KG'},
-            {val: 'GLASS', translateval: 'UNITS.GLASS'}
+            'COUNT',
+            'TABLESPOON',
+            'GRAM',
+            'TEASPOON',
+            'LITER',
+            'KG',
+            'GLASS',
+            'BEAM',
+            'PINCH',
+            'CLOVE',
+            'TASTE'
         ];
-        var difficult = {'EASY': 'LEVELS.EASY', 'MEDIUM': 'LEVELS.MEDIUM', 'HARD': 'LEVELS.HARD'};
-        var units = {
-            'COUNT': 'UNITS.UNITS',
-            'TABLESPOON': 'UNITS.TABLESP',
-            'GRAM': 'UNITS.GR',
-            'TEASPOON': 'UNITS.TEASP',
-            'LITER': 'UNITS.LITER',
-            'KG': 'UNITS.KG',
-            'GLASS': 'UNITS.GLASS'
-        };
-        var translval = ['HEADERS.ENERGY', 'HEADERS.FAT', 'HEADERS.CARB', 'HEADERS.PROTEIN'];
-        console.log(vm.id);
+
 
 
         ReceiptService.getReceiptById($stateParams.receiptID, function (response) {
@@ -72,30 +61,16 @@
             var difficultVal = vm.Receipt.difficult;
             vm.Receipt.difficult = {};
             vm.Receipt.difficult.val = difficultVal;
-            vm.Receipt.difficult.translateval = difficult[difficultVal];
-            vm.isMainPhoto = !!vm.Receipt.photo;
+            vm.isMainPhoto = !vm.Receipt.photo;
             if (!vm.Receipt.dailyCalories) {
                 vm.Receipt.dailyCalories = [
-                    {type: 'CALORIE', value: '', dayPercentageCount: 0, translateval: 'HEADERS.ENERGY'},
-                    {type: 'FAT', value: '', dayPercentageCount: 0, translateval: 'HEADERS.FAT'},
-                    {type: 'CARBOHYDRATE', value: '', dayPercentageCount: 0, translateval: 'HEADERS.CARB'},
-                    {type: 'PROTEIN', value: '', dayPercentageCount: 0, translateval: 'HEADERS.PROTEIN'}
+                    {type: 'CALORIE', value: '', dayPercentageCount: 0},
+                    {type: 'FAT', value: '', dayPercentageCount: 0},
+                    {type: 'CARBOHYDRATE', value: '', dayPercentageCount: 0},
+                    {type: 'PROTEIN', value: '', dayPercentageCount: 0}
                 ];
             }
-            else {
-                for (var i = 0; i < vm.Receipt.dailyCalories.length; i++) {
-                    vm.Receipt.dailyCalories[i].translateval = translval[i];
-                }
-            }
-            if (Array.isArray(vm.Receipt.ingredients)) {
-                for (var i = 0; i < vm.Receipt.ingredients.length; i++) {
 
-                    var unitVal = vm.Receipt.ingredients[i].unit;
-                    vm.Receipt.ingredients[i].unit = {};
-                    vm.Receipt.ingredients[i].unit.val = unitVal;
-                    vm.Receipt.ingredients[i].unit.translateval = units[unitVal];
-                }
-            }
             if (Array.isArray(vm.Receipt.steps)) {
                 for (var i = 0; i < vm.Receipt.steps.length; i++) {
                     vm.steps.push({photos: [{}]});

@@ -11,14 +11,29 @@
         var service = {};
         service.modyfyFromServer = modyfyFromServer;
         service.modyfyToServer = modyfyToServer;
+        service.modyfyCardsDataForLine = modyfyCardsDataForLine;
+        service.modyfyCardsDataForPopUp = modyfyCardsDataForPopUp;
 
         return service;
 
-        function modyfyFromServer(data){
+        function modyfyFromServer() {
 
         }
 
-        function modyfyToServer(model, receiptsArr, actionsArr){
+        function modyfyCardsDataForLine(data) {
+            var arr = [];
+            for (var key in data) {
+                // var name = (respond.data.data[key].name.indexOf('<h2>') > -1) ? respond.data.data[key].name.match(/<h2>(.*?)<\/h2>/i)[1] : respond.data.data[key].name;
+                arr.push({
+                    id: key,
+                    name: modyfyName(data[key].name),
+                    type: 'RECEIPT'
+                });
+            }
+            return arr;
+        }
+
+        function modyfyToServer(model, receiptsArr, actionsArr) {
             var PlanDayCreate = {};
             PlanDayCreate.planBuckets = [];
             model.plan.forEach(function (timeLine, timeIndex) {
@@ -59,8 +74,25 @@
                 return 2;
             }
         }
+
+        function modyfyCardsDataForPopUp(data) {
+            var arr = [];
+            for (var key in data) {
+                // var name = (respond.data.data[key].name.indexOf('<h2>') > -1) ? respond.data.data[key].name.match(/<h2>(.*?)<\/h2>/i)[1] : respond.data.data[key].name;
+                arr[key] = {
+                    id: key,
+                    name: modyfyName(data[key].name),
+                    type: 'RECEIPT'
+                };
+            }
+            return arr;
+        }
+
+        function modyfyName(name) {
+            return (name.indexOf('<h2>') > -1) ? name.match(/<h2>(.*?)<\/h2>/i)[1] : name;
+        }
     }
-    })();
+})();
 /**
  * Created by HP on 12/22/2016.
  */

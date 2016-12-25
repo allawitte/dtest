@@ -66,74 +66,81 @@
         ProgramsService.getProgram(userId, function (response) {
 
             console.log('response:', response.data);
-            console.log('response.data', response.data[0]);
             for (var key in response.data) {
                 response.data[key]['key'] = key;
                 var todo = [];
                 response.data[key]['planBuckets'].forEach(function (item, ind) {
-                    var dt = new Date(item.bucketTimestamp);
-                    var minutes = dt.getMinutes() == 0 ? dt.getMinutes() + '0' : dt.getMinutes();
-                    var time = dt.getHours() + ':' + minutes;
-                    if ('cards' in item) {
-                        item.cards.forEach(function (itm) {
-                            var preview = {
-                                name: itm.textShort,
-                                img: itm.titlePhoto,
-                                text: itm.textLong,
-                                btn: ''
-                            }
-                            if (itm.cardType == "ACTION") {
-                                preview.btn = buttons[1];
-                                preview.icon = 'img/fire.png'
-                            }
-                            else {
-                                preview.btn = buttons[2];
-                            }
-                            todo.push({
-                                    time: time,
-                                    preview: preview,
-                                    obj: itm
-                                }
-                            );
-                        });
-                    }
-                    if ('recipes' in item) {
-                        item.recipes.forEach(function (itm) {
-                            if('dailyCalories' in itm) {
-                                if(itm.dailyCalories.length > 0) {
-                                    if('value' in itm.dailyCalories[0]) {
-                                        var calories = itm.dailyCalories[0].value;
+                    if(item != null){
+                        var dt = new Date(item.bucketTimestamp);
+                        var minutes = dt.getMinutes() == 0 ? dt.getMinutes() + '0' : dt.getMinutes();
+                        var time = dt.getHours() + ':' + minutes;
+                        if ('cards' in item) {
+                            item.cards.forEach(function (itm) {
+                                if(itm != null){
+                                    var preview = {
+                                        name: itm.textShort,
+                                        img: itm.titlePhoto,
+                                        text: itm.textLong,
+                                        btn: ''
+                                    };
+
+
+                                    if (itm.cardType == "ACTION") {
+                                        preview.btn = buttons[1];
+                                        preview.icon = 'img/fire.png'
                                     }
+                                    else {
+                                        preview.btn = buttons[2];
+                                    }
+                                    todo.push({
+                                        time: time,
+                                        preview: preview,
+                                        obj: itm
+                                    });
+                                }//end if
+                            });//end forEach
+                        }
+                        if ('recipes' in item) {
+                            item.recipes.forEach(function (itm) {
+                                if( itm != null) {
+                                    if ('dailyCalories' in itm) {
+                                        if (itm.dailyCalories.length>0) {
+                                            if ('value' in itm.dailyCalories[0]) {
+                                                var calories=itm.dailyCalories[0].value;
+                                            }
+                                        }
+                                    }
+                                    else {
+                                        var calories=false;
+                                    }
+                                    if ('ingredients' in itm) {
+                                        itm.ingredients.forEach (function (elem) {
+                                            ingrArr.push (elem);
+                                        });
+                                    }
+                                    var name=itm.name.indexOf ('<h2>')> -1 ? itm.name.match (/<h2>(.*?)<\/h2>/i)[1] : itm.name;
+                                    var preview={
+                                        btn: buttons[0],
+                                        name: name,
+                                        text: itm.shortDescription,
+                                        cooktime: itm.timeCookMinutes,
+                                        calories: calories,
+                                        img: itm.photo,
+                                        icon: 'img/plate.png'
+                                    };
+                                    itm['btn']=buttons[0];
+                                    todo.push ({
+                                            time: time,
+                                            preview: preview,
+                                            obj: itm
+                                        }
+                                    );
                                 }
-                            }
-                             else {
-                                var calories = false;
-                            };
-                            if ('ingredients' in itm) {
-                                itm.ingredients.forEach(function(elem){
-                                    ingrArr.push(elem);
-                                });
-                            }
-                            var name = itm.name.indexOf('<h2>') > -1 ? itm.name.match(/<h2>(.*?)<\/h2>/i)[1] : itm.name;
-                            var preview = {
-                                btn: buttons[0],
-                                name: name,
-                                text: itm.shortDescription,
-                                cooktime: itm.timeCookMinutes,
-                                calories: calories,
-                                img: itm.photo,
-                                icon: 'img/plate.png'
-                            };
-                            itm['btn'] = buttons[0];
-                            todo.push({
-                                    time: time,
-                                    preview: preview,
-                                    obj: itm
-                                }
-                            );
-                        });
+                            });//end forEach
+                        }
                     }
-                });
+
+                });//end for Each
                 //console.log('planDate:',  moment(Date(response.data[key].planDate).getFullYear, Date(response.data[key].planDate).getMonth, Date(response.data[key].planDate).getDate).format('dddd, MMMM DD YYYY'),'  ',Date(response.data[key].planDate));
                 var currDate = response.data[key].planDate + '';
                 plans.push({

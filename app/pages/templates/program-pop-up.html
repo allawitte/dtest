@@ -1,0 +1,44 @@
+<div class="modal-dialog" role="document" ng-class="{'close': vm.modalClose}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn-xs btn-default btn-close" ng-click="vm.closeModal()">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <h4 class="modal-title">{{'PROGRAM.CHOOSECARD' | translate }}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div dir-paginate="item in vm.cards  | orderBy:'name' | orderBy:'type' | filter: test | filter: search | itemsPerPage:4 "
+                     class="col-md-4">
+                    <div class="thumbnail alert alert-block alert-info" ng-click="vm.pendCard(item.id)">
+                        {{item.name}}
+                            <span class="badge" ng-class="{'badge-danger': item.type == 'ACTION',
+                            'badge-info': item.type == 'RECOMMENDATION',
+                            'badge-warning': item.type == 'RECEIPT'}">{{item.type}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-md-5">
+                    <input type="text" ng-model="search" class="form-control"/>
+                </div>
+                <dir-pagination-controls class="col-md-7"
+                                         max-size="5"
+                                         direction-links="true"
+                                         boundary-links="true">
+                </dir-pagination-controls>
+            </div>
+            <button class="btn red" ng-click="test = 'ACTION' ">{{ 'CARD_TYPE.ACTION' | translate }}</button>
+            <button class="btn blue-madison" ng-click="test = 'RECOMMENDATION'">{{ 'CARD_TYPE.RECOMMENDATION' |
+                translate }}
+            </button>
+            <button class="btn yellow-crusta" ng-click="test = 'RECEIPT'">{{ 'CARD_TYPE.RECEIPT' | translate }}
+            </button>
+            <button class="btn green-meadow" ng-click="test = '' ">{{ 'CARD_TYPE.ALL' | translate }}</button>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>

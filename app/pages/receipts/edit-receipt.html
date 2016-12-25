@@ -178,7 +178,7 @@
                                 </div>
                             </div>
                             <div class="form-group" ng-repeat="item in vm.Receipt.dailyCalories track by $index">
-                                <label class="col-lg-5 col-md-6 control-label">{{ item.translateval |
+                                <label class="col-lg-5 col-md-6 control-label">{{ 'HEADERS.'+ item.type |
                                     translate }}</label>
 
                                 <div class="col-md-6 col-lg-7">
@@ -186,7 +186,7 @@
                                            valid-number>
                                     <span class="units-block"
                                           ng-if="$index == 0">{{ 'UNITS.ENERGY' | translate }} </span>
-                                    <span class="units-block" ng-if="$index > 0">{{ 'UNITS.GR' | translate }} </span>
+                                    <span class="units-block" ng-if="$index > 0">{{ 'UNITS.GRAM' | translate }} </span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -208,10 +208,10 @@
                                         <ui-select ng-model="vm.Receipt.difficult"
                                                    on-select="changeLng(vm.Receipt.difficult)">
                                             <ui-select-match>
-                                                <span ng-bind="vm.Receipt.difficult.translateval | translate"></span>
+                                                <span ng-bind="'LEVELS'+vm.Receipt.difficult | translate"></span>
                                             </ui-select-match>
                                             <ui-select-choices repeat="item in vm.difficult track by $index">
-                                                <span ng-bind="item.translateval | translate "></span>
+                                                <span ng-bind="'LEVELS'+item | translate "></span>
                                             </ui-select-choices>
                                         </ui-select>
                                     </div>
@@ -240,10 +240,10 @@
                                             <div class="select-over">
                                                 <ui-select ng-model="ingr.unit" on-select="changeLng(ingr.unit)">
                                                     <ui-select-match>
-                                                        <span ng-bind="ingr.unit.translateval | translate"></span>
+                                                        <span ng-bind="'UNITS.'+ingr.unit | translate"></span>
                                                     </ui-select-match>
                                                     <ui-select-choices repeat="item in vm.units track by $index">
-                                                        <span ng-bind="item.translateval | translate "></span>
+                                                        <span ng-bind="'UNITS.'+item | translate "></span>
                                                     </ui-select-choices>
                                                 </ui-select>
                                             </div>

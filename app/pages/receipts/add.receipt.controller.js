@@ -22,7 +22,7 @@
         vm.addStep = addStep;
         vm.removeStep = removeStep;
         vm.autocompleteIngr = autocompleteIngr;
-        //vm.autocompleteInvent = autocompleteInvent;
+        vm.autocompleteInvent = autocompleteInvent;
         vm.addTool = addTool;
         vm.removeTool = removeTool;
         vm.ingredients = [''];
@@ -45,24 +45,18 @@
             servesCoun: "",
             difficult: 'EASY',
             inventory: [''],
-            dailyCalories: [
-                {type: 'CALORIE', value: '', dayPercentageCount: 0},
-                {type: 'FAT', value: '', dayPercentageCount: 0},
-                {type: 'CARBOHYDRATE', value: '', dayPercentageCount: 0},
-                {type: 'PROTEIN', value: '', dayPercentageCount: 0}
-            ],
             ingredients: [{}],
             steps: [{photos: [{id: 0}]}]
         };
 
 
+
+        vm.Receipt['dailyCalories']= Functions.getDailyCalories ();
+
+
         //************  initialisations   ****************
 
-        vm.difficult = [
-            'EASY',
-            'MEDIUM',
-            'HARD'
-        ];
+        vm.difficult = Functions.getLevel ();
 
 
         vm.units = Functions.getUnits ();
@@ -75,14 +69,10 @@
         vm.Receipt.ingredients[0].unit = vm.units[0];
         //************  autocoplete  ************
 
-        /*
-        function autocompleteInvent(data) {
 
-            ReceiptService.getIventoryAutoComplete(data, function (result) {
-                vm.inventory = result.data;
-                console.log(vm.inventory);
-            });
-        }*/
+        function autocompleteInvent(data) {
+            return ReceiptService.getIventoryAutoComplete(data);
+        }
 
         function autocompleteIngr(data) {
             return ReceiptService.getIngrAutoComplete(data);

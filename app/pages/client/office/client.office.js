@@ -5,27 +5,72 @@
         .module('app')
         .controller('ClientOfficeController', ClientOfficeController);
 
-    ClientOfficeController.$inject = ['$state', '$rootScope', 'ProgramsService', 'localStorageService', '$sce', '$scope', '$route', '$location'];
+    ClientOfficeController.$inject = ['$state', '$rootScope', '$scope', '$location', 'Functions', 'PlanDaysData'];
     /* ngInject */
-    function ClientOfficeController($state, $rootScope, ProgramsService,localStorageService, $sce, $scope, $route, $location) {
+    function ClientOfficeController($state, $rootScope, $scope, $location, Functions, PlanDaysData) {
         var vm = this;
-        var plans = [];
-        vm.currentDay = 0;
-        var planslenght = 0;
+
         vm.back = back;
         vm.forward = forward;
         vm.showPage = showPage;
-        var buttons = ['PLANDAY.COOK', 'PLANDAY.DO', 'PLANDAY.LOOK'];
-        var userId = $state.params.userId;
-        vm.plan = {};
-        var ingrArr = [];
-        $scope.mainPart = false;
-        //$rootScope.header = true;
-        console.log('OfficeCtrl');
+        vm.isToday = isToday;
+        vm.isFirstDate = isFirstDate;
+        vm.isLastDate = isLastDate;
+        vm.dayPlan = {};
+        vm.getFirstDay = getFirstDay;
+        vm.getToday = getToday;
+        vm.getLastDay = getLastDay;
+
+
+
+        if(PlanDaysData.getCurrentDay() != undefined){
+            vm.dayPlan = PlanDaysData.getDay(PlanDaysData.getCurrentDay());
+
+        }
+
+        $scope.$watch('isPlanArrLoaded', function(){
+            if($scope.isPlanArrLoaded && PlanDaysData.getCurrentDay() === undefined) {
+                vm.dayPlan = PlanDaysData.getTodayPlan();
+                if(!vm.dayPlan){
+                    vm.dayPlan = PlanDaysData.getFirstDay();
+                }
+            }
+        });
+
+        function getLastDay(){
+            vm.dayPlan = PlanDaysData.getLastDay();
+        }
+
+        function getToday(){
+            vm.dayPlan = PlanDaysData.getTodayPlan();
+        }
+
+        function getFirstDay(){
+            vm.dayPlan = PlanDaysData.getFirstDay();
+        }
+
+        function isLastDate(){
+            if('plan' in vm.dayPlan){
+                return (vm.dayPlan.plan.planDate == PlanDaysData.getLastDate());
+            }
+        }
+
+        function isFirstDate(){
+            if('plan' in vm.dayPlan){
+                console.log('Is First vm.dayPlan.plan.planDate', vm.dayPlan.plan.planDate);
+                return (vm.dayPlan.plan.planDate == PlanDaysData.getFirstDate());
+            }
+        }
+
+        function isToday(){
+            if('plan' in vm.dayPlan){
+                return (vm.dayPlan.plan.planDate == PlanDaysData.getToday());
+            }
+        }
 
         function showPage(object){
-            localStorageService.set('oneDay', object);
-            $scope.mainPart = true;
+            PlanDaysData.setFullPageData(object);
+            PlanDaysData.setCurrentDay(vm.dayPlan.dayNumber);
             if('cardType' in object){
                 $state.go('card');
             }
@@ -34,139 +79,22 @@
             }
 
         }
+
         function forward(){
-            if(vm.currentDay < planslenght-1) {
-                vm.currentDay++;
-                vm.plan = plans[vm.currentDay];
-            }
+            vm.dayPlan = PlanDaysData.getDay(vm.dayPlan.dayNumber + 1);
+
         }
 
         function back(){
-            if(vm.currentDay > 0){
-                vm.currentDay --;
-                vm.plan = plans[vm.currentDay];
-            }
+            vm.dayPlan = PlanDaysData.getDay(vm.dayPlan.dayNumber - 1);
+
         }
+
         $rootScope.$on('$locationChangeSuccess', function () {
             $rootScope.actualLocation = $location.path();
         });
 
-        $rootScope.$watch(function () {
-            return $location.path()
-        }, function (newLocation, oldLocation) {
-            if ($rootScope.actualLocation === newLocation) {
-                if(newLocation == '/client/office/AVgx_-Dbw90xysTpf8Ns')
-                    $scope.mainPart = false;
-                console.log('changed');
-            }
-        });
-        $scope.setUpdate = function(data){
-            $scope.mainPart = data;
-        }
-        ProgramsService.getProgram(userId, function (response) {
 
-            console.log('response:', response.data);
-            for (var key in response.data) {
-                response.data[key]['key'] = key;
-                var todo = [];
-                response.data[key]['planBuckets'].forEach(function (item, ind) {
-                    if(item != null){
-                        var dt = new Date(item.bucketTimestamp);
-                        var minutes = dt.getMinutes() == 0 ? dt.getMinutes() + '0' : dt.getMinutes();
-                        var time = dt.getHours() + ':' + minutes;
-                        if ('cards' in item) {
-                            item.cards.forEach(function (itm) {
-                                if(itm != null){
-                                    var preview = {
-                                        name: itm.textShort,
-                                        img: itm.titlePhoto,
-                                        text: itm.textLong,
-                                        btn: ''
-                                    };
-
-
-                                    if (itm.cardType == "ACTION") {
-                                        preview.btn = buttons[1];
-                                        preview.icon = 'img/fire.png'
-                                    }
-                                    else {
-                                        preview.btn = buttons[2];
-                                    }
-                                    todo.push({
-                                        time: time,
-                                        preview: preview,
-                                        obj: itm
-                                    });
-                                }//end if
-                            });//end forEach
-                        }
-                        if ('recipes' in item) {
-                            item.recipes.forEach(function (itm) {
-                                if( itm != null) {
-                                    if ('dailyCalories' in itm) {
-                                        if (itm.dailyCalories.length>0) {
-                                            if ('value' in itm.dailyCalories[0]) {
-                                                var calories=itm.dailyCalories[0].value;
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        var calories=false;
-                                    }
-                                    if ('ingredients' in itm) {
-                                        itm.ingredients.forEach (function (elem) {
-                                            ingrArr.push (elem);
-                                        });
-                                    }
-                                    var name=itm.name.indexOf ('<h2>')> -1 ? itm.name.match (/<h2>(.*?)<\/h2>/i)[1] : itm.name;
-                                    var preview={
-                                        btn: buttons[0],
-                                        name: name,
-                                        text: itm.shortDescription,
-                                        cooktime: itm.timeCookMinutes,
-                                        calories: calories,
-                                        img: itm.photo,
-                                        icon: 'img/plate.png'
-                                    };
-                                    itm['btn']=buttons[0];
-                                    todo.push ({
-                                            time: time,
-                                            preview: preview,
-                                            obj: itm
-                                        }
-                                    );
-                                }
-                            });//end forEach
-                        }
-                    }
-
-                });//end for Each
-                //console.log('planDate:',  moment(Date(response.data[key].planDate).getFullYear, Date(response.data[key].planDate).getMonth, Date(response.data[key].planDate).getDate).format('dddd, MMMM DD YYYY'),'  ',Date(response.data[key].planDate));
-                var currDate = response.data[key].planDate + '';
-                plans.push({
-                    //planDate: moment(currDate.substring(0,4)+'-'+ currDate.substring(4,6)+'-'+ currDate.substring(6,8)).format('dddd, MMMM DD YYYY'),
-                    planDate: response.data[key].planDate,
-                    memberId: response.data[key].memberId,
-                    todo: todo
-                });
-            }
-            ;
-            planslenght = plans.length;
-            plans.sort(function(a,b){
-                if(a.planDate > b.planDate) {
-                    return 1;
-                }
-                if(a.planDate < b.planDate) {
-                    return -1;
-                }
-                if(a.planDate == b.planDate) {
-                    return 0;
-                }
-            });
-            console.log('plans', plans);
-            vm.plan = plans[vm.currentDay];
-            localStorageService.set('ingrArr', ingrArr);
-        });
 
     }
 })();

@@ -15,6 +15,7 @@
         vm.changeGender = changeGender;
         vm.changeBodyType = changeBodyType;
         vm.changeActivity = changeActivity;
+        vm.changePurpose = changePurpose;
         vm.stepBar = 'step1';
         vm.step = 0;
         vm.stepsActions = [];
@@ -67,6 +68,15 @@
             {name: 'BODYTYPE.3', selected: false}
         ];
 
+        function changePurpose(index){
+           // vm.survey.answerGroups[0].answerText[0] = vm.purpose[index].name;
+            for (var i = 0; i < 2; i++) {
+                vm.purpose[i].selected = false;
+            }
+            vm.purpose[index].selected = true;
+            vm.survey.answerGroups[0].answerText[0] = vm.purpose[index].name;
+        }
+
 
         function changeGender(index) {
             for (var i = 0; i < 2; i++) {
@@ -97,14 +107,9 @@
             vm.survey.opinionName = '';
             vm.survey.timestamp = Date.parse(new Date());
 
-            //purpose
-            for (var i = 0; i < 3; i++) {
-                if (vm.purpose[i].selected == true) {
-                    vm.survey.answerGroups[0].answerText[i] = vm.purpose[i].name;
-                }
-            }
             OpinionService.createUpdateFirstOpinion(vm.survey, function (data) {
-                $state.go('/client.office');
+                //$state.go('/client.office');
+                vm.step = 6;
             });
         }
 
@@ -159,11 +164,12 @@
                     user.password = vm.survey.answerGroups[10].answerText[0];
                     UserService.Create(user)
                         .then(function (response) {
-                            console.log("response is: ", response.data.data.userId);
-                            vm.survey.userId = response.data.data.userId;
+                            console.log("response is: ", response);
                             if (!response.success) {
                                 vm.check5 = true;
+                                return;
                             }
+                            vm.survey.userId = response.data.data.userId;
                         });
             }
             _reset();

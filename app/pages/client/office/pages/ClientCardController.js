@@ -5,20 +5,14 @@
         .module('app')
         .controller('ClientCardController', ClientCardController);
 
-    ClientCardController.$inject = ['$scope', '$state', 'localStorageService', '$rootScope'];
+    ClientCardController.$inject = ['$scope', '$state', 'localStorageService', '$rootScope', 'PlanDaysData'];
 
-    function ClientCardController($scope, $state, localStorageService, $rootScope) {
+    function ClientCardController($scope, $state, localStorageService, $rootScope, PlanDaysData) {
         var vm = this;
-        $rootScope.mainPart = true;
-        vm.userId = $state.params.userId;
-        vm.back = back;
-        vm.Action = localStorageService.get('oneDay');
-        $scope.setUpdate(false);
-        function back(){
-            console.log('rootScope', $rootScope);
-            $scope.setUpdate(false);
-            localStorageService.remove('oneDay');
-        }
+
+        vm.Action = PlanDaysData.getFullPageData();
+
+        console.log('vm.Action', vm.Action);
 
     }
 })();

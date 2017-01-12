@@ -19,19 +19,19 @@
             'sbDateSelect',
             'ngOnlyNumberApp',
             'LocalStorageModule',
-            'ngRoute'
+            'ngRoute',
+            'daterangepicker'
         ])
         .run(run);
 
-    run.$inject = ['$rootScope', '$cookieStore', '$state', '$timeout'];
+    run.$inject = ['$rootScope', '$cookieStore', '$state', '$timeout', '$location', 'Functions'];
 
-    function run($rootScope, $cookieStore, $state, $timeout) {
+    function run($rootScope, $cookieStore, $state, $timeout, $location, Functions) {
+
         // keep user logged in after page refresh
         $rootScope.header = false;
         $timeout(function() {
             $rootScope.currentUser = $cookieStore.get('userId') || {};
-           // console.log($state.current.url);
-           // console.log($rootScope.currentUser);
             var restrictedPage = $.inArray($state.current.url, ['/login', '/register']) === -1;
             var loggedIn = (typeof  $rootScope.currentUser === 'string');   
             if (restrictedPage && !loggedIn) {
@@ -39,6 +39,10 @@
                 $state.go('/login');
             }
         });
+/*
+        $rootScope.$on('$locationChangeSuccess',function(evt, absNewUrl, absOldUrl) {
+            console.log('success', evt, absNewUrl, absOldUrl);
+        }); */
 }
 
 })();

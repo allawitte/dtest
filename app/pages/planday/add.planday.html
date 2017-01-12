@@ -1,0 +1,125 @@
+<div class="row">
+    <div class="col-md-4">
+        <label>{{ 'PROGRAM.ADDDATE' | translate }}</label>
+        <!--<button type="button" onclick="alert(document.referrer)">адрес предшествующей страницы</button>-->
+        <p class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="vm.dt"
+                   ng-model-options="{ allowInvalid: tru }"
+                   is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                   alt-input-formats="yyyy-MM-dd"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i
+                    class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+    </div>
+    <!--
+    <div class="col-md-4">
+        <label>{{ 'PROGRAM.ADDSTART' | translate }}</label>
+        <p class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup="{{'yyyy-MM-dd'}}" ng-model="vm.bt"
+                   is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                   alt-input-formats="altInputFormats"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open2()"><i
+                    class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+    </div>
+    -->
+    <div class="col-md-4" ng-if="!vm.showUsersList">
+        <label>{{ 'PROGRAM.CHOOSEUSER' | translate }}</label>
+
+        <p class="input-margin">
+            <ui-select ng-model="vm.user" on-select="">
+                <ui-select-match>
+                    <span ng-bind="vm.user.fullname"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item in vm.users track by $index">
+                    <span ng-bind="item.fullname"></span>
+                </ui-select-choices>
+            </ui-select>
+        </p>
+    </div>
+    <div class="col-md-4" ng-if="vm.showUsersList">
+        <label>{{ 'PROGRAM.USER-NAME'| translate}}</label>
+
+        <p class="input-margin">{{vm.user.fullname}}</p>
+    </div>
+    <div class="col-md-12">
+        <button class="btn" ng-click="vm.addTime($dayInex)">{{ 'PROGRAM.ADDTIME' | translate }}</button>
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            {{ 'PROGRAM.TIME' | translate }}
+        </th>
+        <th>
+            {{ 'PROGRAM.ACTIONS' | translate }}
+        </th>
+    </tr>
+
+    <tr class="time-span" ng-repeat="item in vm.program.plan track by $index" ng-init="$timeIndexs = $index">
+        <td>
+            <div uib-timepicker ng-model="item.time" ng-change="vm.changed()" hour-step="hstep"
+                 minute-step="mstep" show-meridian="ismeridian"></div>
+        </td>
+        <td>
+            <div ng-repeat="act in item.actions track by $index" ng-init="$actIndex = $index"
+                 class="col-md-3">
+                <div class="thumbnail alert alert-block alert-info"
+                     ng-click="vm.changeCard($timeIndexs, $actIndex)">
+                    <i class="fa fa-close alert-danger pull-right" ng-click="vm.deleteCard($event, $timeIndexs, $actIndex)"></i>
+                    <i class="fa fa-edit alert-warning pull-right" ng-click="vm.editCard($event, $timeIndexs, $actIndex)"></i>
+                    {{act.name}}
+                    <p ng-if="!act.name">{{ 'PROGRAM.CLICK' | translate }}</p>
+                            <span class="badge" ng-class="{'badge-danger': act.type == 'ACTION',
+                            'badge-info': act.type == 'RECOMMENDATION',
+                            'badge-warning': act.type == 'RECEIPT'}">{{act.type}}</span>
+                </div>
+            </div>
+            <button class="btn" ng-click="vm.addCard($timeIndexs)">{{ 'PROGRAM.ADDCARD' | translate
+                }}
+            </button>
+        </td>
+        <td>
+            <button class="btn btn-danger btn-sm" ng-click="vm.deleteTimeLine($timeIndexs)" ng-if="$timeIndexs > 0">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+        </td>
+    </tr>
+
+
+</table>
+
+<div class="row">
+    <div class="portlet">
+        <div class="form-actions">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2" ng-if="!vm.allowSave">
+                    <div class="alert alert-danger" role="alert">{{vm.planErrorArr | translate }}<br/><br/>
+                        {{vm.planErrorUser | translate }}
+                    </div>
+                </div>
+                <div class="col-md-8 col-md-offset-2" ng-if="vm.alreadyExistsError">
+                    <div class="alert alert-danger">{{vm.alreadyExistsError | translate }}</div>
+                </div>
+                <div class="col-md-8 col-md-offset-2" ng-if="vm.uploadError">
+                    <div class="alert alert-danger">{{vm.uploadError | translate }}</div>
+                </div>
+                <div class="col-md-offset-3 col-md-4">
+                    <button type="submit" class="btn green" ng-click="vm.send()">{{ 'HEADERS.SAVE' |
+                        translate}}
+                    </button>
+                    <button type="button" class="btn default" ng-click="vm.cancel()">{{ 'HEADERS.CANCEL' | translate
+                        }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+   <ng-include src="'app/pages/templates/program-pop-up.html'"></ng-include>
+
+</div>
+</div>

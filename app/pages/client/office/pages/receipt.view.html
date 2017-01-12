@@ -1,0 +1,54 @@
+<div class="portlet light">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-sm-12">
+            <img ng-src={{vm.receipt.photo}} alt="" class="main-photo"/>
+
+            <div class="rt-caption" ng-bind-html="vm.header"></div>
+            <!--<div>{{'USER-RECEIPT.DESCRIPTION'| translate}}</div>-->
+            <div class="rt-description">{{vm.receipt.shortDescription }}</div>
+            <div class="rt-caption-middle">{{'USER-RECEIPT.ENERG-VALUE' | translate }}</div>
+            <ul class="rt-vert-lined-list">
+                <li ng-repeat="item in vm.receipt.dailyCalories" class="rt-lined-list-item">
+                    <div>{{'HEADERS.'+item.type | translate}}</div>
+                    <div>{{item.value}}</div>
+                </li>
+            </ul>
+            <div class="rt-dashed">
+                <div class="rt-caption-middle">{{'USER-RECEIPT.INVENTORY' | translate}}</div>
+                <div class="rt-inventory">
+                    {{vm.inventory}}
+                </div>
+            </div>
+            <div class="rt-caption-middle">{{'HEADERS.INGREDIENTS' | translate }}</div>
+            <div>
+                {{'USER-RECEIPT.FOR' | translate }}<span class="serv-control" ng-click="vm.increaseServ()">+</span>&nbsp;{{vm.receipt.servesCount}}&nbsp;<span class="serv-control" ng-click="vm.decreaseServ()">-</span>&nbsp; {{'USER-RECEIPT.PORTIONS' |
+                translate}}
+            </div>
+            <ul class="rt-list-caption-left">
+                <li ng-repeat="item in vm.receipt.ingredients" class="rt-list-caption-left-item">
+                    <span class="rt-item-caption">{{item.name}}</span>
+                    <span>{{item.value}}</span>
+                    <span>{{'UNITS.'+item.unit | translate}}</span>
+                </li>
+            </ul>
+            <ul class="rt-steps">
+                <li ng-repeat="item in vm.receipt.steps" class="rt-dashed">
+                    <div class="rt-caption-middle">{{'HEADERS.STEP' | translate
+                        }}{{item.stepNumber}}/{{vm.stepsAmount}}
+                    </div>
+            <span ng-repeat="img in item.photos">
+                <img ng-src={{img}} alt="" ng-class="'step-photo' + vm.stepPhotos[$index]"/>
+            </span>
+
+                    <div class="rt-iconed-info">
+                        <img ng-src="img/clock.png" alt="" class="rt-details-icon"/><span>{{item.timeCookMinutes }}&nbsp;{{'TIME.MIN' | translate }}</span>
+                    </div>
+                    <div>{{item.description}}</div>
+                </li>
+            </ul>
+            <a ui-sref='/client.office({userId: vm.userId})'>{{'USER-RECEIPT.BACK' | translate
+                }}</a>
+        </div>
+    </div>
+</div>
+

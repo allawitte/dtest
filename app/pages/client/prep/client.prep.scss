@@ -1,0 +1,66 @@
+.prep-page {
+  background: #fff;
+  .page-header{
+    .page-logo {
+      margin-left: 50%;
+      position: relative;
+      left: -90px;
+      padding-left: 0;
+      padding-right: 0;
+      width: auto;
+    }
+    .sub-head {
+      font-size: 15px;
+    }
+  }
+}
+
+.client-page {
+  padding-right: 20%;
+  .prep-1 {
+    padding-bottom:15px;
+    margin-bottom:20px;
+    border-bottom:dashed 1px #979797;
+    p {
+      margin: 10px 0;
+    }
+  }
+
+  .img-circle {
+    width: 100%;
+  }
+  h3 {
+    padding-top: 20px;
+    padding-bottom: 18px;
+  }
+  .short-descr {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 12px;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  .condit {
+    border-bottom: dashed 1px #979797;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  .receipt-example {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: dashed 1px #979797;
+  }
+  .ingr-list {
+    display: table;
+    width: auto;
+    list-style: none;
+    li {
+      display: table-row;
+      span {
+        display: table-cell;
+        padding-right: 5px;
+      }
+    }
+  }
+}
+

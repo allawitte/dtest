@@ -1,9 +1,11 @@
 <div class="shopping">
+    <p>Выберите здесь интервал для списка покупок</p>
+    <input date-range-picker class="form-control date-picker" type="text" ng-model="datePicker.date" min="vm.range.min" max="vm.range.max"/>
     <div class="rt-caption-middle">{{'USER-RECEIPT.SHOPPING-LIST' | translate }}</div>
-    <ul class="rt-list-caption-left">
-        <li ng-repeat="item in vm.list" class="rt-list-caption-left-item">
-            <span class="rt-item-caption">{{item.name}}</span>
-            <span class="sh-item-content">{{item.value}}{{'USER-RECEIPT.'+item.unit | translate }}</span>
-        </li>
-    </ul>
+    <table class="rt-list-caption-left table">
+        <tr ng-repeat="item in vm.list" class="rt-list-caption-left-item">
+            <td class="rt-item-caption">{{item.name}}</td>
+            <td class="sh-item-content">{{item.value}}&nbsp;{{'UNITS.'+item.unit | translate }}</td>
+        </tr>
+    </table>
 </div>

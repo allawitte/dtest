@@ -208,10 +208,10 @@
                                         <ui-select ng-model="vm.Receipt.difficult"
                                                    on-select="changeLng(vm.Receipt.difficult)">
                                             <ui-select-match>
-                                                <span ng-bind="'LEVELS'+vm.Receipt.difficult | translate"></span>
+                                                <span ng-bind="'LEVELS.'+vm.Receipt.difficult | translate"></span>
                                             </ui-select-match>
                                             <ui-select-choices repeat="item in vm.difficult track by $index">
-                                                <span ng-bind="'LEVELS'+item | translate "></span>
+                                                <span ng-bind="'LEVELS.'+item | translate "></span>
                                             </ui-select-choices>
                                         </ui-select>
                                     </div>
@@ -257,8 +257,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-success " ng-click="vm.addIngredient()">{{ 'HEADERS.ADDINGR' |
-                                translate
-                                }}
+                                translate  }}
                             </button>
                             <div class="form-group">
                                 <div class="col-md-12">
@@ -270,14 +269,12 @@
                             </div>
                             <div class="form-group last">
                                 <label class="col-md-12 control-label">{{ 'HEADERS.TOOLS' | translate }}</label>
-
                                 <div class="col-md-6 panel-body"
                                      ng-repeat="tool in vm.Receipt.inventory track by $index">
                                     <div class="col-md-10">
                                         <input type="text"
                                                ng-model="vm.Receipt.inventory[$index]"
-                                               uib-typeahead="prod for prod in vm.inventory"
-                                               typeahead-loading="loadingLocations"
+                                               uib-typeahead="prod for prod in vm.autocompleteInvent($viewValue)"
                                                class="form-control" typeahead-show-hint="true"
                                                typeahead-min-length="0"/>
                                     </div>

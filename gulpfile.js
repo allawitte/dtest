@@ -64,7 +64,9 @@ var lib = [
     "vendor/js/imageupload.js",
     "vendor/js/moment.js",
     "vendor/js/ru.js",
-    "vendor/js/sb-date-select.js"
+    "vendor/js/sb-date-select.js",
+    "bower_components/bootstrap-daterangepicker/daterangepicker.js",
+    "bower_components/angular-daterangepicker/js/angular-daterangepicker.js"
 ];
 
 var app = [
@@ -95,7 +97,8 @@ var cssBower = [
     "bower_components/angular-ui-select/dist/select.css",
     "bower_components/angular-bootstrap/ui-bootstrap-csp.css",
     "bower_components/ng-table/dist/ng-table.css",
-    "vendor/css/select2.css"
+    "vendor/css/select2.css",
+    "bower_components/bootstrap-daterangepicker/daterangepicker.css"
 ];
 //glue js files in one without minification
 

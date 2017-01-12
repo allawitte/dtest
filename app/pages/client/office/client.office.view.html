@@ -1,31 +1,31 @@
 <div class="portlet light portlet-fit bordered" ng-if="!mainPart">
-    <!--<pre>{{vm.plan | json}}</pre>-->
     <div class="portlet-title">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">{{'PROGRAM.DAY-1' | translate}}<span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">{{'PROGRAM.WEEK-1' | translate}}</a></li>
-                        <li><a href="#">{{'PROGRAM.WEEK-2' | translate}}</a></li>
-                        <li><a href="#">{{'PROGRAM.WEEK-3' | translate}}</a></li>
-                        <li><a href="#">{{'PROGRAM.DAY-LAST' | translate}}</a></li>
+                        <li><a ui-sref="/client.prep">{{'PROGRAM.PREPS' | translate}}</a></li>
+                        <li ng-click="vm.getFirstDay()"><a href="javascript:;" ng-class="{'active': vm.isFirstDate()}">{{'PROGRAM.FIRSTDAY' | translate}}</a></li>
+                        <li ng-click="vm.getToday()"><a href="javascript:;" ng-class="{'active': vm.isToday()}">{{'PROGRAM.TODAY' | translate}}</a></li>
+                        <li ng-click="vm.getLastDay()"><a href="javascript:;" ng-class="{'active': vm.isLastDate()}">{{'PROGRAM.LASTDAY' | translate}}</a></li>
+                        <li><a href="javascript">{{'PROGRAM.COMPLETION' | translate}}</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
     </div>
     <div class="portlet-body">
-        <div class="mt-timeline-2">
-            <div class="mt-days-info .row">
-                <div class="col-md-12">
-                    <div class="mt-days-info-left">
-                        <strong>{{'PROGRAM.DAY' | translate }}: &nbsp; {{vm.currentDay + 1}}</strong>,&nbsp;
-                        {{vm.plan.planDate | dateFilter}}
-                    </div>
-                    <div class="mt-days-info-right">{{'PROGRAM.TODAY' | translate}}</div>
+        <div class="mt-days-info .row">
+            <div class="col-md-12">
+                <div class="mt-days-info-left">
+                    <strong>{{'PROGRAM.DAY' | translate }}: &nbsp; {{vm.dayPlan.dayNumber + 1}}</strong>,&nbsp;
+                    {{vm.dayPlan.plan.planDate | dateFilter}}
                 </div>
+                <div class="mt-days-info-right" ng-if="vm.isToday()">{{'PROGRAM.TODAY' | translate}}</div>
             </div>
+        </div>
+        <div class="mt-timeline-2">
+            <div class="mt-timeline-line border-grey-steel"></div>
             <ul class="mt-container">
                 <li class="mt-item single">
                     <img src="img/nav-left.png" alt="" class="mt-nav-left" ng-click="vm.back()"/>
@@ -37,7 +37,7 @@
                 </li>
             </ul>
             <ul class="mt-container">
-                <li class="mt-item" ng-repeat="item in vm.plan.todo">
+                <li class="mt-item" ng-repeat="item in vm.dayPlan.plan.todo">
                     <div class="mt-timeline-icon bg-gray bg-font-gray border-grey-steel">
                         <span class="time-info">{{item.time}}</span>
                     </div>

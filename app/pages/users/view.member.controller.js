@@ -10,7 +10,6 @@
     function viewMembersController(UserService, NgTableParams, $state, ProgramsService) {
         var vm = this;
         vm.user = {};
-        vm.program = [];
         vm.deleteDay = deleteDay;
         UserService.GetById($state.params.userId)
             .then(function(data) {
@@ -18,6 +17,7 @@
             });
         console.log($state.params.userId);
         function listPrograms(){
+            vm.program = [];
             ProgramsService.getProgram($state.params.userId, function (response) {
                 for ( var key in response.data) {
                     response.data[key]['dayId'] = key;

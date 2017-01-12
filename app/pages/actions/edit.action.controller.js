@@ -5,9 +5,9 @@
         .module('app')
         .controller('EditActionController', EditActionController);
 
-    EditActionController.$inject = ['UtilsService', 'CardsService', '$state', '$scope', '$sce'];
+    EditActionController.$inject = ['UtilsService', 'CardsService', '$state', '$scope', '$sce', 'PlanDayTransfer'];
 
-    function EditActionController(UtilsService, CardsService, $state, $scope, $sce) {
+    function EditActionController(UtilsService, CardsService, $state, $scope, $sce, PlanDayTransfer) {
         var vm = this;
         var id = $state.params.actionID;
         vm.Actions = {};
@@ -32,8 +32,18 @@
         vm.deleteExistVideo = deleteExistVideo;
         vm.changeBtn = changeBtn;
         vm.noName = false;
+        var isLastUrlPlanDay = false;
+        var goToState = {};
 
+        $scope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams) {
+            console.log('success', toState, toParams, fromState, fromParams);
+            if(fromState.name.indexOf('planday.add') >= 0){
+                isLastUrlPlanDay = true;
+                goToState.path = fromState.name;
+                goToState.params = fromParams;
+            }
 
+        });
 
         function changeBtn(index, type) {
 
@@ -137,9 +147,16 @@
                 }
             }
             if ( vm.Actions.textShort ) {
-                CardsService.updateAction(id, vm.Actions, function (response) {
-                    $state.go('/actions.list');
-                });
+                if(isLastUrlPlanDay){
+                    PlanDayTransfer.updateAction(id, vm.Actions);
+                    $state.go(goToState.path, goToState.params);
+                }
+                else {
+                    CardsService.updateAction(id, vm.Actions, function (response) {
+                        $state.go('/actions.list');
+                    });
+                }
+
             }
             else vm.noName = true;
 

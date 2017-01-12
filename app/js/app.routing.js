@@ -226,7 +226,7 @@
 
             })
             .state('receipt', {
-                parent: '/client.office',
+                parent: '/client',
                 url: '/receipt',
                 params: {
                     pageType: null
@@ -238,7 +238,7 @@
 
             })
             .state('card', {
-                parent: '/client.office',
+                parent: '/client',
                 url: '/card',
                 params: {
                     pageType: null
@@ -249,7 +249,7 @@
                 //id: {}/*,
             })
             .state('shopping', {
-                parent: '/client.office',
+                parent: '/client',
                 url: '/shopping',
                 params: {
                     pageType: null

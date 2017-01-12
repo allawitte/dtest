@@ -1,0 +1,54 @@
+{
+    "LOGIN": {
+        "Welcome": "Welcome.",
+        "Login": "Please login.",
+        "Email": "Email",
+        "Pass": "Password",
+        "LoginBtn": "Login",
+        "Remember": "Remember me",
+        "forgotPass": "Forgot Password?",
+        "altLogin": "Or login with",
+        "createAccount": "Create an account"
+    },
+    "FILEUPLOAD": {
+        "SelectImg": "Select photo of the meal",
+        "queue": "The meal's photo",
+        "Qlength": "Amount of photos",
+        "Name": "Name",
+        "Size": "Size",
+        "Progress": "Progress",
+        "Status": "Status",
+        "Actions": "Actions",
+        "Upload": "Upload",
+        "Cancel": "Cancel",
+        "Remove": "Remove",
+        "choose": "Choose photo",
+        "Qprogress": "Queue progress",
+        "UploadA": "Upload all",
+        "CancelA": "Cancel all",
+        "RemoveA": "Remove all",
+        "coockTime": "Coocking time"
+    },
+    "HEADERS": {
+        "enterCoockTime": "Input coocking time",
+        "energy": "energy value",
+        "coockTime": "Coocking time",
+        "amount": "Amount"
+    },
+    "UNITS": {
+        "select": "mes. units",
+        "Energy": "kcal",
+        "Units": "un",
+        "TableSp": "Tabel spoon",
+        "TeaSp": "Tea spoon",
+        "liter": "liter",
+        "kg": "kg",
+        "gr": "gr"
+    },
+    "TIME": {
+        "day": "day",
+        "hour": "h",
+        "min": "min",
+        "sec": "sec"
+    }
+}

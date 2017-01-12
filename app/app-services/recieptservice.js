@@ -42,31 +42,21 @@
                     handleError(status);
                 });
         }
-        function getIventoryAutoComplete(data, callback) {
-            $http.get(API_ENDPOINT + "/recipes/inventoryAutocomplete?word=" + data)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
+        function getIventoryAutoComplete(data) {
+            if(data === undefined) return;
+            return $http.get(API_ENDPOINT + "/recipes/inventoryAutocomplete?word=" + data)
+                .then(function (data, status, headers, config) {
+                    //console.log('data', data.data.data);
+                    return(data.data.data);
                 });
+
         }
-/*
-        function getIngrAutoComplete(data, callback) {
-            $http.get(API_ENDPOINT + "/recipes/ingredientAutocomplete?word=" + data)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
-        }
-*/
+
         function getIngrAutoComplete(data) {
             if(data === undefined)return;
            return $http.get(API_ENDPOINT + "/recipes/ingredientAutocomplete?word=" + data)
                 .then(function (data, status, headers, config) {
-                   console.log(data.data.data);
+                   //console.log(data.data.data);
                     return(data.data.data);
                 });
         }

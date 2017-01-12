@@ -5,38 +5,34 @@
         .module('app')
         .controller('ClientShoppingController', ClientShoppingController);
 
-    ClientShoppingController.$inject = ['$scope', '$state', 'localStorageService', '$rootScope'];
+    ClientShoppingController.$inject = ['$scope', '$state', 'PlanDaysData'];
 
-    function ClientShoppingController($scope, $state, localStorageService, $rootScope) {
+    function ClientShoppingController($scope, $state, PlanDaysData) {
         var vm = this;
         vm.userId = $state.params.userId;
         vm.back = back;
-        var sList = {
-            list: [],
-            objList: []
-        };
-        var list = localStorageService.get('ingrArr');
-        console.log(list);
-        list.forEach(function(item){
-            var is = false;
-            sList.list.forEach(function(itm, index){
-                if ( item.name == itm) {
-                    is = true;
-                }
-            });
-            if(!is){
-                sList.list.push(item.name);
-                sList.objList.push(item);
-            }
-            else {
-                sList.objList[index].value += item.value;
+        $scope.datePicker = {};
+        $scope.datePicker.date = {startDate: null, endDate: null};
+        $scope.$watch('isPlanArrLoaded', function(){
+            if($scope.isPlanArrLoaded){
+                vm.range = PlanDaysData.getAvailableDates();
             }
         });
-        vm.list = sList.objList;
-        $scope.setUpdate(true);
+
+        $scope.$watch('datePicker.date', function(){
+            if($scope.datePicker.date.endDate && $scope.datePicker.date.startDate){
+                vm.list = PlanDaysData.getIngredients(moment($scope.datePicker.date.startDate).format('YYYYMMDD'),moment($scope.datePicker.date.endDate).format('YYYYMMDD'));
+
+            }
+        });
+
+
+
+
+
+
         function back(){
-            $rootScope.mainPart = true;
-            localStorageService.remove('shopping');
+
         }
 
     }

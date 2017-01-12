@@ -22,16 +22,26 @@ $one-step: 100%/$steps;
   }
   .portlet {
     &.light {
+      &.form-fit {
+        .portlet-title {
+          border-bottom: none!important;
+        }
+      }
       &.bordered {
-        border: none;
+        border: none!important;
       }
     }
   }
 
   &.form {
+    label {
+      text-transform: none;
+      font-weight: normal;
+    }
     .help-block-error {
       color: $error;
     }
+
     .form-actions {
       background: #fff;
       border: none;
@@ -178,7 +188,7 @@ $one-step: 100%/$steps;
   }
   label {
     font-weight: bold;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     .icheck {
       display: none;
     }
@@ -189,5 +199,8 @@ $one-step: 100%/$steps;
     }
 
   }
+}
+.form-fit {
+
 }
 

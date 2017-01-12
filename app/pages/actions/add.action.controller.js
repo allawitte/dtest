@@ -33,7 +33,6 @@
         vm.noName = false;
         vm.noType = false;
 
-
         function addVideo() {
             vm.videos.push({});
         }

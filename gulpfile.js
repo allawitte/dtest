@@ -133,7 +133,8 @@ gulp.task('index:prod', function() {
 gulp.task('prod:templates', function() {
     return gulp.src([
         'app/pages/**/*.html',
-        'app/pages/**/**/*.html'
+        'app/pages/**/**/*.html',
+        'app/pages/**/**/**/*.html'
     ])
         //.pipe(htmlmin())
         .pipe($.angularTemplatecache({

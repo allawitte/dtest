@@ -426,7 +426,7 @@ Login page
 
 .units-block {
   display: inline-block;
-  width: 38%; }
+  width: 37%; }
 
 .form-control.numbers {
   display: inline-block;
@@ -690,7 +690,7 @@ Login page
   float: left; }
 
 .ui-numbers {
-  width: 47%;
+  width: 55%;
   margin-bottom: 15px; }
 
 .receipt-edit .tools .fa-close {
@@ -741,9 +741,6 @@ Login page
 
 .ng-table tr > td:first-child {
   text-align: left; }
-
-.ui-select-bootstrap > .ui-select-choices, .ui-select-bootstrap > .ui-select-no-choice {
-  max-height: none; }
 
 .inside-55 .ui-select-container {
   width: 55%; }

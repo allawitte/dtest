@@ -1,5 +1,5 @@
-<div class="page-sidebar-wrapper">
-    <div class="page-sidebar navbar-collapse collapse">
+<div class="page-sidebar-wrapper" ng-if="showSideMenu">
+    <div class="page-sidebar navbar-collapse collapse" ng-class="sideMenu">
         <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
             <li class="nav-item" ui-sref-active="active">
                 <a class="nav-link" ui-sref="/client.office">
@@ -8,7 +8,7 @@
                     <span class="arrow"></span>
                 </a>
             </li>
-            <li class="nav-item" ui-sref-active="active">
+            <!--li class="nav-item" ui-sref-active="active">
                 <a class="nav-link" ui-sref="/client.pers-data">
                     <i class="fa fa-reorder"></i>
                     <span class="title">{{ 'CLIENT-NAV.PERSDATA' | translate }}</span>
@@ -28,7 +28,7 @@
                     <span class="title">{{ 'CLIENT-NAV.PROGRAM-LIST' | translate }}</span>
                     <span class="arrow"></span>
                 </a>
-            </li>
+            </li-->
             <li class="nav-item" ui-sref-active="active">
                 <a class="nav-link" ui-sref="shopping">
                     <i class="fa fa-user-md"></i>

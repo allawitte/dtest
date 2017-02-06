@@ -13270,6 +13270,8 @@ Timeline 2
       .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-icon {
         width: 70px;
         height: 70px;
+        line-height: 70px;
+        text-align: center;
         background-color: #ccc;
         border-radius: 50% !important;
         position: absolute;
@@ -13293,7 +13295,7 @@ Timeline 2
         .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container {
           text-align: left;
           background-color: #f5f6fa;
-          padding: 30px;
+          /*padding: 30px;*/
           border: 2px solid;
           border-color: #d3d7e9; }
           .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container:before, .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container:after {
@@ -13303,8 +13305,8 @@ Timeline 2
             clear: both; }
           .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container .mt-author,
           .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container .mt-title {
-            width: 50%;
-            margin-bottom: 15px; }
+            margin-bottom: 15px;
+            text-align: center; }
           .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container .mt-content-title {
             opacity: 0.8 ;
             filter: alpha(opacity=80) ;
@@ -13354,8 +13356,6 @@ Timeline 2
         text-align: left; }
         .mt-timeline-2 > .mt-container > .mt-item:nth-child(odd) > .mt-timeline-content > .mt-content-container {
           margin-right: 60px; }
-          .mt-timeline-2 > .mt-container > .mt-item:nth-child(odd) > .mt-timeline-content > .mt-content-container .mt-title {
-            float: left; }
           .mt-timeline-2 > .mt-container > .mt-item:nth-child(odd) > .mt-timeline-content > .mt-content-container .mt-author {
             float: right; }
           .mt-timeline-2 > .mt-container > .mt-item:nth-child(odd) > .mt-timeline-content > .mt-content-container .mt-avatar {
@@ -13378,8 +13378,7 @@ Timeline 2
             float: left;
             margin-right: 15px; }
           .mt-timeline-2 > .mt-container > .mt-item:nth-child(even) > .mt-timeline-content > .mt-content-container .mt-title {
-            float: right;
-            text-align: right; }
+            text-align: center; }
           .mt-timeline-2 > .mt-container > .mt-item:nth-child(even) > .mt-timeline-content > .mt-content-container .mt-author {
             float: left; }
           .mt-timeline-2 > .mt-container > .mt-item:nth-child(even) > .mt-timeline-content > .mt-content-container .mt-author-name,
@@ -13401,10 +13400,11 @@ Timeline 2
     width: 100%; }
     .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container .mt-title {
       float: none;
-      text-align: left !important; }
+      text-align: center; }
     .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container .mt-author,
     .mt-timeline-2 > .mt-container > .mt-item > .mt-timeline-content > .mt-content-container .mt-title {
-      width: 100%; }
+      width: 100%;
+      float: none; }
   .mt-timeline-2 > .mt-container > .mt-item:nth-child(odd) {
     text-align: right; }
     .mt-timeline-2 > .mt-container > .mt-item:nth-child(odd) > .mt-timeline-content > .mt-content-container {
@@ -13414,8 +13414,8 @@ Timeline 2
         float: left;
         margin-right: 15px; }
       .mt-timeline-2 > .mt-container > .mt-item:nth-child(odd) > .mt-timeline-content > .mt-content-container .mt-title {
-        float: right;
-        text-align: right; }
+        text-align: right;
+        float: none; }
       .mt-timeline-2 > .mt-container > .mt-item:nth-child(odd) > .mt-timeline-content > .mt-content-container .mt-author {
         float: left; }
       .mt-timeline-2 > .mt-container > .mt-item:nth-child(odd) > .mt-timeline-content > .mt-content-container .mt-author-name,
@@ -21592,72 +21592,6 @@ Bootstrap Datepicker
   content: ""/*rtl:""*/; }
 
 /***
-Bootstrap Daterangepicker
-***/
-.modal-open .daterangepicker {
-  z-index: 10055 !important; }
-
-.daterangepicker {
-  margin-top: 4px; }
-  .daterangepicker .input-mini {
-    width: 100% !important;
-    outline: none !important; }
-
-.daterangepicker td {
-  text-shadow: none; }
-
-.daterangepicker td.active {
-  background-color: #4b8df8;
-  background-image: none;
-  filter: none; }
-
-.daterangepicker th {
-  font-weight: 400;
-  font-size: 14px; }
-
-.daterangepicker .ranges input[type="text"] {
-  width: 70px !important;
-  font-size: 11px;
-  vertical-align: middle; }
-
-.daterangepicker .ranges label {
-  font-weight: 300;
-  display: block; }
-
-.daterangepicker .ranges {
-  width: 170px; }
-  .daterangepicker .ranges ul > li.active {
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
-    border-radius: 2px; }
-
-.daterangepicker .ranges .btn {
-  margin-top: 10px; }
-
-.daterangepicker.dropdown-menu {
-  padding: 5px; }
-
-.daterangepicker .ranges li {
-  color: #333; }
-
-.daterangepicker .ranges li.active,
-.daterangepicker .ranges li:hover {
-  background: #4b8df8 !important;
-  border: 1px solid #4b8df8 !important;
-  color: #fff; }
-
-.daterangepicker .range_inputs input {
-  margin-bottom: 0 !important; }
-
-.daterangepicker .fa-angle-right:before {
-  content: ""/*rtl:""*/; }
-
-.daterangepicker .fa-angle-left:before {
-  content: ""/*rtl:""*/; }
-
-/***
 Bootstrap  Datetimepicker
 ***/
 .datetimepicker table td {
@@ -24024,72 +23958,6 @@ Bootstrap Datepicker
 
 .datepicker .fa-angle-right:before {
   content: ""/*rtl:""*/; }
-
-/***
-Bootstrap Daterangepicker
-***/
-.modal-open .daterangepicker {
-  z-index: 10055 !important; }
-
-.daterangepicker {
-  margin-top: 4px; }
-  .daterangepicker .input-mini {
-    width: 100% !important;
-    outline: none !important; }
-
-.daterangepicker td {
-  text-shadow: none; }
-
-.daterangepicker td.active {
-  background-color: #4b8df8;
-  background-image: none;
-  filter: none; }
-
-.daterangepicker th {
-  font-weight: 400;
-  font-size: 14px; }
-
-.daterangepicker .ranges input[type="text"] {
-  width: 70px !important;
-  font-size: 11px;
-  vertical-align: middle; }
-
-.daterangepicker .ranges label {
-  font-weight: 300;
-  display: block; }
-
-.daterangepicker .ranges {
-  width: 170px; }
-  .daterangepicker .ranges ul > li.active {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-    border-radius: 4px; }
-
-.daterangepicker .ranges .btn {
-  margin-top: 10px; }
-
-.daterangepicker.dropdown-menu {
-  padding: 5px; }
-
-.daterangepicker .ranges li {
-  color: #333; }
-
-.daterangepicker .ranges li.active,
-.daterangepicker .ranges li:hover {
-  background: #4b8df8 !important;
-  border: 1px solid #4b8df8 !important;
-  color: #fff; }
-
-.daterangepicker .range_inputs input {
-  margin-bottom: 0 !important; }
-
-.daterangepicker .fa-angle-right:before {
-  content: ""/*rtl:""*/; }
-
-.daterangepicker .fa-angle-left:before {
-  content: ""/*rtl:""*/; }
 
 /***
 Bootstrap  Datetimepicker

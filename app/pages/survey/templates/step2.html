@@ -1,0 +1,72 @@
+<div class="tab-pane active" ng-if="vm.step == 1">
+    <div class="panel top">
+
+        {{ 'SURVEY-HEADERS.PRE2' | translate }}
+    </div>
+    <div class="alert alert-danger" ng-if="vm.check2">
+        <span class="glyphicon glyphicon-remove"></span>
+        {{ 'SURVEY-HEADERS.ERR2' | translate }}
+    </div>
+    <div class="panel">
+        <div class="btn-header">{{ 'SURVEY-HEADERS.STEP2' | translate
+            }}
+        </div>
+        <div class="row">
+            <label class="col-md-offset-1 col-md-3 control-label">{{ 'SURVEY-HEADERS.GENDER' |
+                translate
+                }}</label>
+
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="icheck-inline inline" ng-repeat="item in vm.gender">
+                        <label ng-click="vm.changeGender($index)">
+                                                <span class="subdetails"
+                                                      ng-class="{ 'item-selected': item.selected}">{{ item.name | translate }}
+                                                </span>
+                            <input type="radio" name="radio1" ng-value="item"
+                                   class="icheck">
+                            <i class="fa fa-square-o" ng-if="!item.selected"></i>
+                            <i class="fa fa-check-square" ng-if="item.selected"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row birthday">
+            <label class="col-md-offset-1 col-md-3 control-label">{{ 'SURVEY-HEADERS.BIRTHDAY' |
+                translate
+                }}</label>
+
+            <div class="form-group">
+                <div sb-date-select sb-select-class="form-control"
+                     ng-model="vm.survey.answerGroups[3].answerText[0]"></div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-md-offset-1 col-md-3 control-label">{{ 'SURVEY-HEADERS.HEIGHT' |
+                translate
+                }}</label>
+
+            <div class="col-md-2">
+                <input type="text" class="form-control short-num" valid-number
+                       ng-model="vm.survey.answerGroups[4].answerText[0]">
+                <span>&nbsp;{{ 'UNITS.CM' | translate }}</span>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-md-offset-1 col-md-3 control-label">{{ 'SURVEY-HEADERS.WEIGHT' |
+                translate
+                }}
+            </label>
+
+            <div class="col-md-2">
+                <input type="text" class="form-control  short-num" valid-number
+                       ng-model="vm.survey.answerGroups[5].answerText[0]">
+                <span>&nbsp;{{ 'UNITS.KG' | translate }}</span>
+            </div>
+
+        </div>
+    </div>
+</div>

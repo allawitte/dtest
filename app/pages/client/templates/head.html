@@ -3,10 +3,14 @@
     <div class="page-header-inner ">
         <!-- BEGIN LOGO -->
         <div class="page-logo" ui-sref-active="active">
-            <a ui-sref="/">
+            <a ui-sref="/client">
                 <img src="/img/logo.png" alt="" class="logo-default"/>
             </a>
+            <div class="menu-toggler sidebar-toggler" ng-click="toggleSideMenu()">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
         </div>
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" ng-click="toggleSideMenu()"> </a>
         <p class="nav pull-right" ui-sref-active="active">
             <a ui-sref="/login" class="btn btn-link" ng-click="vm.logout()">{{ 'HEADERS.LOGOUT' | translate }}</a>
         </p>

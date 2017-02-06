@@ -5,9 +5,9 @@
         .module('app')
         .controller('SurveyController', SurveyController);
 
-    SurveyController.$inject = ['$cookieStore', 'OpinionService', '$state', 'UserService'];
+    SurveyController.$inject = ['OpinionService', '$state', 'UserService', 'localStorageService', '$scope'];
 
-    function SurveyController($cookieStore, OpinionService, $state, UserService) {
+    function SurveyController(OpinionService, $state, UserService, localStorageService, $scope) {
         var vm = this;
         var user = {};
 
@@ -17,7 +17,7 @@
         vm.changeActivity = changeActivity;
         vm.changePurpose = changePurpose;
         vm.stepBar = 'step1';
-        vm.step = 0;
+        vm.step = localStorageService.get('step') || 0;
         vm.stepsActions = [];
         vm.next = next;
         vm.back = back;
@@ -29,48 +29,80 @@
         vm.check4 = false;
         vm.check5 = false;
         vm.wrongPass = false;
-        vm.survey.answerGroups = [];
-        var names = ["цель", 'желаемый вес', "пол", "дата рождения", "рост", "вес", "активность", "телосложение", "имя", 'еиайл', 'пароль', 'телефон']
-            .map(function (item) {
-                return encodeURIComponent(item);
-            });
-        //names = ['purpose', 'dessired weight', 'gender', 'birthday', 'heigth', 'weight', 'activity', 'bodytype', 'name', 'email', 'password', 'phone'];
+
+        //vm.stepsActions[0] = 'active';
+
+        window.onbeforeunload = function () {
+            saveDataForReload();
+        };
+
+
+        function setAnswerGroup(){
+                if(!localStorageService.get('surveyAnswerGroup')){
+                    vm.survey.answerGroups = [];
+                    var names = ["цель", 'желаемый вес', "пол", "дата рождения", "рост", "вес", "активность", "телосложение", "имя", 'еиайл', 'пароль', 'телефон']
+                        .map(function (item) {
+                            return encodeURIComponent(item);
+                        });
+                    for (var i = 0; i < names.length; i++) {
+                        vm.survey.answerGroups[i] = {name: names[i], answerText: ['']};
+                    }
+                    vm.survey.answerGroups[3].answerText[0] = '1993-07-03';
+                    vm.purpose = [
+                        {name: 'PURPOSE.1', selected: false},
+                        {name: 'PURPOSE.2', selected: false},
+                        {name: 'PURPOSE.3', selected: false}
+                    ];
+                    vm.gender = [
+                        {name: 'GENDER.MALE', selected: false},
+                        {name: 'GENDER.FEMALE', selected: false}
+                    ];
+                    vm.activity = [
+                        {name: 'SURVEY-HEADERS.INTENS4', selected: false},
+                        {name: 'SURVEY-HEADERS.INTENS1', selected: false},
+                        {name: 'SURVEY-HEADERS.INTENS2', selected: false},
+                        {name: 'SURVEY-HEADERS.INTENS3', selected: false}
+                    ];
+                    vm.bodytype = [
+                        {name: 'BODYTYPE.1', selected: false},
+                        {name: 'BODYTYPE.2', selected: false},
+                        {name: 'BODYTYPE.3', selected: false}
+                    ];
+                    vm.stepsActions[0] = 'active';
+                }
+            else {
+                    vm.survey.answerGroups = localStorageService.get('surveyAnswerGroup');
+                    vm.purpose = localStorageService.get('purpose');
+                    vm.gender = localStorageService.get('gender');
+                    vm.activity = localStorageService.get('activity');
+                    vm.bodytype = localStorageService.get('bodytype');
+                    vm.stepsActions = localStorageService.get('stepsActions');
+                }
+        }
+        function saveDataForReload(){
+            localStorageService.set('step', vm.step);
+            localStorageService.set('purpose', vm.purpose);
+            localStorageService.set('activity', vm.activity);
+            localStorageService.set('gender', vm.gender);
+            localStorageService.set('bodytype', vm.bodytype);
+            localStorageService.set('stepsActions', vm.stepsActions);
+            localStorageService.set('surveyAnswerGroup', vm.survey.answerGroups);
+        }
+
+
 
         vm.stepsNames = ['SURVEY-HEADERS.STEP1', 'SURVEY-HEADERS.STEP2', 'SURVEY-HEADERS.STEP3', 'SURVEY-HEADERS.STEP4', 'SURVEY-HEADERS.STEP5', 'SURVEY-HEADERS.STEP6'];
 
-        vm.stepsActions[0] = 'active';
 
-        for (var i = 0; i < names.length; i++) {
-            vm.survey.answerGroups[i] = {name: names[i], answerText: ['']};
-        }
-        vm.survey.answerGroups[3].answerText[0] = '1993-07-03';
-        vm.gender = [
-            {name: 'GENDER.MALE', selected: false},
-            {name: 'GENDER.FEMALE', selected: false}
-        ];
-        vm.activity = [
-            {name: 'SURVEY-HEADERS.INTENS4', selected: false},
-            {name: 'SURVEY-HEADERS.INTENS1', selected: false},
-            {name: 'SURVEY-HEADERS.INTENS2', selected: false},
-            {name: 'SURVEY-HEADERS.INTENS3', selected: false}
 
-        ];
+        setAnswerGroup();
 
-        vm.purpose = [
-            {name: 'PURPOSE.1', selected: false},
-            {name: 'PURPOSE.2', selected: false},
-            {name: 'PURPOSE.3', selected: false}
-        ];
 
-        vm.bodytype = [
-            {name: 'BODYTYPE.1', selected: false},
-            {name: 'BODYTYPE.2', selected: false},
-            {name: 'BODYTYPE.3', selected: false}
-        ];
+
+
 
         function changePurpose(index){
-           // vm.survey.answerGroups[0].answerText[0] = vm.purpose[index].name;
-            for (var i = 0; i < 2; i++) {
+            for (var i = 0; i < 3; i++) {
                 vm.purpose[i].selected = false;
             }
             vm.purpose[index].selected = true;
@@ -115,6 +147,7 @@
 
 
         function next() {
+            saveDataForReload();
             switch (vm.step) {
                 case 0:
                     if ((!vm.purpose[0].selected && !vm.purpose[1].selected && !vm.purpose[2].selected) || !vm.survey.answerGroups[1].answerText[0]) {
@@ -164,7 +197,7 @@
                     user.password = vm.survey.answerGroups[10].answerText[0];
                     UserService.Create(user)
                         .then(function (response) {
-                            console.log("response is: ", response);
+                            localStorageService.clearAll();
                             if (!response.success) {
                                 vm.check5 = true;
                                 return;

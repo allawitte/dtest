@@ -34,7 +34,7 @@ $subheader: #999898;
 
 .units-block {
   display: inline-block;
-  width: 38%;
+  width: 37%;
 }
 
 .form-control {
@@ -393,7 +393,7 @@ $subheader: #999898;
   }
 
   .ui-numbers {
-    width: 47%;
+    width: 55%;
     margin-bottom: 15px;
   }
 
@@ -466,9 +466,7 @@ $subheader: #999898;
     text-align: left;
   }
 }
-.ui-select-bootstrap > .ui-select-choices, .ui-select-bootstrap > .ui-select-no-choice {
-  max-height: none;
-}
+
 .inside-55 {
   .ui-select-container {
     width: 55%;

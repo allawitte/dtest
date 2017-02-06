@@ -46,7 +46,7 @@
                         </div>
                         <div class="portlet-body">
                             <div class="row">
-                                <div ng-repeat="imag in step.photos track by $index" class="steps-img-list col-md-4"
+                                <div ng-repeat="imag in step.photos track by $index" class="steps-img-list col-lg-4"
                                      ng-init="imagIndex=$index">
                                     <div class="thumbnail">
                                         <div class="input-over">
@@ -79,16 +79,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-6 control-label">{{ 'HEADERS.COOCKTIME' | translate }}</label>
+                                <label class="col-lg-6 control-label">{{ 'HEADERS.COOCKTIME' | translate }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-lg-6">
                                     <input type="text" class="form-control  numbers" ng-model="step.timeCookMinutes"
                                            valid-number>
                                     <span class="units-block">{{ 'TIME.MIN' | translate }} </span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-6 control-label">{{ 'HEADERS.COOCKPROC' | translate }}</label>
+                                <label class="col-lg-6 control-label">{{ 'HEADERS.COOCKPROC' | translate }}</label>
                                 <textarea cols="30" rows="10" class="form-control" ng-model="step.description">
                                 </textarea>
                             </div>
@@ -109,50 +109,50 @@
                     </div>
                     <div class="portlet-body">
                         <div class="form-group">
-                            <label class="col-md-3 control-label">{{ 'HEADERS.NAME' | translate }}</label>
+                            <label class="col-lg-3 control-label">{{ 'HEADERS.NAME' | translate }}</label>
 
-                            <div class="col-md-9">
+                            <div class="col-lg-9">
                                 <input type="text" class="form-control" ng-model="vm.Receipt.name">
                                 <p class="error alert-danger" ng-if="vm.noName">{{ 'HEADERS.CHOOSENAME' | translate }}</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">{{ 'HEADERS.ADDITHEADER' | translate }}</label>
+                            <label class="col-lg-3 control-label">{{ 'HEADERS.ADDITHEADER' | translate }}</label>
 
-                            <div class="col-md-9">
+                            <div class="col-lg-9">
                                 <input type="text" class="form-control" ng-model="vm.subname">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">{{ 'HEADERS.COOCKTIME' | translate }}</label>
+                            <label class="col-lg-3 control-label">{{ 'HEADERS.COOCKTIME' | translate }}</label>
 
-                            <div class="col-md-9">
+                            <div class="col-lg-9">
                                 <input type="text" class="form-control  numbers" ng-model="vm.Receipt.timeCookMinutes"
                                        valid-number>
                                 <span class="units-block">{{ 'TIME.MIN' | translate }} </span>
                             </div>
                         </div>
                         <div class="form-group" ng-repeat="item in vm.Receipt.dailyCalories track by $index">
-                            <label class="col-md-3 control-label">{{'HEADERS.'+ item.type | translate }}</label>
+                            <label class="col-lg-3 control-label">{{'HEADERS.'+ item.type | translate }}</label>
 
-                            <div class="col-md-9">
+                            <div class="col-lg-9">
                                 <input type="text" class="form-control numbers" ng-model="item.value" valid-number>
                                 <span class="units-block" ng-if="$index == 0">{{ 'UNITS.ENERGY' | translate }} </span>
                                 <span class="units-block" ng-if="$index > 0">{{ 'UNITS.GRAM' | translate }} </span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">{{ 'HEADERS.SERVES' | translate }}</label>
+                            <label class="col-lg-3 control-label">{{ 'HEADERS.SERVES' | translate }}</label>
 
-                            <div class="col-md-9">
+                            <div class="col-lg-9">
                                 <input type="text" class="form-control  numbers" ng-model="vm.Receipt.servesCount"
                                        valid-number>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">{{ 'HEADERS.LEVEL' | translate }}</label>
+                            <label class="col-lg-3 control-label">{{ 'HEADERS.LEVEL' | translate }}</label>
 
-                            <div class="col-md-9 inside-55">
+                            <div class="col-lg-9 inside-55">
                                 <ui-select ng-model="vm.Receipt.difficult" on-select="changeLng(vm.Receipt.difficult)">
                                     <ui-select-match>
                                         <span ng-bind="'LEVELS.'+vm.Receipt.difficult | translate"></span>
@@ -164,20 +164,20 @@
                             </div>
                         </div>
                         <div class="form-group" ng-repeat="ingr in vm.Receipt.ingredients track by $index">
-                            <label class="col-md-3 control-label">{{ 'HEADERS.INGREDIENT' | translate }}</label>
+                            <label class="col-lg-3 control-label">{{ 'HEADERS.INGREDIENT' | translate }}</label>
 
-                            <div class="col-md-4 padding-right-0">
+                            <div class="col-lg-4 padding-right-0">
                                 <input type="text"  ng-model="ingr.name"
                                        uib-typeahead="prod for prod in vm.autocompleteIngr($viewValue)"
                                        class="form-control"
                                        typeahead-show-hint="true" typeahead-min-length="1"/>
                             </div>
-                            <div class="col-md-2 padding-0">
+                            <div class="col-lg-2 padding-0">
                                 <input type="text" ng-model="ingr.value" class="form-control" ng-only-number data-max-length=3
                                        placeholder="{{ 'HEADERS.AMOUNT' | translate }}">
 
                             </div>
-                            <div class="col-md-2 padding-0">
+                            <div class="col-lg-2 padding-0">
                                 <div class="select-over">
                                     <ui-select ng-model="ingr.unit" on-select="changeLng(ingr.unit)">
                                         <ui-select-match>

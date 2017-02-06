@@ -59,6 +59,87 @@ div.error {
   padding-right: 0;
   width: auto; }
 
+.main-photo {
+  display: block;
+  margin: 0 auto;
+  max-width: 700px;
+  width: 700px; }
+
+.rt-caption {
+  text-align: center;
+  font-size: 20px;
+  padding: 15px 0; }
+  .rt-caption h2 {
+    font-size: 28px; }
+
+.rt-description {
+  padding: 20px 0;
+  border-top: 1px dashed #979797;
+  border-bottom: 1px dashed #979797;
+  font-size: 18px;
+  color: #4a4a4a; }
+
+.rt-caption-middle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #4a4a4a;
+  padding: 20px 0; }
+
+.rt-vert-lined-list {
+  list-style: none;
+  padding: 20px;
+  display: table;
+  width: 100%; }
+  .rt-vert-lined-list .rt-lined-list-item {
+    display: table-cell;
+    text-align: center;
+    font-size: 18px;
+    border-left: 1px solid #979797; }
+    .rt-vert-lined-list .rt-lined-list-item:first-child {
+      border-left: none; }
+
+.rt-inventory {
+  font-size: 16px; }
+
+.rt-dashed {
+  padding: 20px 0;
+  border-top: 1px dashed #979797;
+  border-bottom: 1px dashed #979797; }
+
+.rt-list-caption-left {
+  list-style: none;
+  width: 100%;
+  font-size: 16px;
+  color: #4a4a4a;
+  padding: 0; }
+  .rt-list-caption-left .rt-list-caption-left-item {
+    padding: 5px 0; }
+    .rt-list-caption-left .rt-list-caption-left-item .rt-item-caption {
+      display: inline-block;
+      width: 20%; }
+
+.rt-steps {
+  list-style: none;
+  padding: 0; }
+
+.rt-details-icon {
+  width: 30px;
+  margin-right: 20px; }
+
+.rt-iconed-info {
+  padding: 15px 0;
+  font-size: 16px;
+  border-bottom: 1px solid #979797;
+  margin-bottom: 20px; }
+
+.step-photo1 {
+  max-width: 600px;
+  width: 600px; }
+
+.step-photo2 {
+  max-width: 300px;
+  width: 300px; }
+
 /* Cubic Bezier Transition */
 /***
 Login page
@@ -345,7 +426,7 @@ Login page
 
 .units-block {
   display: inline-block;
-  width: 38%; }
+  width: 37%; }
 
 .form-control.numbers {
   display: inline-block;
@@ -529,6 +610,9 @@ Login page
 .padding-0 {
   padding: 0; }
 
+.padding-right-0 {
+  padding-right: 0; }
+
 .step-timing {
   background: #D02656;
   margin-top: 20px;
@@ -606,7 +690,7 @@ Login page
   float: left; }
 
 .ui-numbers {
-  width: 47%;
+  width: 55%;
   margin-bottom: 15px; }
 
 .receipt-edit .tools .fa-close {
@@ -658,6 +742,9 @@ Login page
 .ng-table tr > td:first-child {
   text-align: left; }
 
+.inside-55 .ui-select-container {
+  width: 55%; }
+
 .login .register .logo {
   position: static; }
 
@@ -676,8 +763,15 @@ Login page
 .survey .right {
   text-align: right; }
 
+.survey .portlet.light.form-fit .portlet-title {
+  border-bottom: none !important; }
+
 .survey .portlet.light.bordered {
-  border: none; }
+  border: none !important; }
+
+.survey.form label {
+  text-transform: none;
+  font-weight: normal; }
 
 .survey.form .help-block-error {
   color: #E26A6A; }
@@ -794,7 +888,7 @@ Login page
 
 .form label {
   font-weight: bold;
-  text-transform: uppercase; }
+  /*text-transform: uppercase;*/ }
   .form label .icheck {
     display: none; }
   .form label .fa {
@@ -802,6 +896,96 @@ Login page
     color: #66cc66;
     width: 30px; }
 
+.mt-timeline-inner-wrap {
+  padding: 30px; }
+
+.plan-preview {
+  width: 100%; }
+
+.md-footer {
+  text-align: center; }
+  .md-footer .mt-footer-details {
+    overflow: hidden;
+    padding-bottom: 15px; }
+    .md-footer .mt-footer-details .mt-calories {
+      float: left; }
+    .md-footer .mt-footer-details .mt-duration {
+      float: right; }
+  .md-footer .mt-details-icon {
+    width: 15px;
+    margin-right: 10px; }
+
+.mt-item.single {
+  height: 100px;
+  position: relative; }
+  .mt-item.single .mt-nav-left {
+    position: absolute;
+    left: 5%;
+    cursor: pointer; }
+  .mt-item.single .mt-nav-right {
+    position: absolute;
+    right: 5%;
+    cursor: pointer; }
+  .mt-item.single .mt-timeline-icon.single {
+    width: 100px;
+    height: 100px; }
+
+.mt-days-info {
+  overflow: hidden;
+  padding-bottom: 15px; }
+  .mt-days-info .mt-days-info-left {
+    float: left; }
+  .mt-days-info .mt-days-info-right {
+    float: right; }
+
+.ct-caption {
+  padding: 0 5% 10px;
+  text-align: center;
+  color: #4a4a4a; }
+
+.shopping {
+  text-align: center;
+  background: url("img/bascket.png") no-repeat, center, center;
+  background-size: 30%;
+  background-position: center, center; }
+  .shopping .rt-list-caption-left {
+    width: auto;
+    margin: 0 30%; }
+  .shopping .rt-list-caption-left-item {
+    clear: both;
+    text-align: left; }
+    .shopping .rt-list-caption-left-item .rt-item-caption {
+      width: 100%;
+      white-space: nowrap; }
+
+.navbar.navbar-default {
+  border: none;
+  background: #fff; }
+  .navbar.navbar-default .nav.navbar-nav {
+    width: 100%;
+    font-size: 16px; }
+    .navbar.navbar-default .nav.navbar-nav li {
+      width: 20%;
+      text-align: center;
+      border-left: 1px solid #eef1f5; }
+      .navbar.navbar-default .nav.navbar-nav li .active {
+        color: #4a90e2; }
+      .navbar.navbar-default .nav.navbar-nav li a:hover {
+        color: #7ed321;
+        text-decoration: underline; }
+      .navbar.navbar-default .nav.navbar-nav li:first-child {
+        border-left: none; }
+
+.serv-control {
+  font-size: 20px;
+  padding: 0 5px;
+  margin: 0 5px;
+  background: #7ed321;
+  font-family: arial;
+  cursor: pointer; }
+
+.daterangepicker .daterangepicker_input {
+  display: none; }
 
 .prep-page {
   background: #fff; }

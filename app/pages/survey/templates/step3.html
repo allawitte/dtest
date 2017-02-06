@@ -1,0 +1,28 @@
+<div class="tab-pane active" ng-if="vm.step == 2">
+    <div class="panel top">
+
+        {{ 'SURVEY-HEADERS.PRE3' | translate }}
+    </div>
+    <div class="alert alert-danger" ng-if="vm.check3">
+        <span class="glyphicon glyphicon-remove"></span>
+        {{ 'SURVEY-HEADERS.ERR3' | translate }}<br/>
+        {{'SURVEY-HEADERS.ACTIVITYNOTE' | translate}}
+    </div>
+    <div class="panel">
+        <div class="btn-header">
+            {{ 'SURVEY-HEADERS.ACTIVITY' | translate
+            }}
+        </div>
+        <div class="input-group">
+            <div class="icheck-inline" ng-repeat="item in vm.activity">
+                <label ng-click="vm.changeActivity($index)">
+                    <input type="radio" class="icheck">
+                    <i class="fa fa-square-o" ng-if="!item.selected"></i>
+                    <i class="fa fa-check-square" ng-if="item.selected"></i>
+                    <span class="subdetails" ng-class="{ 'selected': item.selected }">{{ item.name | translate }}</span>
+                </label>
+            </div>
+        </div>
+
+    </div>
+</div>

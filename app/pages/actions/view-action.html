@@ -17,12 +17,12 @@
                 </div>
                 <div class="portlet-body">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="thumbnail">
+                        <div class="col-md-12">
+                            <div class="thumbnail" ng-if="vm.Action.titlePhoto">
                                 <img ng-src="{{vm.Action.titlePhoto}}" class="main-img"/>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-12s">
                             <h2>{{ vm.Action.textShort }}</h2>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3" ng-repeat="item in vm.Action.photos">
-                            <div class="thumbnail">
+                            <div class="thumbnail" ng-if="item">
                                 <img ng-src="{{item}}" class="row-img"/>
                             </div>
                         </div>

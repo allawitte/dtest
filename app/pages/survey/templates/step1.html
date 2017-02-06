@@ -1,0 +1,32 @@
+<div class="tab-pane active" ng-if="vm.step == 0">
+    <div class="panel top">
+
+        {{ 'SURVEY-HEADERS.PRE1' | translate }}
+    </div>
+    <div class="alert alert-danger" ng-if="vm.check1">
+        <span class="glyphicon glyphicon-remove"></span>
+        {{ 'SURVEY-HEADERS.ERR1' | translate }}
+    </div>
+    <div class="panel" ng-class="'step'+vm.step">
+        <div class="btn-header">{{ 'SURVEY-HEADERS.PURPOSE' | translate
+            }}
+        </div>
+        <div class="input-group">
+            <div class="icheck-inline" ng-repeat="item in vm.purpose">
+                <label ng-click="vm.changePurpose($index)">
+                    <input type="radio" ng-model="item.selected" class="icheck">
+                    <i class="fa fa-square-o" ng-if="!item.selected"></i>
+                    <i class="fa fa-check-square" ng-if="item.selected"></i>
+                    <span class="subdetails" ng-class="{ 'selected': item.selected }">{{ item.name | translate }}</span>
+                </label>
+            </div>
+        </div>
+        <div class="input-horiontal">
+            <span class="subdetails">{{ 'SURVEY-HEADERS.TARGETWEIGHT' | translate }}</span>
+            <input type="text" ng-model="vm.survey.answerGroups[1].answerText[0]"
+                   class="form-control short-num"
+                   valid-number/>
+            <span>{{ 'UNITS.KG' | translate }}</span>
+        </div>
+    </div>
+</div>

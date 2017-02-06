@@ -148,10 +148,10 @@
                         </div>
                         <div class="portlet-body">
                             <div class="form-group">
-                                <label class="col-lg-5 col-md-6 control-label control-label">{{ 'HEADERS.NAME' |
+                                <label class="col-lg-4 col-md-6 control-label control-label">{{ 'HEADERS.NAME' |
                                     translate }}</label>
 
-                                <div class="col-md-6 col-lg-7">
+                                <div class="col-md-6 col-lg-8">
                                     <input type="text" class="form-control" ng-model="vm.Receipt.name">
 
                                     <p class="error alert-danger" ng-if="vm.noName">{{ 'HEADERS.CHOOSENAME' | translate
@@ -159,18 +159,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-5 col-md-6 control-label control-label">{{ 'HEADERS.ADDITHEADER' |
+                                <label class="col-lg-4 col-md-6 control-label control-label">{{ 'HEADERS.ADDITHEADER' |
                                     translate }}</label>
 
-                                <div class="col-md-6 col-lg-7">
+                                <div class="col-md-6 col-lg-8">
                                     <input type="text" class="form-control" ng-model="vm.subname">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-5 col-md-6 control-label">{{ 'HEADERS.COOCKTIME' | translate
+                                <label class="col-lg-4 col-md-6 control-label">{{ 'HEADERS.COOCKTIME' | translate
                                     }}</label>
 
-                                <div class="col-lg-7 col-md-6">
+                                <div class="col-lg-8 col-md-6">
                                     <input type="text" class="form-control  numbers short-num"
                                            ng-model="vm.Receipt.timeCookMinutes"
                                            valid-number>
@@ -178,10 +178,10 @@
                                 </div>
                             </div>
                             <div class="form-group" ng-repeat="item in vm.Receipt.dailyCalories track by $index">
-                                <label class="col-lg-5 col-md-6 control-label">{{ 'HEADERS.'+ item.type |
+                                <label class="col-lg-4 col-md-6 control-label">{{ 'HEADERS.'+ item.type |
                                     translate }}</label>
 
-                                <div class="col-md-6 col-lg-7">
+                                <div class="col-md-6 col-lg-8">
                                     <input type="text" class="form-control short-num numbers" ng-model="item.value"
                                            valid-number>
                                     <span class="units-block"
@@ -190,10 +190,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-5 col-md-6 control-label">{{ 'HEADERS.SERVES' | translate
+                                <label class="col-lg-4 col-md-6 control-label">{{ 'HEADERS.SERVES' | translate
                                     }}</label>
 
-                                <div class="col-md-6 co-lg-7">
+                                <div class="col-md-6 col-lg-8">
                                     <input type="text" class="form-control  short-num numbers"
                                            ng-model="vm.Receipt.servesCount"
                                            valid-number>
@@ -201,9 +201,9 @@
                             </div>
                             <div class="form-inli">
                                 <div class="row">
-                                    <label class="col-lg-5 col-md-4 control-label">{{ 'HEADERS.LEVEL' |
+                                    <label class="col-lg-4 col-md-6 control-label">{{ 'HEADERS.LEVEL' |
                                         translate }}</label>
-                                    <div class="col-md-8 col-lg-7">
+                                    <div class="col-md-6 col-lg-8">
                                     <div class="ui-numbers">
                                         <ui-select ng-model="vm.Receipt.difficult"
                                                    on-select="changeLng(vm.Receipt.difficult)">
@@ -220,11 +220,11 @@
                             </div>
                             <div class="form-inli" ng-repeat="ingr in vm.Receipt.ingredients track by $index">
                                 <div class="row">
-                                    <label class="col-lg-5 col-md-4 control-label">{{
+                                    <label class="col-lg-4 control-label">{{
                                         'HEADERS.INGREDIENTS' |
                                         translate }}</label>
 
-                                    <div class="col-lg-7 col-md-8">
+                                    <div class="col-lg-8">
                                         <div class="form-group ingr">
                                             <input type="text" ng-model="ingr.name"
                                                    uib-typeahead="prod for prod in vm.autocompleteIngr($viewValue)"
@@ -269,7 +269,7 @@
                             </div>
                             <div class="form-group last">
                                 <label class="col-md-12 control-label">{{ 'HEADERS.TOOLS' | translate }}</label>
-                                <div class="col-md-6 panel-body"
+                                <div class="col-md-12 panel-body"
                                      ng-repeat="tool in vm.Receipt.inventory track by $index">
                                     <div class="col-md-10">
                                         <input type="text"

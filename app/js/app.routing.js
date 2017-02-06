@@ -16,12 +16,12 @@
         // This par of code responsible for
         // removing # from address line of browther
         // remove comments when it works on real server
-        /*
+
          $locationProvider.html5Mode({
          enabled: true
          //requireBase: false
          });
-         */
+         
         $urlRouterProvider.otherwise('/admin');
 
         $stateProvider

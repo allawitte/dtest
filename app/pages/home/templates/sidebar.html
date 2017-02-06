@@ -1,5 +1,5 @@
-<div class="page-sidebar-wrapper">
-    <div class="page-sidebar navbar-collapse collapse">
+<div class="page-sidebar-wrapper" ng-if="showSideMenu">
+    <div class="page-sidebar navbar-collapse collapse" ng-class="sideMenu">
         <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
             <li class="nav-item" ui-sref-active="active">
                 <a class="nav-link" ui-sref="/receipts.add">

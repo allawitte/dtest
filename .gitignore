@@ -1,4 +1,7 @@
 .idea
 bower_components
+designe
 node_modules
+_prod
+_dev
 img/dev

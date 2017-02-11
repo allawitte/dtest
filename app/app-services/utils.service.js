@@ -25,12 +25,13 @@
                     return formData;
                 }
             })
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+                
         }
         function handleError(error) {
             if (error == 403) {

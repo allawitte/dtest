@@ -28,12 +28,15 @@
         vm.wrongEmail = false;
         vm.check4 = false;
         vm.check5 = false;
+        vm.check6 = false;
         vm.wrongPass = false;
 
         //vm.stepsActions[0] = 'active';
 
         window.onbeforeunload = function () {
-            saveDataForReload();
+            if(vm.stepsActions < 6){
+                saveDataForReload();
+            }
         };
 
 
@@ -140,14 +143,16 @@
             vm.survey.timestamp = Date.parse(new Date());
 
             OpinionService.createUpdateFirstOpinion(vm.survey, function (data) {
-                //$state.go('/client.office');
                 vm.step = 6;
             });
         }
 
 
         function next() {
-            saveDataForReload();
+            if(vm.stepsActions < 6){
+                saveDataForReload();
+            }
+
             switch (vm.step) {
                 case 0:
                     if ((!vm.purpose[0].selected && !vm.purpose[1].selected && !vm.purpose[2].selected) || !vm.survey.answerGroups[1].answerText[0]) {
@@ -176,7 +181,6 @@
                 case 4:
                     var email = vm.survey.answerGroups[9].answerText[0];
                     var checkEmail = email.match(/.+@.+\..+/i);
-                    console.log(checkEmail);
                     if (!checkEmail) {
                         vm.wrongEmail = true;
                         vm.check5 = true;
@@ -195,15 +199,22 @@
                     user.phone = vm.survey.answerGroups[11].answerText[0];
                     user.email = vm.survey.answerGroups[9].answerText[0];
                     user.password = vm.survey.answerGroups[10].answerText[0];
+                    break;
+                case 5:
                     UserService.Create(user)
                         .then(function (response) {
                             localStorageService.clearAll();
                             if (!response.success) {
-                                vm.check5 = true;
+                                vm.check6 = true;
                                 return;
                             }
+                            else {
+                                vm.send();
+                            }
+
                             vm.survey.userId = response.data.data.userId;
                         });
+                    break;
             }
             _reset();
         }
@@ -215,8 +226,8 @@
             vm.check3 = false;
             vm.check4 = false;
             vm.check5 = false;
-            vm.step < 6 ? vm.step++ : vm.step;
-            console.log(vm.step);
+            vm.check6 = false;
+            vm.step < 5 ? vm.step++ : vm.step;
             for (var i = 0; i < vm.stepsActions.length; i++) {
                 vm.stepsActions[i] = 'done'
             }
@@ -229,7 +240,7 @@
             vm.step--;
             vm.stepsActions[vm.step] = 'active';
             vm.stepBar = 'step' + (vm.step + 1);
-
+            saveDataForReload();
         }
     }
 })

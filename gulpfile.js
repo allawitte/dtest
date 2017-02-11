@@ -214,7 +214,6 @@ gulp.task('prod', function (callback) {
         'index:prod',
         'l10n:prod',
         'prod:fonts',
-        'prod:server',
         callback);
 });
 //==========  end of product  ===========

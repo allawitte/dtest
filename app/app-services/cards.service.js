@@ -20,53 +20,58 @@
 
         function deleteAction(id, callback) {
             $http.delete(API_ENDPOINT + "/cards/"+id)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+               
         }
 
         function updateAction(id, action, callback) {
             $http.put(API_ENDPOINT + "/cards/"+id, JSON.stringify(action))
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+               
         }
 
         function getAllActions(options, callback) {
             $http.get(API_ENDPOINT + "/cards"+options)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+               
 
         }
 
         function actionUpload(action, callback) {
             $http.post(API_ENDPOINT + "/cards", JSON.stringify(action))
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+               
         }
 
         function getActionById(id, callback) {
             $http.get(API_ENDPOINT + "/cards/" + id)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+               
 
         }
         function handleError(error) {

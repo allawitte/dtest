@@ -32,7 +32,7 @@
         $rootScope.header = false;
         $timeout(function() {
             $rootScope.currentUser = $cookieStore.get('userId') || {};
-            var restrictedPage = $.inArray($state.current.url, ['/login', '/register']) === -1;
+            var restrictedPage = $.inArray($state.current.url, ['/login', '/register', '/survey']) === -1;
             var loggedIn = (typeof  $rootScope.currentUser === 'string');   
             if (restrictedPage && !loggedIn) {
 

@@ -14,6 +14,7 @@
         vm.deleteReceipt = deleteReceipt;
 
         ReceiptService.getAllReceipts(function (response) {
+            console.log('response.data.data', response.data.data);
             var i = 0;
             for (var key in response.data.data) {
                 vm.ReceiptsList.push(response.data.data[key]);

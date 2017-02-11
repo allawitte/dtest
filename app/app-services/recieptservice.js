@@ -25,28 +25,29 @@
 
         function receiptDelete(id, callback) {
             $http.delete(API_ENDPOINT + "/recipes/" + id)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+                
 
         }
         function receiptUpdate(id, receipt, callback) {
             $http.put(API_ENDPOINT + "/recipes/" + id, JSON.stringify(receipt))
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+                
         }
         function getIventoryAutoComplete(data) {
             if(data === undefined) return;
             return $http.get(API_ENDPOINT + "/recipes/inventoryAutocomplete?word=" + data)
-                .then(function (data, status, headers, config) {
-                    //console.log('data', data.data.data);
+                .then(function (data) {
                     return(data.data.data);
                 });
 
@@ -55,20 +56,20 @@
         function getIngrAutoComplete(data) {
             if(data === undefined)return;
            return $http.get(API_ENDPOINT + "/recipes/ingredientAutocomplete?word=" + data)
-                .then(function (data, status, headers, config) {
-                   //console.log(data.data.data);
+                .then(function (data) {
                     return(data.data.data);
                 });
         }
 
         function getReceiptById(id, callback) {
             $http.get(API_ENDPOINT + "/recipes/" + id)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                    .then(function(data){
+                            callback(data.data);
+                        }
+                        ,function(err){
+                            handleError(err.status);
+                        });
+                
         }
 
         function getReceiptFromList(id) {
@@ -77,23 +78,25 @@
 
         function getAllReceipts(callback) {
             $http.get(API_ENDPOINT + "/recipes?size=100&from=0")
-                .success(function (data, status, headers, config) {
-                    receiptsList = data.data.data;
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        receiptsList = data.data.data.data;
+                        callback(data.data);
+                }
+                ,function(err){
+                        handleError(err.status);
+                    });
+
         }
 
         function receiptUpload(receipt, callback) {
             $http.post(API_ENDPOINT + "/recipes", JSON.stringify(receipt))
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+                
         }
 
         function imgUpload(image, callback) {
@@ -107,12 +110,13 @@
                     return formData;
                 }
             })
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+                
         }
 
         function handleError(error) {

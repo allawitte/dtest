@@ -16,6 +16,9 @@ $one-step: 100%/$steps;
   }
   .intl-tel-input {
     display: block;
+    .ng-invalid {
+      border: 1px solid $error;
+    }
   }
   .right {
     text-align: right;

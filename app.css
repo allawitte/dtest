@@ -140,6 +140,54 @@ div.error {
   max-width: 300px;
   width: 300px; }
 
+/* Some additional styling to demonstrate that append-to-body helps achieve the proper z-index layering. */
+.select-box {
+  background: #fff;
+  position: relative;
+  z-index: 1; }
+
+.alert-info.positioned {
+  margin-top: 1em;
+  position: relative;
+  z-index: 10000;
+  /* The select2 dropdown has a z-index of 9999 */ }
+
+.canal {
+  font-size: 92%;
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+  -o-column-count: 3;
+  column-count: 3;
+  padding: 0;
+  margin: 0;
+  border: none;
+  display: inline-block;
+  text-align: center; }
+
+.modal.open {
+  display: block; }
+
+.fade.open {
+  opacity: 1; }
+
+.modal-dialog {
+  top: 70px;
+  right: 20px;
+  position: fixed; }
+  .modal-dialog.close {
+    display: none; }
+  .modal-dialog .glyphicon-remove {
+    color: #e9ecf3;
+    font-size: 15px; }
+  .modal-dialog .btn-close {
+    float: right;
+    border: none;
+    background: transparent; }
+  .modal-dialog .pagination {
+    margin: 0 0 10px 0; }
+  .modal-dialog .alert-block {
+    cursor: pointer; }
+
 /* Cubic Bezier Transition */
 /***
 Login page
@@ -193,7 +241,8 @@ Login page
   border: 1px solid #6ba3c8;
   height: 43px;
   color: #d9ecf9; }
-  .login .content .form-control:focus, .login .content .form-control:active {
+  .login .content .form-control:focus,
+  .login .content .form-control:active {
     border: 1px solid #83b8db; }
   .login .content .form-control::-moz-placeholder {
     color: #d9ecf9;
@@ -359,54 +408,6 @@ Login page
 .backimg {
   height: 100vh;
   width: 100%; }
-
-/* Some additional styling to demonstrate that append-to-body helps achieve the proper z-index layering. */
-.select-box {
-  background: #fff;
-  position: relative;
-  z-index: 1; }
-
-.alert-info.positioned {
-  margin-top: 1em;
-  position: relative;
-  z-index: 10000;
-  /* The select2 dropdown has a z-index of 9999 */ }
-
-.canal {
-  font-size: 92%;
-  -moz-column-count: 3;
-  -webkit-column-count: 3;
-  -o-column-count: 3;
-  column-count: 3;
-  padding: 0;
-  margin: 0;
-  border: none;
-  display: inline-block;
-  text-align: center; }
-
-.modal.open {
-  display: block; }
-
-.fade.open {
-  opacity: 1; }
-
-.modal-dialog {
-  top: 70px;
-  right: 20px;
-  position: fixed; }
-  .modal-dialog.close {
-    display: none; }
-  .modal-dialog .glyphicon-remove {
-    color: #e9ecf3;
-    font-size: 15px; }
-  .modal-dialog .btn-close {
-    float: right;
-    border: none;
-    background: transparent; }
-  .modal-dialog .pagination {
-    margin: 0 0 10px 0; }
-  .modal-dialog .alert-block {
-    cursor: pointer; }
 
 @font-face {
   font-family: 'FontAwesome';
@@ -759,6 +760,8 @@ Login page
 
 .survey .intl-tel-input {
   display: block; }
+  .survey .intl-tel-input .ng-invalid {
+    border: 1px solid #E26A6A; }
 
 .survey .right {
   text-align: right; }

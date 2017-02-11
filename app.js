@@ -32,7 +32,7 @@
         $rootScope.header = false;
         $timeout(function() {
             $rootScope.currentUser = $cookieStore.get('userId') || {};
-            var restrictedPage = $.inArray($state.current.url, ['/login', '/register']) === -1;
+            var restrictedPage = $.inArray($state.current.url, ['/login', '/register', '/survey']) === -1;
             var loggedIn = (typeof  $rootScope.currentUser === 'string');   
             if (restrictedPage && !loggedIn) {
 
@@ -89,12 +89,12 @@ angular.module("api.config", [])
         // This par of code responsible for
         // removing # from address line of browther
         // remove comments when it works on real server
-        /*
-         $locationProvider.html5Mode({
-         enabled: true
+
+         // $locationProvider.html5Mode({
+         // enabled: true
          //requireBase: false
-         });
-         */
+         // });
+         
         $urlRouterProvider.otherwise('/admin');
 
         $stateProvider
@@ -397,14 +397,12 @@ angular.module("api.config", [])
         function Login(user, callback) {
             $http.put(API_ENDPOINT + '/login', user)
                 .then(function successCallback(response) {
-                    console.log(response.data.data);
                     $cookieStore.put('userId', response.data.data.userId);
                     var answer = response.data.data;
                     answer.success = true;
                     callback(answer);
                 },
                 function errorCallback(response, status) {
-                    console.log(response);
                     response = {success: false, message: 'LOGIN.LOGINERR'};
                     callback(response);
                 });
@@ -437,53 +435,58 @@ angular.module("api.config", [])
 
         function deleteAction(id, callback) {
             $http.delete(API_ENDPOINT + "/cards/"+id)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+               
         }
 
         function updateAction(id, action, callback) {
             $http.put(API_ENDPOINT + "/cards/"+id, JSON.stringify(action))
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+               
         }
 
         function getAllActions(options, callback) {
             $http.get(API_ENDPOINT + "/cards"+options)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+               
 
         }
 
         function actionUpload(action, callback) {
             $http.post(API_ENDPOINT + "/cards", JSON.stringify(action))
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+               
         }
 
         function getActionById(id, callback) {
             $http.get(API_ENDPOINT + "/cards/" + id)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+               
 
         }
         function handleError(error) {
@@ -569,12 +572,14 @@ angular.module("api.config", [])
 
         function createUpdateFirstOpinion(data, callback) {
             $http.post( API_ENDPOINT + '/opinions/firstOpinion', JSON.stringify(data))
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+
+
         }
         function handleError(error) {
             if (error == 403) {
@@ -608,32 +613,35 @@ angular.module("api.config", [])
 
         function deleteProgram(planDayId, callback){
             $http.delete(API_ENDPOINT+ "/plandays/"+planDayId)
-                .success(function (data, status, headers, config) {
-                    callback(data.data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+
         }
 
         function getProgram(userId, callback) {
             $http.get(API_ENDPOINT+ "/plandays?memberId="+userId+"&dayFrom=2016-10-01&dayTo=2018-12-30")
-                .success(function (data, status, headers, config) {
-                    callback(data.data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+
         }
 
         function uploadProgram(program, callback) {
             $http.post(API_ENDPOINT + "/plandays", JSON.stringify(program))
-                .success(function (data, status, headers, config) {
-                    callback(status);
-                })
-                .error(function (data, status, headers, config) {
-                    callback(status);
-                });
+                .then(function(data){
+                        callback(data.status);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+
         }
 
         function handleError(error) {
@@ -674,28 +682,29 @@ angular.module("api.config", [])
 
         function receiptDelete(id, callback) {
             $http.delete(API_ENDPOINT + "/recipes/" + id)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+                
 
         }
         function receiptUpdate(id, receipt, callback) {
             $http.put(API_ENDPOINT + "/recipes/" + id, JSON.stringify(receipt))
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+                
         }
         function getIventoryAutoComplete(data) {
             if(data === undefined) return;
             return $http.get(API_ENDPOINT + "/recipes/inventoryAutocomplete?word=" + data)
-                .then(function (data, status, headers, config) {
-                    //console.log('data', data.data.data);
+                .then(function (data) {
                     return(data.data.data);
                 });
 
@@ -704,20 +713,20 @@ angular.module("api.config", [])
         function getIngrAutoComplete(data) {
             if(data === undefined)return;
            return $http.get(API_ENDPOINT + "/recipes/ingredientAutocomplete?word=" + data)
-                .then(function (data, status, headers, config) {
-                   //console.log(data.data.data);
+                .then(function (data) {
                     return(data.data.data);
                 });
         }
 
         function getReceiptById(id, callback) {
             $http.get(API_ENDPOINT + "/recipes/" + id)
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                    .then(function(data){
+                            callback(data.data);
+                        }
+                        ,function(err){
+                            handleError(err.status);
+                        });
+                
         }
 
         function getReceiptFromList(id) {
@@ -726,23 +735,25 @@ angular.module("api.config", [])
 
         function getAllReceipts(callback) {
             $http.get(API_ENDPOINT + "/recipes?size=100&from=0")
-                .success(function (data, status, headers, config) {
-                    receiptsList = data.data.data;
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        receiptsList = data.data.data.data;
+                        callback(data.data);
+                }
+                ,function(err){
+                        handleError(err.status);
+                    });
+
         }
 
         function receiptUpload(receipt, callback) {
             $http.post(API_ENDPOINT + "/recipes", JSON.stringify(receipt))
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+                
         }
 
         function imgUpload(image, callback) {
@@ -756,12 +767,13 @@ angular.module("api.config", [])
                     return formData;
                 }
             })
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+                
         }
 
         function handleError(error) {
@@ -798,13 +810,7 @@ angular.module("api.config", [])
 
         function GetMe() {
             return $http.get(API_ENDPOINT + '/users/me').then(handleSuccess, handleError);
-                /*
-                .success(function(data, status, headers, config){
-                    console.log('data',data);
-                    return data;
-                })
-                .error(function(data, status, headers, config){console.log('status',status)});
-                */
+
         }
 
         function GetById(userId) {
@@ -826,13 +832,11 @@ angular.module("api.config", [])
         // private functions
 
         function handleSuccess(res) {
-            //console.log('res', res);
             res.success = true;
             return res;
         }
 
         function handleError(res) {
-            //console.log('res', res);
             var msg;
             switch(res.status) {
                 case 452:
@@ -877,12 +881,13 @@ angular.module("api.config", [])
                     return formData;
                 }
             })
-                .success(function (data, status, headers, config) {
-                    callback(data);
-                })
-                .error(function (data, status, headers, config) {
-                    handleError(status);
-                });
+                .then(function(data){
+                        callback(data.data);
+                    }
+                    ,function(err){
+                        handleError(err.status);
+                    });
+                
         }
         function handleError(error) {
             if (error == 403) {
@@ -904,8 +909,6 @@ angular.module("api.config", [])
         return function(item) {
             console.log('item', item);
             if (item) {
-
-                //return moment(currDate.substring(0, 4) + '-' + currDate.substring(4, 6) + '-' + currDate.substring(6, 8)).format('dddd, MMMM DD YYYY');
                 return moment(Functions.formatPlanDateForMoment(item)).format('dddd, MMMM DD YYYY');
             }
         }
@@ -1958,48 +1961,6 @@ angular.module("api.config", [])
     }
 })();
 
-(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .controller('LoginController', LoginController);
-
-    LoginController.$inject = ['$state', 'AuthenticationService', 'FlashService'];
-
-    function LoginController($state, AuthenticationService, FlashService) {
-        var vm = this;
-        vm.login = login;
-        vm.register = register;
-        vm.user = {};
-
-
-        function login() {
-            vm.dataLoading = true;
-            AuthenticationService.Login(vm.user, function (response) {
-
-                if (response.success) {
-
-                    if (response.user.role == 'ADMIN') {
-                        $state.go('/home.admin', {eventId: "123"});                    }
-                    else {
-                        console.log('login:',response.userId);
-                        $state.go('/client.office', {"userId": response.userId});
-                    }
-                } else {
-                    FlashService.Error(response.message);
-                    vm.dataLoading = false;
-                }
-            });
-        }
-
-        function register() {
-            $state.go('/survey');
-        }
-    }
-
-})();
-
 (function() {
     'use strict';
 
@@ -2291,6 +2252,48 @@ angular.module("api.config", [])
 /**
  * Created by Alla on 8/10/2016.
  */
+
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('LoginController', LoginController);
+
+    LoginController.$inject = ['$state', 'AuthenticationService', 'FlashService'];
+
+    function LoginController($state, AuthenticationService, FlashService) {
+        var vm = this;
+        vm.login = login;
+        vm.register = register;
+        vm.user = {};
+
+
+        function login() {
+            vm.dataLoading = true;
+            AuthenticationService.Login(vm.user, function (response) {
+
+                if (response.success) {
+
+                    if (response.user.role == 'ADMIN') {
+                        $state.go('/home.admin', {eventId: "123"});                    }
+                    else {
+                        console.log('login:',response.userId);
+                        $state.go('/client.office', {"userId": response.userId});
+                    }
+                } else {
+                    FlashService.Error(response.message);
+                    vm.dataLoading = false;
+                }
+            });
+        }
+
+        function register() {
+            $state.go('/survey');
+        }
+    }
+
+})();
 
 (function () {
     'use strict';
@@ -2700,6 +2703,7 @@ angular.module("api.config", [])
         vm.deleteReceipt = deleteReceipt;
 
         ReceiptService.getAllReceipts(function (response) {
+            console.log('response.data.data', response.data.data);
             var i = 0;
             for (var key in response.data.data) {
                 vm.ReceiptsList.push(response.data.data[key]);
@@ -2832,12 +2836,15 @@ angular.module("api.config", [])
         vm.wrongEmail = false;
         vm.check4 = false;
         vm.check5 = false;
+        vm.check6 = false;
         vm.wrongPass = false;
 
         //vm.stepsActions[0] = 'active';
 
         window.onbeforeunload = function () {
-            saveDataForReload();
+            if(vm.stepsActions < 6){
+                saveDataForReload();
+            }
         };
 
 
@@ -2944,14 +2951,16 @@ angular.module("api.config", [])
             vm.survey.timestamp = Date.parse(new Date());
 
             OpinionService.createUpdateFirstOpinion(vm.survey, function (data) {
-                //$state.go('/client.office');
                 vm.step = 6;
             });
         }
 
 
         function next() {
-            saveDataForReload();
+            if(vm.stepsActions < 6){
+                saveDataForReload();
+            }
+
             switch (vm.step) {
                 case 0:
                     if ((!vm.purpose[0].selected && !vm.purpose[1].selected && !vm.purpose[2].selected) || !vm.survey.answerGroups[1].answerText[0]) {
@@ -2980,7 +2989,6 @@ angular.module("api.config", [])
                 case 4:
                     var email = vm.survey.answerGroups[9].answerText[0];
                     var checkEmail = email.match(/.+@.+\..+/i);
-                    console.log(checkEmail);
                     if (!checkEmail) {
                         vm.wrongEmail = true;
                         vm.check5 = true;
@@ -2999,15 +3007,22 @@ angular.module("api.config", [])
                     user.phone = vm.survey.answerGroups[11].answerText[0];
                     user.email = vm.survey.answerGroups[9].answerText[0];
                     user.password = vm.survey.answerGroups[10].answerText[0];
+                    break;
+                case 5:
                     UserService.Create(user)
                         .then(function (response) {
                             localStorageService.clearAll();
                             if (!response.success) {
-                                vm.check5 = true;
+                                vm.check6 = true;
                                 return;
                             }
+                            else {
+                                vm.send();
+                            }
+
                             vm.survey.userId = response.data.data.userId;
                         });
+                    break;
             }
             _reset();
         }
@@ -3019,8 +3034,8 @@ angular.module("api.config", [])
             vm.check3 = false;
             vm.check4 = false;
             vm.check5 = false;
-            vm.step < 6 ? vm.step++ : vm.step;
-            console.log(vm.step);
+            vm.check6 = false;
+            vm.step < 5 ? vm.step++ : vm.step;
             for (var i = 0; i < vm.stepsActions.length; i++) {
                 vm.stepsActions[i] = 'done'
             }
@@ -3033,7 +3048,7 @@ angular.module("api.config", [])
             vm.step--;
             vm.stepsActions[vm.step] = 'active';
             vm.stepBar = 'step' + (vm.step + 1);
-
+            saveDataForReload();
         }
     }
 })
